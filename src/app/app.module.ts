@@ -29,11 +29,12 @@ import { AppComponent } from './app.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { CadastroComponent } from './pages/cadastro/cadastro.component';
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MainNavComponent],
+  declarations: [AppComponent, HomeComponent, MainNavComponent, CadastroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
