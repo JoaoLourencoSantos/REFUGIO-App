@@ -1,0 +1,47 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true"
+    [class.mat-elevation-z4]="true">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item class="menu-items" routerLink="home">
+        <mat-icon>home</mat-icon>
+        <span>
+          Home
+        </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
+        <mat-expansion-panel-header>
+          Clientes
+        </mat-expansion-panel-header>
+        <mat-nav-list dense>
+          <a mat-list-item routerLink="client">
+            Detalhes do cliente
+          </a>
+          <a mat-list-item routerLink="client/list">
+            Lista de clientes
+          </a>
+        </mat-nav-list>
+      </mat-expansion-panel>
+      <mat-divider></mat-divider>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="space-between mat-elevation-z6 c-dark-blue">
+      <div>
+        <mat-icon (click)="drawer.toggle()" aria-label="Side nav toggle icon">menu</mat-icon>
+        <span class="logo" routerLink="home">
+        </span>
+      </div>
+
+      <div class="logo" routerLink="home"></div>
+
+      <mat-icon class="search" (click)="openModal()">search</mat-icon>
+
+      <mat-icon (click)="logout()">exit_to_app</mat-icon>
+    </mat-toolbar>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
