@@ -13,14 +13,14 @@
       <mat-divider></mat-divider>
       <mat-expansion-panel [class.mat-elevation-z0]="true" dense>
         <mat-expansion-panel-header>
-          Clientes
+          Colaboradores
         </mat-expansion-panel-header>
         <mat-nav-list dense>
-          <a mat-list-item routerLink="client">
-            Detalhes do cliente
+          <a mat-list-item routerLink="colaborador">
+            Detalhes do colaborador
           </a>
-          <a mat-list-item routerLink="client/list">
-            Lista de clientes
+          <a mat-list-item routerLink="colaborador/lista">
+            Lista de colaboradores
           </a>
         </mat-nav-list>
       </mat-expansion-panel>
@@ -37,8 +37,6 @@
       </div>
 
       <div class="logo" routerLink="home"></div>
-
-      <mat-icon class="search" (click)="openModal()">search</mat-icon>
 
       <mat-icon (click)="logout()">exit_to_app</mat-icon>
     </mat-toolbar>

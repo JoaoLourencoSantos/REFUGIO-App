@@ -10,14 +10,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as echarts from 'echarts';
 import { CookieService } from 'ngx-cookie-service';
@@ -28,21 +28,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { HomeComponent } from './pages/home/home.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { LayoutModule } from '@angular/cdk/layout';
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    ClientComponent,
-    MainNavComponent,
-    SearchModalComponent,
-    ChartComponent,
-    ListClientComponent,
-  ],
+  declarations: [AppComponent, HomeComponent, MainNavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -71,6 +62,7 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
+    LayoutModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

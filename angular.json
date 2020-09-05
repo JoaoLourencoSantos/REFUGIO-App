@@ -131,7 +131,7 @@
       }
     }
   },
-  "defaultProject": "construo-backoffice",
+  "defaultProject": "refugio-project",
   "cli": {
     "analytics": "8dd5309c-778d-4ffa-9ca2-b36ec03ff421"
   }
