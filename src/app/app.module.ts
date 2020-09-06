@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -31,6 +32,9 @@ import { HomeComponent } from './pages/home/home.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
 import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/edit-colaborador.component';
+import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -41,6 +45,7 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
     MainNavComponent,
     ListColaboradorComponent,
     EditColaboradorComponent,
+    ProspeccaoComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +76,9 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
     MatTableModule,
     MatPaginatorModule,
     LayoutModule,
+    MatSlideToggleModule,
+    MatButtonToggleModule,
+    MatRadioModule,
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],

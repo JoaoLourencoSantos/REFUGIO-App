@@ -1,3 +1,4 @@
+import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'colaborador/list',
     component: ListColaboradorComponent,
+  },
+  {
+    path: 'prospeccao',
+    component: ProspeccaoComponent,
   },
 ];
 

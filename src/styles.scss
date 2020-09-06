@@ -62,3 +62,23 @@ mat-icon {
   color: white
 }
 
+//=================
+//    SNACK BAR
+//=================
+.snack-success {
+  font-weight: 700;
+  color: white !important;
+  background-color:#0cb05b !important;
+  .mat-simple-snackbar-action {
+    color: white !important;
+  }
+}
+
+.snack-error {
+  font-weight: 700;
+  color: white !important;
+  background-color: #c20c36 !important;
+  .mat-simple-snackbar-action {
+    color: white !important;
+  }
+}
