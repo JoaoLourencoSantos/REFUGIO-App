@@ -29,12 +29,19 @@ import { AppComponent } from './app.component';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { CadastroComponent } from './pages/cadastro/cadastro.component';
+import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
+import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/edit-colaborador.component';
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, MainNavComponent, CadastroComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    MainNavComponent,
+    ListColaboradorComponent,
+    EditColaboradorComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
