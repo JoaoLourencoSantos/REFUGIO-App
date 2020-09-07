@@ -59,7 +59,12 @@ mat-icon {
 
 .c-dark-blue {
   background: #202b44;
-  color: white
+  color: white;
+}
+
+.c-dark-green {
+  background: #487539;
+  color: white;
 }
 
 //=================
@@ -68,7 +73,7 @@ mat-icon {
 .snack-success {
   font-weight: 700;
   color: white !important;
-  background-color:#0cb05b !important;
+  background-color: #0cb05b !important;
   .mat-simple-snackbar-action {
     color: white !important;
   }

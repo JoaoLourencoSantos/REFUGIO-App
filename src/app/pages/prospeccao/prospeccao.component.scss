@@ -2,16 +2,12 @@
 //    BODY
 //=================
 .black {
-  background: no-repeat url("../../../assets/prospeccao.jpg") -10%;
+  background: no-repeat url("../../../assets/prospeccao.png") -20%;
+  z-index: 0;
   background-color: rgba(189, 222, 255, 0.2);
   background-size: contain;
   height: 100vh;
   overflow: hidden !important;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
 }
 
 //=================
@@ -19,8 +15,9 @@
 //=================
 .side-form {
   float: right;
+  margin-top: 5%;
   margin-right: 2%;
-  width: 50%;
+  width: 30%;
 
   display: flex;
   flex-direction: column;
@@ -51,6 +48,7 @@ form {
 
 .btn-send {
   width: 100% !important;
+  background: #487539;
 }
 
 .footer {
@@ -61,20 +59,24 @@ form {
 label {
   font-weight: bold;
   font-size: 1rem;
+  margin-top: 5%;
 }
-
-
 
 //=================
 //    MEDIA
 //=================
 @media (max-width: 900px) {
   .black {
-    background: no-repeat url("../../../assets/prospeccao.jpg");
+    background: no-repeat url("../../../assets/prospeccao.png");
     background-color: rgba(189, 222, 255, 0.2);
     background-size: contain;
     height: 100vh;
     overflow: hidden !important;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
   }
 
   .side-form {
