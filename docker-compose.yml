@@ -4,7 +4,7 @@ services:
   angular:
     container_name: project-tis
     build:
-      context: ./frontend
+      context: ./
       args:
         - ANGULAR_ENVIRONMENT=build-prod
     restart: unless-stopped
