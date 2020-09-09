@@ -14,6 +14,6 @@ COPY . .
 
 RUN npm run "$ANGULAR_ENVIRONMENT"
 
-CMD angular-http-server --path dist/construo-backoffice
+CMD angular-http-server --path dist/projeto-tis
 
 EXPOSE 8080

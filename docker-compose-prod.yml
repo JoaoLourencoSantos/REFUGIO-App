@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  angular:
+    container_name: project-tis
+    build:
+      context: ./frontend
+      args:
+        - ANGULAR_ENVIRONMENT=build-prod
+    restart: unless-stopped
+    ports:
+      - 5250:8080

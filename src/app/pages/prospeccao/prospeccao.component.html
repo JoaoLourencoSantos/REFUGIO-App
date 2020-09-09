@@ -4,12 +4,14 @@
     <div class="logo"></div>
 
     <form class="form-group container" (ngSubmit)="this.send()">
-      <label>Nome completo</label>
-      <input class="col-12" class="form-control" placeholder="Ex. daniel@construo.com" [(ngModel)]="this.nome"
+
+      <input class="col-12" class="form-control" placeholder="Qual o seu nome?" [(ngModel)]="this.nome"
         name="nome" type="text" />
 
-      <label>E-mail de contato</label>
-      <input class="col-12" class="form-control" placeholder="*****" [(ngModel)]="this.email" name="email"
+        <br>
+
+
+        <input class="col-12" class="form-control" placeholder="E o seu email?" [(ngModel)]="this.email" name="email"
         type="password" />
 
       <label>Tipo de usuário</label>

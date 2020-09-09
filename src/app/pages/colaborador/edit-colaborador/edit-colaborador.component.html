@@ -1,1 +1,23 @@
-<p>edit-colaborador works!</p>
+<section>
+  <div class="header">
+    <span>Cadastro de colaborador</span>
+  </div>
+  <mat-dialog-content class="content">
+    <form (ngSubmit)="this.send()">
+      <label>Nome completo</label>
+      <input class="col-12" class="form-control" placeholder="Nome" [(ngModel)]="this.nome" name="nome" type="text" />
+
+      <label>E-mail de contato</label>
+      <input class="col-12" class="form-control" placeholder="Ex. email@gmail.com" [(ngModel)]="this.email" name="email"
+        type="password" />
+
+      <label>Senha</label>
+      <input class="col-12" class="form-control" type="password" placeholder="*****" [(ngModel)]="this.senha"
+        name="senha" type="password" />
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" color="primary" [mat-dialog-close]="true" cdkFocusInitial>Salvar</button>
+  </mat-dialog-actions>
+</section>

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
+
+import { EditColaboradorComponent } from '../edit-colaborador/edit-colaborador.component';
 
 export interface PeriodicElement {
   name: string;
@@ -29,12 +32,20 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ListColaboradorComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
-  constructor() {}
 
+  constructor(public dialog: MatDialog) {}
   ngOnInit(): void {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openEdit() {
+    const dialogRef = this.dialog.open(EditColaboradorComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }
