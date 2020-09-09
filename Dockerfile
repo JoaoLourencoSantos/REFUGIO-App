@@ -11,8 +11,6 @@ COPY . .
 RUN npm run build
 
 FROM nginx
-
-COPY default.conf.template /etc/nginx/conf.d/default.conf.template
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder  /app/dist/my-first-app /usr/share/nginx/html
-CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
+COPY ./nginx/nginx.conf /etc/nginx/conf.d/nginx.conf
+COPY --from=builder /app/build /usr/share/nginx/html
+CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/nginx.conf > /etc/nginx/conf.d/nginx.conf" && nginx -g 'daemon off;'
