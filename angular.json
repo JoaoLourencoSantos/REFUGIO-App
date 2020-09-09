@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "construo-backoffice": {
+    "project-tis": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/construo-backoffice",
+            "outputPath": "dist/project-tis",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -71,18 +71,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "construo-backoffice:build"
+            "browserTarget": "project-tis:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "construo-backoffice:build:production"
+              "browserTarget": "project-tis:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "construo-backoffice:build"
+            "browserTarget": "project-tis:build"
           }
         },
         "test": {
@@ -120,18 +120,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "construo-backoffice:serve"
+            "devServerTarget": "project-tis:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "construo-backoffice:serve:production"
+              "devServerTarget": "project-tis:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "refugio-project",
+  "defaultProject": "project-tis",
   "cli": {
     "analytics": "8dd5309c-778d-4ffa-9ca2-b36ec03ff421"
   }
