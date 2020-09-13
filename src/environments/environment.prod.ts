@@ -1,5 +1,5 @@
 // PRODUCTION ENVIROMENT
 export const environment = {
   production: true,
-  API_BASEPATH: 'http://localhost:3000/api',
+  API_BASEPATH: 'https://refugiados.herokuapp.com',
 };

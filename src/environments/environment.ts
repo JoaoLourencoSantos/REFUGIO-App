@@ -1,5 +1,5 @@
 // DEVELOP ENVIROMENT
 export const environment = {
   production: false,
-  API_BASEPATH: 'https://refugiados.herokuapp.com/',
+  API_BASEPATH: 'https://refugiados.herokuapp.com',
 };

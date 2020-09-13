@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +15,7 @@ import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 export class UsuarioService {
 	private API_BASEPATH = environment.API_BASEPATH;
 
-	constructor(private http: HttpClient, private cookie: CookieService) {}
+	constructor(private http: HttpClient, private router: Router) {}
 
 	auth = async (email, senha) => {
 		let result: any = { sucess: true, error: null };
@@ -43,8 +44,8 @@ export class UsuarioService {
 		return this.http.post<RespostaLoginDTO>(
 			`${this.API_BASEPATH}/usuarios/autenticacao`,
 			{
-				email,
-				password,
+				EmailUsuario: email,
+				SenhaUsuario: password,
 			},
 			{ headers: { 'Content-Type': 'application/json' } }
 		);
@@ -52,5 +53,16 @@ export class UsuarioService {
 
 	setSessao(identificador: any): void {
 		localStorage.setItem('user-logged', JSON.stringify(identificador));
+	}
+
+	removeSessao(): void {
+		localStorage.removeItem('user-logged');
+		this.router.navigate(['login']);
+	}
+
+	hasSessao(): boolean {
+		if (localStorage.getItem('user-logged')) return true;
+
+		return false;
 	}
 }
