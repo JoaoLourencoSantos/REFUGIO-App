@@ -6,6 +6,7 @@
     "start": "node server.js",
     "build": "ng build",
     "build-prod": "ng build --prod --aot",
+    "dev": "ng serve",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -37,7 +38,6 @@
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2",
-    "@angular/cli": "~9.1.8",
     "@angular/compiler-cli": "~9.1.11",
     "typescript": "~3.8.3"
   },

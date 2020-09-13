@@ -5,6 +5,7 @@ import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/e
 import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -24,10 +25,13 @@ const routes: Routes = [
     path: 'prospeccao',
     component: ProspeccaoComponent,
   },
-
   {
     path: 'edit',
     component: EditColaboradorComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];
 
