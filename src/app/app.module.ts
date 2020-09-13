@@ -35,6 +35,7 @@ import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/e
 import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { LoginComponent } from './pages/login/login.component';
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -46,6 +47,7 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
     ListColaboradorComponent,
     EditColaboradorComponent,
     ProspeccaoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
