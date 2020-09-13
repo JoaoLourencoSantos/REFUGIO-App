@@ -15,6 +15,9 @@ import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 export class UsuarioService {
 	private API_BASEPATH = environment.API_BASEPATH;
 
+	//1= usuário colaborador
+	//2= usuário empresa
+
 	constructor(private http: HttpClient, private router: Router) {}
 
 	auth = async (email, senha) => {
