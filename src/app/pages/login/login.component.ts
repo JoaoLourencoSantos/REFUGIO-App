@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 			return;
 		}
 
-		const result = await this.service.auth(this.email, this.senha);
+		const result = await this.service.auth(this.email.trim(), this.senha.trim());
 
 		if (!result.sucess) {
 			this.toast.errorAuth(result.error);

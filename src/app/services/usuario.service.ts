@@ -1,13 +1,9 @@
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { Usuario } from '../models/entities/usuario.model';
-
-import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 import RespostaDTO from '../models/dto/resposta.dto';
 
 @Injectable({
@@ -63,9 +59,17 @@ export class UsuarioService {
 		this.router.navigate(['login']);
 	}
 
-	hasSessao(): boolean {
+	isAuthenticated(): boolean {
 		if (localStorage.getItem('user-logged')) return true;
 
 		return false;
+	}
+
+	getSessao(): any {
+		return JSON.parse(localStorage.getItem('user-logged'));
+	}
+
+	getRole(): any {
+		return this.getSessao().perfilUsuario;
 	}
 }

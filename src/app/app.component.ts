@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
 	constructor(private service: UsuarioService) {}
 
-	isLogged(): boolean {
-		return this.service.hasSessao();
+	isAuthenticated(): boolean {
+		return this.service.isAuthenticated();
 	}
 }

@@ -1,4 +1,5 @@
 export enum TipoUsuario {
-  EMPRESA = 'Empresa',
-  COLABORADOR = 'Empresa',
+	ADMIN = null,
+	EMPRESA = 1,
+	COLABORADOR = 2,
 }

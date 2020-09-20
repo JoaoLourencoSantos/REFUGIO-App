@@ -1,6 +1,6 @@
-<app-main-nav *ngIf="isLogged()">
+<app-main-nav *ngIf="isAuthenticated()">
 	<router-outlet></router-outlet>
 </app-main-nav>
 <mat-sidenav-container></mat-sidenav-container>
 
-<app-login *ngIf="!isLogged()"></app-login>
+<app-login *ngIf="!isAuthenticated()"></app-login>

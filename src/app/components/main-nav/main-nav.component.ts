@@ -26,10 +26,13 @@ export class MainNavComponent implements OnInit {
 		public service: UsuarioService
 	) {}
 
-	ngOnInit(): void {
-	}
+	ngOnInit(): void {}
 
 	logout() {
 		this.service.removeSessao();
+	}
+
+	isAdmin(): boolean {
+		return !this.service.getRole();
 	}
 }
