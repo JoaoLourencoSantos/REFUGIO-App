@@ -1,6 +1,6 @@
 import { ColaboradorService } from './../../../services/colaborador.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { EditColaboradorComponent } from '../edit-colaborador/edit-colaborador.component';
@@ -21,7 +21,7 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 		'actions',
 	];
 
-	dataSource: MatTableDataSource<any>;
+	dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
 
 	constructor(
 		public dialog: MatDialog,
@@ -36,11 +36,28 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 		this.dataSource.paginator = this.paginator;
 	}
 
-	openEdit() {
+	openNew() {
 		const dialogRef = this.dialog.open(EditColaboradorComponent);
 
 		dialogRef.afterClosed().subscribe((result) => {
-			console.log(`Dialog result: ${result}`);
+			this.populate();
+		});
+	}
+
+	openEdit(colaborador?: any) {
+		console.log(colaborador);
+
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.data = { colaborador };
+
+		const dialogRef = this.dialog.open(
+			EditColaboradorComponent,
+			dialogConfig
+		);
+
+		dialogRef.afterClosed().subscribe((result) => {
+			this.populate();
 		});
 	}
 

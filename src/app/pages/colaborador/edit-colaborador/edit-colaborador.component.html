@@ -1,6 +1,6 @@
 <section>
-	<div class="header">
-		<span>Cadastro de colaborador</span>
+	<div class="header {{this.actionClass}}">
+		<span> {{this.isUpdate ?'Editar colaborador' : 'Cadastrar colaborador'}}</span>
 	</div>
 	<mat-dialog-content class="content">
 		<form (ngSubmit)="this.send()">
@@ -19,6 +19,7 @@
 	</mat-dialog-content>
 	<mat-dialog-actions>
 		<button mat-button mat-dialog-close>Cancelar</button>
-		<button (click)="this.send()" mat-raised-button color="primary" color="primary" cdkFocusInitial>Salvar</button>
+		<button (click)="this.send()" mat-raised-button class="{{this.actionClass}}" color="primary"
+			cdkFocusInitial>Salvar</button>
 	</mat-dialog-actions>
 </section>

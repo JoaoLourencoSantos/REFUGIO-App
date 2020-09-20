@@ -27,9 +27,6 @@ export class MainNavComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		const obj1 = { nome: 'João' };
-		const obj2 = { ...obj1, sobrenome: 'Teste', nome: 'Teste' };
-		console.log(obj2);
 	}
 
 	logout() {

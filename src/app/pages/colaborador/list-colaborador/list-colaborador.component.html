@@ -7,7 +7,7 @@
 		</mat-form-field>
 
 		<div class="col-4 div-button">
-			<button (click)="this.openEdit()" mat-raised-button color="primary">Novo Colaborador</button>
+			<button (click)="this.openNew()" mat-raised-button color="primary">Novo Colaborador</button>
 		</div>
 	</div>
 
@@ -34,8 +34,19 @@
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef> Ações </th>
 				<td mat-cell *matCellDef="let element" class="actions">
-					<mat-icon aria-hidden="false" aria-label="Edit action">edit</mat-icon>
-					<mat-icon aria-hidden="false" aria-label="Delete action">delete_forever</mat-icon>
+					<mat-icon matTooltip="Editar colaborador"
+					[matTooltipShowDelay]="10"
+					[matTooltipHideDelay]="10"
+					[matTooltipPosition]="'above'"
+					matTooltipClass="tooltip-edit"
+					(click)="this.openEdit(element)" class="color_orange" aria-hidden="false" aria-label="Edit action">edit
+					</mat-icon>
+					<mat-icon  matTooltip="Excluir colaborador"
+					[matTooltipShowDelay]="10"
+					[matTooltipHideDelay]="10"
+					[matTooltipPosition]="'above'"
+					matTooltipClass="tooltip-delete"
+					aria-hidden="false" class="color_red" aria-label="Delete action">delete_forever</mat-icon>
 				</td>
 			</ng-container>
 

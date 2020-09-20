@@ -25,7 +25,6 @@ export class UsuarioService {
 		await this.sendPost(email, senha)
 			.toPromise()
 			.then((response) => {
-				console.log(response);
 
 				if (!response.sucessoAutenticacao) {
 					result.sucess = false;
@@ -35,7 +34,6 @@ export class UsuarioService {
 				}
 			})
 			.catch((err) => {
-				console.log(err);
 				result.sucess = false;
 				result.error = 'Erro no servidor';
 			});
