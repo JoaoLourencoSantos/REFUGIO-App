@@ -4,8 +4,21 @@
 .content {
 	height: auto;
 	width: 100%;
-	padding: 5% 2% 2% 2%;
+	padding: 0% 2% 2% 2%;
 }
+
+//================
+//  Header
+//================
+.list-header {
+	margin-top: 5%;
+	margin-bottom: 2%;
+
+	font-weight: bold;
+	font-size: 2.5rem;
+	color: rgb(158 158 158 / 90%)
+}
+
 //================
 //  TABLE
 //================
@@ -35,3 +48,5 @@ table {
 .color_red {
 	color: #f44336;
 }
+
+

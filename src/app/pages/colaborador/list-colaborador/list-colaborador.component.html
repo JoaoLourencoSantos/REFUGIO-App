@@ -1,4 +1,7 @@
 <div class="content">
+	<div class="list-header">
+		Colaboradores
+	</div>
 
 	<div class="row">
 		<mat-form-field class="col-8">
@@ -34,19 +37,13 @@
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef> Ações </th>
 				<td mat-cell *matCellDef="let element" class="actions">
-					<mat-icon matTooltip="Editar colaborador"
-					[matTooltipShowDelay]="10"
-					[matTooltipHideDelay]="10"
-					[matTooltipPosition]="'above'"
-					matTooltipClass="tooltip-edit"
-					(click)="this.openEdit(element)" class="color_orange" aria-hidden="false" aria-label="Edit action">edit
+					<mat-icon matTooltip="Editar colaborador" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
+						[matTooltipPosition]="'above'" matTooltipClass="tooltip-edit" (click)="this.openEdit(element)"
+						class="color_orange" aria-hidden="false" aria-label="Edit action">edit
 					</mat-icon>
-					<mat-icon  matTooltip="Excluir colaborador"
-					[matTooltipShowDelay]="10"
-					[matTooltipHideDelay]="10"
-					[matTooltipPosition]="'above'"
-					matTooltipClass="tooltip-delete"
-					aria-hidden="false" class="color_red" aria-label="Delete action">delete_forever</mat-icon>
+					<mat-icon matTooltip="Excluir colaborador" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
+						[matTooltipPosition]="'above'" matTooltipClass="tooltip-delete" aria-hidden="false"
+						class="color_red" aria-label="Delete action">delete_forever</mat-icon>
 				</td>
 			</ng-container>
 
