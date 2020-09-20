@@ -63,8 +63,13 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 
 	populate() {
 		this.colaboradorService.find().subscribe((result) => {
-			if (result) {
-				this.dataSource = new MatTableDataSource(result);
+			console.log(result);
+			if (result.sucesso) {
+				this.dataSource = new MatTableDataSource(result.corpo);
+
+				this.dataSource.paginator = this.paginator;
+			} else {
+				this.dataSource = new MatTableDataSource([]);
 
 				this.dataSource.paginator = this.paginator;
 			}

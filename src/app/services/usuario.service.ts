@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { Usuario } from '../models/entities/usuario.model';
 
 import RespostaLoginDTO from '../models/dto/resposta.login.dto';
+import RespostaDTO from '../models/dto/resposta.dto';
 
 @Injectable({
 	providedIn: 'root',
@@ -25,12 +26,13 @@ export class UsuarioService {
 		await this.sendPost(email, senha)
 			.toPromise()
 			.then((response) => {
+				console.log(response);
 
-				if (!response.sucessoAutenticacao) {
+				if (!response.sucesso) {
 					result.sucess = false;
-					result.error = response.motivo;
+					result.error = response.mensagem;
 				} else {
-					this.setSessao(response.codigoUsuario);
+					this.setSessao(response.corpo);
 				}
 			})
 			.catch((err) => {
@@ -41,8 +43,8 @@ export class UsuarioService {
 		return result;
 	};
 
-	sendPost(email, password): Observable<RespostaLoginDTO> {
-		return this.http.post<RespostaLoginDTO>(
+	sendPost(email, password): Observable<RespostaDTO> {
+		return this.http.post<RespostaDTO>(
 			`${this.API_BASEPATH}/usuarios/autenticacao`,
 			{
 				EmailUsuario: email,

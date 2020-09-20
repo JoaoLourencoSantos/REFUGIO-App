@@ -60,15 +60,18 @@ export class EditColaboradorComponent implements OnInit {
 			return;
 		}
 
-		this.closeWindow();
+		if (!this.isUpdate) {
+			this.save();
+			return;
+		}
 
-		if (this.isUpdate) {
-			this.update();
+		if (this.isUpdateUser()) {
 			this.updateUser();
 			return;
 		}
 
-		this.save();
+		this.update();
+		return;
 	}
 
 	update() {
@@ -80,10 +83,12 @@ export class EditColaboradorComponent implements OnInit {
 						return;
 					}
 
-					if (Number(result.codigoUsuarioCadastrado) === 0) {
+					if (!result.sucesso) {
 						this.toast.errorAlertWithMessage(result.mensagem);
 						return;
 					}
+
+					this.closeWindow();
 
 					this.toast.successAlert();
 				},
@@ -96,8 +101,6 @@ export class EditColaboradorComponent implements OnInit {
 	}
 
 	updateUser() {
-		if (this.email === this.oldEmail && !this.senha) return;
-
 		this.colaboradorService
 			.updateUser(
 				{
@@ -113,12 +116,15 @@ export class EditColaboradorComponent implements OnInit {
 						return;
 					}
 
-					if (Number(result.codigoUsuarioCadastrado) === 0) {
+					if (!result.sucesso) {
 						this.toast.errorAlertWithMessage(result.mensagem);
 						return;
 					}
 
-					this.toast.successAlert();
+					//update colaborador
+					this.update();
+
+					this.closeWindow();
 				},
 				(err) => {
 					if (err) {
@@ -158,16 +164,18 @@ export class EditColaboradorComponent implements OnInit {
 			)
 			.subscribe(
 				(result) => {
-					console.log(result);
 					if (!result) {
 						return;
 					}
 
-					if (Number(result.codigoUsuarioCadastrado) === 0) {
+					console.log(result);
+
+					if (!result.sucesso) {
 						this.toast.errorAlertWithMessage(result.mensagem);
 						return;
 					}
 
+					this.closeWindow();
 					this.toast.successAlert();
 				},
 				(err) => {
@@ -176,6 +184,10 @@ export class EditColaboradorComponent implements OnInit {
 					}
 				}
 			);
+	}
+
+	isUpdateUser() {
+		return this.email !== this.oldEmail || this.senha;
 	}
 
 	closeWindow() {

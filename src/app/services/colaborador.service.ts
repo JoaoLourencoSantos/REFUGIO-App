@@ -10,6 +10,7 @@ import { Usuario } from '../models/entities/usuario.model';
 
 import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 import ColaboradorDTO from '../models/dto/colaborador';
+import RespostaDTO from '../models/dto/resposta.dto';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,8 +20,8 @@ export class ColaboradorService {
 
 	constructor(private http: HttpClient) {}
 
-	create(body: ColaboradorDTO): Observable<any> {
-		return this.http.post<any>(
+	create(body: ColaboradorDTO): Observable<RespostaDTO> {
+		return this.http.post<RespostaDTO>(
 			`${this.API_BASEPATH}/usuarios/colaborador`,
 			body,
 			{ headers: { 'Content-Type': 'application/json' } }
@@ -43,8 +44,8 @@ export class ColaboradorService {
 		);
 	}
 
-	find(): Observable<Colaborador[]> {
-		return this.http.get<Colaborador[]>(
+	find(): Observable<RespostaDTO> {
+		return this.http.get<RespostaDTO>(
 			`${this.API_BASEPATH}/colaboradores`,
 			{ headers: { 'Content-Type': 'application/json' } }
 		);
