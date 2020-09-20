@@ -18,6 +18,8 @@ export class EditColaboradorComponent implements OnInit {
 	isUpdate: boolean;
 	idUsuario: number;
 
+	oldEmail: string;
+
 	actionClass: string = 'blue-action';
 
 	constructor(
@@ -30,6 +32,7 @@ export class EditColaboradorComponent implements OnInit {
 			this.isUpdate = true;
 			this.nome = dialogData.colaborador.nomeColaborador;
 			this.email = dialogData.colaborador.emailContato;
+			this.oldEmail = dialogData.colaborador.emailContato;
 			this.idUsuario = dialogData.colaborador.codigoUsuario;
 			this.senha = null;
 
@@ -61,6 +64,7 @@ export class EditColaboradorComponent implements OnInit {
 
 		if (this.isUpdate) {
 			this.update();
+			this.updateUser();
 			return;
 		}
 
@@ -69,13 +73,42 @@ export class EditColaboradorComponent implements OnInit {
 
 	update() {
 		this.colaboradorService
-			.update(
-				new ColaboradorDTO(this.nome, this.email.trim()),
+			.update(new ColaboradorDTO(this.nome), this.idUsuario)
+			.subscribe(
+				(result) => {
+					if (!result) {
+						return;
+					}
+
+					if (Number(result.codigoUsuarioCadastrado) === 0) {
+						this.toast.errorAlertWithMessage(result.mensagem);
+						return;
+					}
+
+					this.toast.successAlert();
+				},
+				(err) => {
+					if (err) {
+						this.toast.errorAlertWithMessage(err.error.mensagem);
+					}
+				}
+			);
+	}
+
+	updateUser() {
+		if (this.email === this.oldEmail && !this.senha) return;
+
+		this.colaboradorService
+			.updateUser(
+				{
+					EmailUsuario:
+						this.email === this.oldEmail ? null : this.email.trim(),
+					SenhaUsuario: this.senha ? this.senha.trim() : this.senha,
+				},
 				this.idUsuario
 			)
 			.subscribe(
 				(result) => {
-					console.log(result);
 					if (!result) {
 						return;
 					}
