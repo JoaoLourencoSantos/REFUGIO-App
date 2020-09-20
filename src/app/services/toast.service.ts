@@ -18,6 +18,13 @@ export class ToastService {
 		);
 	}
 
+	errorAlertWithMessage(motivo: string) {
+		this.openSnackBar(
+			`Opss... não foi possivel realizar operação! Motivo : ${motivo}`,
+			'snack-error'
+		);
+	}
+
 	infoErroAlert() {
 		this.openSnackBar(
 			'Opss... preencha corretamente as informações!',
