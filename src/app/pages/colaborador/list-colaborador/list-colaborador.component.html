@@ -3,13 +3,13 @@
 		Colaboradores
 	</div>
 
-	<div class="row">
-		<mat-form-field class="col-8">
+	<div class="header-filter">
+		<mat-form-field >
 			<mat-label>Filter</mat-label>
 			<input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
 		</mat-form-field>
 
-		<div class="col-4 div-button">
+		<div class="div-button">
 			<button (click)="this.openNew()" mat-raised-button color="primary">Novo Colaborador</button>
 		</div>
 	</div>
