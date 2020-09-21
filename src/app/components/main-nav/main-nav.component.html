@@ -12,16 +12,19 @@
 			</mat-list-item>
 			<mat-divider></mat-divider>
 
-			<mat-expansion-panel [class.mat-elevation-z0]="true" dense *ngIf="this.isAdmin()">
-				<mat-expansion-panel-header>
+			<mat-list-item class="menu-items items" routerLink="colaborador/list" *ngIf="this.isAdmin()">
+				<mat-icon>people</mat-icon>
+				<span>
 					Colaboradores
-				</mat-expansion-panel-header>
-				<mat-nav-list dense>
-					<a mat-list-item routerLink="colaborador/list">
-						Detalhes
-					</a>
-				</mat-nav-list>
-			</mat-expansion-panel>
+				</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item class="menu-items items" routerLink="colaborador/list" *ngIf="this.isAdmin()">
+				<mat-icon>corporate_fare</mat-icon>
+				<span>
+					Empresas
+				</span>
+			</mat-list-item>
 			<mat-divider></mat-divider>
 
 		</mat-nav-list>

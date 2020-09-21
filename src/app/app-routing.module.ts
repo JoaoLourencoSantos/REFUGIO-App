@@ -31,10 +31,6 @@ const routes: Routes = [
 		component: ProspeccaoComponent,
 	},
 	{
-		path: 'edit',
-		component: EditColaboradorComponent,
-	},
-	{
 		path: 'login',
 		component: LoginComponent,
 	},
