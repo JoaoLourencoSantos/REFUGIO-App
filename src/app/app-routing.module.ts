@@ -7,6 +7,8 @@ import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/e
 import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { EditEmpresaComponent } from './pages/empresa/edit-empresa/edit-empresa.component';
+import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
 import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
 
 const routes: Routes = [
@@ -20,7 +22,7 @@ const routes: Routes = [
 		path: 'home',
 		component: HomeComponent,
 	},
-	{
+	
 		canActivate: [AuthGuard],
 		data: { roles: [TipoUsuario.ADMIN] },
 		path: 'colaborador/list',
@@ -29,6 +31,18 @@ const routes: Routes = [
 	{
 		path: 'prospeccao',
 		component: ProspeccaoComponent,
+	},
+	{
+		path: 'edit',
+		component: EditColaboradorComponent,
+	},
+	{
+		path: 'empresa/edit',
+		component: EditEmpresaComponent,
+	},
+	{
+		path: 'empresa/list',
+		component: ListEmpresaComponent,
 	},
 	{
 		path: 'login',
