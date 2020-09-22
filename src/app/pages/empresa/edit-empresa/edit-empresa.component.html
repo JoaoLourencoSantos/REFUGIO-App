@@ -1,0 +1,59 @@
+<section>
+	<div class="header">
+		<span>Cadastro de Empresa</span>
+	</div>
+	<mat-dialog-content class="content">
+		<form (ngSubmit)="this.send()">
+			<label>Nome</label>
+			<input
+				class="col-12"
+				class="form-control"
+				placeholder="Nome fantasia"
+				[(ngModel)]="this.nome"
+				name="nome"
+				type="text"
+			/>
+
+			<label>CNPJ</label>
+			<input
+				class="col-12"
+				class="form-control"
+				placeholder="Ex.: 00.000.000/0001-00"
+				[(ngModel)]="this.cnpj"
+				name="email"
+			/>
+
+			<label>Email</label>
+			<input
+				class="col-12"
+				class="form-control"
+				placeholder="Ex.: empresa@email.com"
+				[(ngModel)]="this.email"
+				name="email"
+			/>
+
+			<label>Senha</label>
+			<input
+				class="col-12"
+				class="form-control"
+				type="password"
+				placeholder="*****"
+				[(ngModel)]="this.senha"
+				name="senha"
+				type="password"
+			/>
+		</form>
+	</mat-dialog-content>
+	<mat-dialog-actions>
+		<button mat-button mat-dialog-close>Cancelar</button>
+		<button
+			mat-raised-button
+			color="primary"
+			color="primary"
+			[mat-dialog-close]="true"
+			cdkFocusInitial
+		>
+			Salvar
+		</button>
+	</mat-dialog-actions>
+</section>

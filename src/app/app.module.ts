@@ -36,6 +36,8 @@ import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
 import { LoginComponent } from './pages/login/login.component';
+import { EditEmpresaComponent } from './pages/empresa/edit-empresa/edit-empresa.component';
+import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -48,6 +50,8 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
     EditColaboradorComponent,
     ProspeccaoComponent,
     LoginComponent,
+    EditEmpresaComponent,
+    ListEmpresaComponent,
   ],
   imports: [
     BrowserModule,
