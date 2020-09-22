@@ -22,7 +22,7 @@ const routes: Routes = [
 		path: 'home',
 		component: HomeComponent,
 	},
-	
+	{
 		canActivate: [AuthGuard],
 		data: { roles: [TipoUsuario.ADMIN] },
 		path: 'colaborador/list',
@@ -33,14 +33,8 @@ const routes: Routes = [
 		component: ProspeccaoComponent,
 	},
 	{
-		path: 'edit',
-		component: EditColaboradorComponent,
-	},
-	{
-		path: 'empresa/edit',
-		component: EditEmpresaComponent,
-	},
-	{
+		canActivate: [AuthGuard],
+		data: { roles: [TipoUsuario.ADMIN] },
 		path: 'empresa/list',
 		component: ListEmpresaComponent,
 	},

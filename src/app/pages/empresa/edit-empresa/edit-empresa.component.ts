@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { ToastService } from './../../../services/toast.service';
 import { EmpresaService } from './../../../services/empresa.service';
 import EmpresaDTO from 'src/app/models/dto/empresa';
@@ -152,7 +152,7 @@ export class EditEmpresaComponent implements OnInit {
 			return;
 		}
 
-		this.colaboradorService
+		this.empresaService
 			.create(
 				new EmpresaDTO(
 					this.nome,
