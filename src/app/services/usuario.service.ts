@@ -1,46 +1,75 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import ResponseDTO from '../models/dto/response.dto';
-import { Usuario } from '../models/entities/usuario.model';
+import RespostaDTO from '../models/dto/resposta.dto';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class UsuarioService {
-  private API_BASEPATH = environment.API_BASEPATH;
+	private API_BASEPATH = environment.API_BASEPATH;
 
-  constructor(private http: HttpClient, private cookie: CookieService) {}
+	//1= usuário colaborador
+	//2= usuário empresa
 
-  auth = async (email, senha) => {
-    let sucess = true;
-    await this.sendPost(email, senha)
-      .toPromise()
-      .then((response) => {
-        this.setSessao(response.body.user);
-      })
-      .catch((err) => {
-        sucess = false;
-      });
+	constructor(private http: HttpClient, private router: Router) {}
 
-    return sucess;
-  };
+	auth = async (email, senha) => {
+		let result: any = { sucess: true, error: null };
+		await this.sendPost(email, senha)
+			.toPromise()
+			.then((response) => {
+				console.log(response);
 
-  sendPost(email, password): Observable<ResponseDTO> {
-    return this.http.post<ResponseDTO>(
-      `${this.API_BASEPATH}/usuario/autenticacao`,
-      {
-        email,
-        password,
-      }
-    );
-  }
+				if (!response.sucesso) {
+					result.sucess = false;
+					result.error = response.mensagem;
+				} else {
+					this.setSessao(response.corpo);
+				}
+			})
+			.catch((err) => {
+				result.sucess = false;
+				result.error = 'Erro no servidor';
+			});
 
-  setSessao(usuario: Usuario): void {
-    this.cookie.set('_my_cookie_', JSON.stringify(usuario));
-    localStorage.setItem('user-logged', JSON.stringify(usuario));
-  }
+		return result;
+	};
+
+	sendPost(email, password): Observable<RespostaDTO> {
+		return this.http.post<RespostaDTO>(
+			`${this.API_BASEPATH}/usuarios/autenticacao`,
+			{
+				EmailUsuario: email,
+				SenhaUsuario: password,
+			},
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
+
+	setSessao(identificador: any): void {
+		localStorage.setItem('user-logged', JSON.stringify(identificador));
+	}
+
+	removeSessao(): void {
+		localStorage.removeItem('user-logged');
+		this.router.navigate(['login']);
+	}
+
+	isAuthenticated(): boolean {
+		if (localStorage.getItem('user-logged')) return true;
+
+		return false;
+	}
+
+	getSessao(): any {
+		return JSON.parse(localStorage.getItem('user-logged'));
+	}
+
+	getRole(): any {
+		return this.getSessao().perfilUsuario;
+	}
 }

@@ -95,3 +95,19 @@ mat-dialog-container {
   margin: 0 !important;
   padding: 0 !important;
 }
+
+
+//=================
+//    Tooltip
+//=================
+.tooltip-edit {
+	color: white;
+	font-weight: bold;
+	background: #ff9800;
+}
+
+.tooltip-delete {
+	color: white;
+	font-weight: bold;
+	background: #f44336 !important;
+}
