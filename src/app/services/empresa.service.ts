@@ -6,7 +6,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../models/entities/usuario.model';
-import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 import EmpresaDTO from '../models/dto/empresa';
 import RespostaDTO from '../models/dto/resposta.dto';
 
@@ -20,7 +19,7 @@ export class EmpresaService {
 
 	create(body: EmpresaDTO): Observable<RespostaDTO> {
 		return this.http.post<RespostaDTO>(
-			`${this.API_BASEPATH}/usuarios/empresa`,
+			`${this.API_BASEPATH}/empresas`,
 			body,
 			{ headers: { 'Content-Type': 'application/json' } }
 		);
