@@ -32,7 +32,6 @@ export class EditEmpresaComponent implements OnInit {
 			this.oldEmail = dialogData.empresa.emailContato;
 			this.idUsuario = dialogData.empresa.codigoUsuario;
 			this.senha = null;
-
 			this.actionClass = 'orange-action';
 		}
 	}
@@ -153,7 +152,13 @@ export class EditEmpresaComponent implements OnInit {
 		}
 
 		this.empresaService
-			.create(new EmpresaDTO(this.razaoSocial, this.emailContato.trim()))
+			.create(
+				new EmpresaDTO(
+					this.razaoSocial,
+					this.emailContato.trim(),
+					this.senha
+				)
+			)
 			.subscribe(
 				(result) => {
 					if (!result) {

@@ -19,7 +19,7 @@ export class EmpresaService {
 
 	create(body: EmpresaDTO): Observable<RespostaDTO> {
 		return this.http.post<RespostaDTO>(
-			`${this.API_BASEPATH}/empresas`,
+			`${this.API_BASEPATH}/usuarios/empresa`,
 			body,
 			{ headers: { 'Content-Type': 'application/json' } }
 		);
