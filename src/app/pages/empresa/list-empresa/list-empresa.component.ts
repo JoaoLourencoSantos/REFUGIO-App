@@ -7,7 +7,7 @@ import { EditEmpresaComponent } from '../edit-empresa/edit-empresa.component';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
-	selector: 'app-list-colaborador',
+	selector: 'app-list-empresa',
 	templateUrl: './list-empresa.component.html',
 	styleUrls: ['./list-empresa.component.scss'],
 })
@@ -15,9 +15,8 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 
 	displayedColumns: string[] = [
-		'nomeEmpresa',
-		'cnpj',
-		'email',
+		'razaoSocial',
+		'emailContato',
 		'dataCriacao',
 		'actions',
 	];
@@ -26,7 +25,7 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		public dialog: MatDialog,
-		private colaboradorService: EmpresaService
+		private empresaService: EmpresaService
 	) {
 		this.populate();
 	}
@@ -45,12 +44,12 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	openEdit(colaborador?: any) {
-		console.log(colaborador);
+	openEdit(empresa?: any) {
+		console.log(empresa);
 
 		const dialogConfig = new MatDialogConfig();
 
-		dialogConfig.data = { colaborador };
+		dialogConfig.data = { empresa };
 
 		const dialogRef = this.dialog.open(EditEmpresaComponent, dialogConfig);
 
@@ -60,7 +59,7 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 	}
 
 	populate() {
-		this.colaboradorService.find().subscribe((result) => {
+		this.empresaService.find().subscribe((result) => {
 			console.log(result);
 			if (result.sucesso) {
 				this.dataSource = new MatTableDataSource(result.corpo);

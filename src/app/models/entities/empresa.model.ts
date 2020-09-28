@@ -1,9 +1,8 @@
 export class Empresa {
 	codigoEmpresa: number;
 	codigoUsuario: number;
-	nomeEmpresa: string;
-	cnpj: string;
-	email: string;
+	emailContato: string;
+	razaoSocial: string;
 	dataCriacao: Date;
 	dataAlteracao: Date;
 }

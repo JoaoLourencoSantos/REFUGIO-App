@@ -1,43 +1,34 @@
 <section>
-	<div class="header">
-		<span>Cadastro de Empresa</span>
+	<div class="header {{ this.actionClass }}">
+		<span>{{
+			this.isUpdate ? "Editar empresa" : "Cadastrar empresa"
+		}}</span>
 	</div>
 	<mat-dialog-content class="content">
 		<form (ngSubmit)="this.send()">
-			<label>Nome</label>
+			<label>Razão Social</label>
 			<input
 				class="col-12"
 				class="form-control"
-				placeholder="Nome fantasia"
-				[(ngModel)]="this.nome"
+				placeholder="Razão Social"
+				[(ngModel)]="this.razaoSocial"
 				name="nome"
 				type="text"
 			/>
-
-			<label>CNPJ</label>
-			<input
-				class="col-12"
-				class="form-control"
-				placeholder="Ex.: 00.000.000/0001-00"
-				[(ngModel)]="this.cnpj"
-				name="email"
-			/>
-
 			<label>Email</label>
 			<input
 				class="col-12"
 				class="form-control"
 				placeholder="Ex.: empresa@email.com"
-				[(ngModel)]="this.email"
+				[(ngModel)]="this.emailContato"
 				name="email"
 			/>
-
 			<label>Senha</label>
 			<input
 				class="col-12"
 				class="form-control"
 				type="password"
-				placeholder="*****"
+				placeholder="******"
 				[(ngModel)]="this.senha"
 				name="senha"
 				type="password"
@@ -47,10 +38,10 @@
 	<mat-dialog-actions>
 		<button mat-button mat-dialog-close>Cancelar</button>
 		<button
+			(click)="this.send()"
 			mat-raised-button
+			class="{{ this.actionClass }}"
 			color="primary"
-			color="primary"
-			[mat-dialog-close]="true"
 			cdkFocusInitial
 		>
 			Salvar

@@ -11,9 +11,8 @@ import { StringUtils } from 'src/app/utils/string.utils';
 	styleUrls: ['./edit-empresa.component.scss'],
 })
 export class EditEmpresaComponent implements OnInit {
-	nome: string;
-	cnpj: string;
-	email: string;
+	razaoSocial: string;
+	emailContato: string;
 	senha: string;
 	isUpdate: boolean;
 	idUsuario: number;
@@ -28,12 +27,11 @@ export class EditEmpresaComponent implements OnInit {
 	) {
 		if (dialogData !== null) {
 			this.isUpdate = true;
-			this.nome = dialogData.colaborador.nomeColaborador;
-			this.email = dialogData.colaborador.emailContato;
-			this.oldEmail = dialogData.colaborador.emailContato;
-			this.idUsuario = dialogData.colaborador.codigoUsuario;
+			this.razaoSocial = dialogData.empresa.razaoSocial;
+			this.emailContato = dialogData.empresa.emailContato;
+			this.oldEmail = dialogData.empresa.emailContato;
+			this.idUsuario = dialogData.empresa.codigoUsuario;
 			this.senha = null;
-
 			this.actionClass = 'orange-action';
 		}
 	}
@@ -41,17 +39,17 @@ export class EditEmpresaComponent implements OnInit {
 	ngOnInit(): void {}
 
 	send(): void {
-		if (!this.nome || !this.email) {
+		if (!this.razaoSocial || !this.emailContato) {
 			this.toast.infoErroAlert();
 			return;
 		}
 
-		if (!StringUtils.isEmailValid(this.email)) {
+		if (!StringUtils.isEmailValid(this.emailContato)) {
 			this.toast.errorAlertWithMessage('Email inválido!');
 			return;
 		}
 
-		if (StringUtils.hasSpace(this.email)) {
+		if (StringUtils.hasSpace(this.emailContato)) {
 			this.toast.errorAlertWithMessage(
 				'O email não deve conter espaços!'
 			);
@@ -74,7 +72,7 @@ export class EditEmpresaComponent implements OnInit {
 
 	update() {
 		this.empresaService
-			.update(new EmpresaDTO(this.nome), this.idUsuario)
+			.update(new EmpresaDTO(this.razaoSocial), this.idUsuario)
 			.subscribe(
 				(result) => {
 					if (!result) {
@@ -103,7 +101,9 @@ export class EditEmpresaComponent implements OnInit {
 			.updateUser(
 				{
 					EmailUsuario:
-						this.email === this.oldEmail ? null : this.email.trim(),
+						this.emailContato === this.oldEmail
+							? null
+							: this.emailContato.trim(),
 					SenhaUsuario: this.senha ? this.senha.trim() : this.senha,
 				},
 				this.idUsuario
@@ -119,7 +119,6 @@ export class EditEmpresaComponent implements OnInit {
 						return;
 					}
 
-					//update empresa
 					this.update();
 
 					this.closeWindow();
@@ -155,10 +154,9 @@ export class EditEmpresaComponent implements OnInit {
 		this.empresaService
 			.create(
 				new EmpresaDTO(
-					this.nome,
-					this.cnpj,
-					this.email.trim(),
-					this.senha.trim()
+					this.razaoSocial,
+					this.emailContato.trim(),
+					this.senha
 				)
 			)
 			.subscribe(
@@ -186,7 +184,7 @@ export class EditEmpresaComponent implements OnInit {
 	}
 
 	isUpdateUser() {
-		return this.email !== this.oldEmail || this.senha;
+		return this.emailContato !== this.oldEmail || this.senha;
 	}
 
 	closeWindow() {

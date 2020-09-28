@@ -6,7 +6,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../models/entities/usuario.model';
-import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 import EmpresaDTO from '../models/dto/empresa';
 import RespostaDTO from '../models/dto/resposta.dto';
 

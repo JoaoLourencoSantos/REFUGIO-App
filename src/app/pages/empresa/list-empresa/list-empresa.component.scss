@@ -4,8 +4,21 @@
 .content {
 	height: auto;
 	width: 100%;
-	padding: 2% 2% 2% 2%;
+	padding: 0% 2% 2% 2%;
 }
+
+//================
+//  Header
+//================
+.list-header {
+	margin-top: 5%;
+	margin-bottom: 2%;
+
+	font-weight: bold;
+	font-size: 2.5rem;
+	color: rgb(158 158 158 / 90%);
+}
+
 //================
 //  TABLE
 //================
@@ -13,7 +26,21 @@ table {
 	width: 100%;
 }
 
-.mat-form-field {
+th,
+td {
+	white-space: normal;
+	word-wrap: break-word;
+	max-width: 25vw !important;
+}
+
+.header-filter {
+	margin-bottom: 3%;
+	display: flex;
+	flex-direction: row;
+	width: 100% !important;
+}
+
+mat-form-field {
 	font-size: 14px;
 	width: 100%;
 }
@@ -23,9 +50,49 @@ table {
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	width: 40% !important;
 }
 
-td,
-th {
-	width: 20%;
+.div-button button {
+	width: 80% !important;
+}
+
+.actions > mat-icon {
+	margin-right: 2rem;
+}
+
+.color_orange {
+	color: #ff9800;
+}
+.color_red {
+	color: #f44336;
+}
+
+//=================
+//    MEDIA
+//=================
+@media (max-width: 900px) {
+	//================
+	//  Header
+	//================
+	.list-header {
+		margin-top: 8%;
+	}
+
+	//================
+	//  TABLE
+	//================
+	.header-filter {
+		margin-top: 5%;
+		margin-bottom: 3%;
+		width: 100% !important;
+	}
+
+	mat-form-field {
+		width: 50% !important;
+	}
+
+	.div-button {
+		width: 50% !important;
+	}
 }
