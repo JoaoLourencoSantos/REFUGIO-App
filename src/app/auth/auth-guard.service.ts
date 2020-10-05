@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 import { UsuarioService } from './../services/usuario.service';
 
@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate {
 		public router: Router
 	) {}
 
-	canActivate(route: ActivatedRouteSnapshot): boolean {
+	canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 		const expectedRoles: [any] = route.data.roles;
 
 		if (!this.usuarioService.isAuthenticated()) {

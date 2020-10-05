@@ -28,6 +28,14 @@ export class ColaboradorService {
 		);
 	}
 
+	createEmployee(body: Colaborador): Observable<RespostaDTO> {
+		return this.http.post<RespostaDTO>(
+			`${this.API_BASEPATH}/usuarios/colaborador`,
+			body,
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
+
 	update(body: ColaboradorDTO, idUsuario): Observable<any> {
 		return this.http.patch<any>(
 			`${this.API_BASEPATH}/colaboradores/${idUsuario}`,

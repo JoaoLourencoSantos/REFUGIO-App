@@ -50,6 +50,13 @@ export class UsuarioService {
 		);
 	}
 
+	deleteUser(userId: any): Observable<RespostaDTO> {
+		return this.http.delete<RespostaDTO>(
+			`${this.API_BASEPATH}/usuarios/${userId}`,
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
+
 	setSessao(identificador: any): void {
 		localStorage.setItem('user-logged', JSON.stringify(identificador));
 	}
@@ -70,6 +77,6 @@ export class UsuarioService {
 	}
 
 	getRole(): any {
-		return this.getSessao().perfilUsuario;
+		return this.getSessao() ? this.getSessao().perfilUsuario : null;
 	}
 }

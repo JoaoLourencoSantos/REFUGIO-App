@@ -1,35 +1,131 @@
-import { ToastService } from './../../services/toast.service';
-import { TipoUsuario } from './../../models/enums/tipo-usuario';
 import { Component, OnInit } from '@angular/core';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ValidadorUtil } from 'src/app/utils/validator.utils';
+
+import { Colaborador } from './../../models/entities/colaborador.model';
+import { ColaboradorService } from './../../services/colaborador.service';
+import { ToastService } from './../../services/toast.service';
 
 @Component({
-  selector: 'app-prospeccao',
-  templateUrl: './prospeccao.component.html',
-  styleUrls: ['./prospeccao.component.scss'],
+	selector: 'app-prospeccao',
+	templateUrl: './prospeccao.component.html',
+	styleUrls: ['./prospeccao.component.scss'],
 })
 export class ProspeccaoComponent implements OnInit {
-  nome: string = '';
-  email: string = '';
-  tipo: string = '';
+	nome: string = '';
+	email: string = '';
 
-  constructor(private toast: ToastService) {}
+	userType = '';
 
-  ngOnInit(): void {}
+	typeForm: FormGroup;
+	pessoalForm: FormGroup;
+	terceiroForm: FormGroup;
+	contactForm: FormGroup;
 
-  send() {
-    this.validate();
-  }
+	isEditable = false;
+	constructor(
+		private toast: ToastService,
+		private formBuilder: FormBuilder,
+		private router: Router,
+		private colaboradorService: ColaboradorService
+	) {}
 
-  validate() {
-    if (!this.nome || !this.email || this.tipo) {
-      this.toast.infoErroAlert();
-      return;
-    }
-    this.toast.successAlert();
-  }
+	ngOnInit(): void {
+		this.setupForms();
+	}
+
+	send() {
+		const { type } = this.typeForm.value;
+		this.userType = type;
+
+		if (this.userType === 'EMPRESA') {
+			console.log('empresa');
+		}
+
+		if (this.userType === 'COLABORADOR') {
+			console.log('colaborador');
+			const colaborador: Colaborador = {
+				...this.pessoalForm.value,
+				...this.terceiroForm.value,
+				...this.contactForm.value,
+			};
+
+			this.colaboradorService.createEmployee(colaborador).subscribe(
+				(result) => {
+					if (!result) {
+						return;
+					}
+
+					if (!result.sucesso) {
+						this.toast.errorAlertWithMessage(result.mensagem);
+						return;
+					}
+					this.toast.successAlert();
+
+					this.router.navigate(['/', 'login']);
+				},
+				(err) => {
+					if (err) {
+						this.toast.errorAlertWithMessage(err.error.mensagem);
+					}
+				}
+			);
+		}
+	}
+
+	setupForms() {
+		this.typeForm = this.formBuilder.group({
+			type: ['COLABORADOR', Validators.required],
+		});
+
+		this.pessoalForm = this.formBuilder.group({
+			nomeColaborador: ['', Validators.required],
+			nacionalidade: ['', Validators.required],
+			dataNascimento: ['', Validators.required],
+			dataChegadaBrasil: ['', Validators.required],
+		});
+
+		this.terceiroForm = this.formBuilder.group({
+			areasAtuacao: new FormArray([]),
+			areasFormacao: new FormArray([]),
+		});
+
+		this.contactForm = this.formBuilder.group({
+			emailUsuario: [
+				'',
+				[
+					Validators.required,
+					Validators.pattern(
+						'^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+					),
+				],
+			],
+			senhaUsuario: [
+				'',
+				Validators.compose([
+					Validators.required,
+					Validators.minLength(6),
+					ValidadorUtil.validatePassword(),
+				]),
+			],
+			telefone: [''],
+		});
+	}
+
+	get isEmpresa(): boolean {
+		return this.userType === 'EMPRESA';
+	}
+
+	get typeControls() {
+		return this.typeForm.controls;
+	}
+
+	get pessoalControls() {
+		return this.pessoalForm.controls;
+	}
+
+	get contactControls() {
+		return this.contactForm.controls;
+	}
 }

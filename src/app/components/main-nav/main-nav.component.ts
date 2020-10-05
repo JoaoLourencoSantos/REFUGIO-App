@@ -35,4 +35,8 @@ export class MainNavComponent implements OnInit {
 	isAdmin(): boolean {
 		return !this.service.getRole();
 	}
+
+	isAuthenticated(): boolean {
+		return this.service.isAuthenticated();
+	}
 }

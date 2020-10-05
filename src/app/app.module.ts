@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -39,6 +39,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { EditEmpresaComponent } from './pages/empresa/edit-empresa/edit-empresa.component';
 import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+
+registerLocaleData(localePt, 'pt-BR');
 
 export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 
@@ -51,8 +59,9 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		EditColaboradorComponent,
 		ProspeccaoComponent,
 		LoginComponent,
-    EditEmpresaComponent,
-    ListEmpresaComponent,
+		EditEmpresaComponent,
+		ListEmpresaComponent,
+		DeleteDialogComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -87,8 +96,11 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		MatButtonToggleModule,
 		MatRadioModule,
 		MatTooltipModule,
+		MatStepperModule,
+		MatDatepickerModule,
+		MatNativeDateModule,
 	],
-	providers: [CookieService],
+	providers: [CookieService, { provide: LOCALE_ID, useValue: 'pt-BR' }],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

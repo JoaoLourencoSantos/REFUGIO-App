@@ -1,5 +1,5 @@
 <mat-sidenav-container class="sidenav-container">
-	<mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+	<mat-sidenav  #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true"
 		[class.mat-elevation-z4]="true">
 		<mat-toolbar>Menu</mat-toolbar>
@@ -30,7 +30,7 @@
 		</mat-nav-list>
 	</mat-sidenav>
 	<mat-sidenav-content>
-		<mat-toolbar class="space-between mat-elevation-z6 c-dark-green">
+		<mat-toolbar class="space-between mat-elevation-z6 c-dark-green" *ngIf="isAuthenticated()" >
 			<div>
 				<mat-icon (click)="drawer.toggle()" aria-label="Side nav toggle icon">menu</mat-icon>
 				<span class="logo" routerLink="home">

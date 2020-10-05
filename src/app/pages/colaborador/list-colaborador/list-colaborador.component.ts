@@ -1,10 +1,13 @@
-import { ColaboradorService } from './../../../services/colaborador.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastService } from 'src/app/services/toast.service';
 
 import { EditColaboradorComponent } from '../edit-colaborador/edit-colaborador.component';
-import { MatPaginator } from '@angular/material/paginator';
+import { DeleteDialogComponent } from './../../../components/delete-dialog/delete-dialog.component';
+import { ColaboradorService } from './../../../services/colaborador.service';
+import { UsuarioService } from './../../../services/usuario.service';
 
 @Component({
 	selector: 'app-list-colaborador',
@@ -17,6 +20,10 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 	displayedColumns: string[] = [
 		'nomeColaborador',
 		'emailContato',
+		'nacionalidade',
+		'dataChegadaBrasil',
+		'dataNascimento',
+		'entrevistado',
 		'dataCriacao',
 		'actions',
 	];
@@ -25,7 +32,9 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		public dialog: MatDialog,
-		private colaboradorService: ColaboradorService
+		private colaboradorService: ColaboradorService,
+		private userService: UsuarioService,
+		private toast: ToastService
 	) {
 		this.populate();
 	}
@@ -59,6 +68,44 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 		dialogRef.afterClosed().subscribe((result) => {
 			this.populate();
 		});
+	}
+
+	openDelete(colaborador?: any) {
+		console.log(colaborador);
+
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.data = { userId: colaborador.codigoUsuario };
+
+		const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+
+		dialogRef.afterClosed().subscribe((result) => {
+			this.deleteUser(dialogConfig.data.userId);
+		});
+	}
+
+	deleteUser(userId: any) {
+		this.userService.deleteUser(userId).subscribe(
+			(result) => {
+				if (!result) {
+					return;
+				}
+
+				if (!result.sucesso) {
+					this.toast.errorAlertWithMessage(result.mensagem);
+					return;
+				}
+
+				this.populate();
+
+				this.toast.successAlert();
+			},
+			(err) => {
+				if (err) {
+					this.toast.errorAlertWithMessage(err.error.mensagem);
+				}
+			}
+		);
 	}
 
 	populate() {

@@ -5,44 +5,44 @@
 //    COMMONS
 //=================
 * {
-  outline: none !important;
-  font-family: Helvetica;
+	outline: none !important;
+	font-family: Helvetica;
 }
 
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 10px;
-  -webkit-border-radius: 16px;
+	width: 5px;
+	height: 10px;
+	-webkit-border-radius: 16px;
 }
 
 ::-webkit-scrollbar-track-piece {
-  background-color: #c5cae9;
-  -webkit-border-radius: 3px;
+	background-color: #c5cae9;
+	-webkit-border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:vertical {
-  height: 5px;
-  background-color: #9e9e9e;
-  -webkit-border-radius: 3px;
+	height: 5px;
+	background-color: #9e9e9e;
+	-webkit-border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:horizontal {
-  width: 5px;
-  background-color: #9e9e9e;
-  -webkit-border-radius: 3px;
+	width: 5px;
+	background-color: #9e9e9e;
+	-webkit-border-radius: 3px;
 }
 
 mat-icon {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 //=================
@@ -50,52 +50,51 @@ mat-icon {
 //=================
 
 .c-blue {
-  background: #1674bb;
+	background: #1674bb;
 }
 
 .c-gray-blue {
-  background: #2d6b9c;
+	background: #2d6b9c;
 }
 
 .c-dark-blue {
-  background: #202b44;
-  color: white;
+	background: #202b44;
+	color: white;
 }
 
 .c-dark-green {
-  background: #487539;
-  color: white;
+	background: #487539;
+	color: white;
 }
 
 //=================
 //    SNACK BAR
 //=================
 .snack-success {
-  font-weight: 700;
-  color: white !important;
-  background-color: #0cb05b !important;
-  .mat-simple-snackbar-action {
-    color: white !important;
-  }
+	font-weight: 700;
+	color: white !important;
+	background-color: #0cb05b !important;
+	.mat-simple-snackbar-action {
+		color: white !important;
+	}
 }
 
 .snack-error {
-  font-weight: 700;
-  color: white !important;
-  background-color: #c20c36 !important;
-  .mat-simple-snackbar-action {
-    color: white !important;
-  }
+	font-weight: 700;
+	color: white !important;
+	background-color: #c20c36 !important;
+	.mat-simple-snackbar-action {
+		color: white !important;
+	}
 }
 
 //=================
 //    SNACK BAR
 //=================
 mat-dialog-container {
-  margin: 0 !important;
-  padding: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
 }
-
 
 //=================
 //    Tooltip
@@ -110,4 +109,19 @@ mat-dialog-container {
 	color: white;
 	font-weight: bold;
 	background: #f44336 !important;
+}
+
+//=========================
+//    RADIO BUTTON
+//=========================
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+	background-color: #487539 !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+	background-color: #487539 !important;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+	border-color: #487539 !important;
 }
