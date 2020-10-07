@@ -2,7 +2,7 @@
 	<h1 mat-dialog-title>Confirme sua ação </h1>
 	<div>Deseja mesmo deletar?</div>
 	<div mat-dialog-actions class="box-action">
-		<button mat-raised-button mat-dialog-close>Cancelar</button>
-		<button color="warn" mat-raised-button mat-dialog-close>Deletar</button>
+		<button mat-raised-button mat-dialog-close (click)="this.cancel()">Cancelar</button>
+		<button color="warn" mat-raised-button mat-dialog-close (click)="this.delete()">Deletar</button>
 	</div>
 </section>

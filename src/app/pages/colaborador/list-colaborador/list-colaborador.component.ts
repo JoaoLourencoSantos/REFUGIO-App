@@ -71,16 +71,16 @@ export class ListColaboradorComponent implements OnInit, AfterViewInit {
 	}
 
 	openDelete(colaborador?: any) {
-		console.log(colaborador);
-
 		const dialogConfig = new MatDialogConfig();
 
 		dialogConfig.data = { userId: colaborador.codigoUsuario };
 
 		const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
 
-		dialogRef.afterClosed().subscribe((result) => {
-			this.deleteUser(dialogConfig.data.userId);
+		dialogRef.afterClosed().subscribe(({ event }) => {
+			if (event === 'DELETE') {
+				this.deleteUser(dialogConfig.data.userId);
+			}
 		});
 	}
 

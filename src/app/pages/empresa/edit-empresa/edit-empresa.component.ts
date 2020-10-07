@@ -1,9 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { ToastService } from './../../../services/toast.service';
-import { EmpresaService } from './../../../services/empresa.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import EmpresaDTO from 'src/app/models/dto/empresa';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StringUtils } from 'src/app/utils/string.utils';
+
+import { EmpresaService } from './../../../services/empresa.service';
+import { ToastService } from './../../../services/toast.service';
 
 @Component({
 	selector: 'app-edit-empresa',
@@ -28,8 +29,8 @@ export class EditEmpresaComponent implements OnInit {
 		if (dialogData !== null) {
 			this.isUpdate = true;
 			this.razaoSocial = dialogData.empresa.razaoSocial;
-			this.emailContato = dialogData.empresa.emailContato;
-			this.oldEmail = dialogData.empresa.emailContato;
+			this.emailContato = dialogData.empresa.emailUsuario;
+			this.oldEmail = dialogData.empresa.emailUsuario;
 			this.idUsuario = dialogData.empresa.codigoUsuario;
 			this.senha = null;
 			this.actionClass = 'orange-action';

@@ -1,9 +1,10 @@
-import { ToastService } from './../../../services/toast.service';
-import { ColaboradorService } from './../../../services/colaborador.service';
 import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import ColaboradorDTO from 'src/app/models/dto/colaborador';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StringUtils } from 'src/app/utils/string.utils';
+
+import { ColaboradorService } from './../../../services/colaborador.service';
+import { ToastService } from './../../../services/toast.service';
 
 @Component({
 	selector: 'app-edit-colaborador',
@@ -31,8 +32,8 @@ export class EditColaboradorComponent implements OnInit {
 		if (dialogData !== null) {
 			this.isUpdate = true;
 			this.nome = dialogData.colaborador.nomeColaborador;
-			this.email = dialogData.colaborador.emailContato;
-			this.oldEmail = dialogData.colaborador.emailContato;
+			this.email = dialogData.colaborador.emailUsuario;
+			this.oldEmail = dialogData.colaborador.emailUsuario;
 			this.idUsuario = dialogData.colaborador.codigoUsuario;
 			this.senha = null;
 
