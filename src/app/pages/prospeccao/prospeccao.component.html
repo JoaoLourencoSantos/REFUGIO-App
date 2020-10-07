@@ -1,4 +1,8 @@
 <div class="back">
+	<section class="box-return">
+		<mat-icon routerLink="/login" title="Voltar para o login">arrow_back</mat-icon>
+	</section>
+
 
 	<section class="box-logo">
 		<img class="logo" src="../../../assets/logo-white.png" />
@@ -163,7 +167,8 @@
 
 				<div class="box-btn-stepper">
 					<button color="primary" class="btn-stepper" mat-raised-button matStepperPrevious>Voltar</button>
-					<button  [disabled]="contactControls.senhaUsuario.errors" color="primary" class="btn-stepper-no-color" (click)="send()" mat-raised-button
+					<button [disabled]="contactControls.senhaUsuario.errors" color="primary"
+						class="btn-stepper-no-color" (click)="send()" mat-raised-button
 						matStepperNext>Finalizar</button>
 				</div>
 			</form>

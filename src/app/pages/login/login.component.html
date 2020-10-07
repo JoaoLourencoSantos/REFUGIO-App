@@ -1,6 +1,9 @@
 <div class="center-screen">
 	<mat-card class="card">
-		<mat-card-title class="card-title">Login</mat-card-title>
+		<mat-card-title class="card-title">
+			Login
+			<!-- <mat-icon class="redirect">menu</mat-icon> -->
+		</mat-card-title>
 		<mat-card-content class="card-content">
 			<form class="form container" (ngSubmit)='this.login()'>
 				<mat-form-field>
@@ -16,7 +19,10 @@
 				</mat-form-field>
 				<br />
 				<div class="form-actions">
-					<span> Esqueceu a Senha?</span>
+					<div class="box-redirect">
+						<span routerLink="/prospeccao"> Cadastrar-se? </span>
+						<span> Esqueceu a Senha?</span>
+					</div>
 					<br />
 					<button (click)='this.login()' mat-raised-button class="login-button c-dark-green">
 						Entrar

@@ -13,6 +13,20 @@
 	align-items: center;
 }
 
+.box-return {
+	position: fixed;
+	float: left;
+	left: 2% ;
+	top: 2% ;
+
+	font-size: 5rem;
+}
+
+.box-return mat-icon {
+	color: white;
+	font-size: 3.5rem;
+}
+
 //=================
 //    Stepper
 //=================

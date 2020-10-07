@@ -19,7 +19,7 @@
 .card {
 	position: absolute;
 	width: 40%;
-	height: 52%;
+	height: 54%;
 
 	display: flex;
 	flex-direction: column;
@@ -52,12 +52,29 @@ mat-form-field {
 
 .login-button {
 	width: 100%;
-	margin-top: 5%;
+	margin-top: 1%;
 }
 
 .card-title {
 	font-weight: 500;
 	font-size: 2rem;
+}
+
+.box-redirect{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0!important;
+}
+
+.box-redirect span{
+	cursor: pointer;
+}
+
+.box-redirect span:hover{
+	cursor: pointer;
+	color: rgba(0, 0, 0, 0.623);
 }
 
 @media (max-width: 900px) {
