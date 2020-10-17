@@ -1,8 +1,23 @@
+import { Endereco } from './endereco.model';
+
 export class Empresa {
-	codigoEmpresa: number;
+	entrevistado: boolean;
+
 	codigoUsuario: number;
+	codigoEmpresa: number;
+
+	emailUsuario: String;
+	senhaUsuario: string;
+
+	cnpj:String;
+
 	emailContato: string;
 	razaoSocial: string;
+	nomeFantasia:string;
+	numeroFuncionarios:number;
+
+	endereco: Endereco;
+
+	dataFundacao:Date;
 	dataCriacao: Date;
-	dataAlteracao: Date;
 }

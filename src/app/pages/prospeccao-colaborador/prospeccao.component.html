@@ -19,7 +19,7 @@
 				<mat-error *ngIf="typeControls.type.invalid">O tipo deve ser preenchido</mat-error>
 
 
-				<mat-radio-group class="row combo-user-type" formControlName="type">
+				<mat-radio-group (change)="radioChange($event)" class="row combo-user-type" formControlName="type">
 					<mat-radio-button value="EMPRESA">
 						Sou uma empresa
 					</mat-radio-button>
@@ -35,7 +35,7 @@
 			</div>
 		</mat-step>
 
-		<mat-step [stepControl]="pessoalForm" editable>
+		<mat-step *ngIf="!this.isEmpresa" [stepControl]="pessoalForm" editable visibl>
 			<ng-template matStepLabel>Informações pessoais</ng-template>
 
 			<form [formGroup]="pessoalForm" class="form-group container">

@@ -1,0 +1,134 @@
+//=================
+//    BODY
+//=================
+.back {
+	z-index: 0;
+	background-color: #519961;
+	height: 100vh;
+	overflow: hidden !important;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.box-return {
+	position: fixed;
+	float: left;
+	left: 2% ;
+	top: 2% ;
+
+	font-size: 5rem;
+}
+
+.box-return mat-icon {
+	color: white;
+	font-size: 3.5rem;
+}
+
+//=================
+//    Stepper
+//=================
+
+.logo {
+	width: 25rem;
+	height: 5rem;
+	margin-bottom: 2%;
+}
+
+mat-horizontal-stepper {
+	min-width: 60%;
+	min-height: 55%;
+
+	border-radius: 12px;
+
+	box-shadow: 0 0.4rem 1em rgba(25, 25, 25, 0.8);
+}
+
+.box-content {
+	background: red !important;
+	width: 500px;
+}
+
+.mat-step-label {
+	font-size: 5rem !important;
+	font-weight: bold !important;
+}
+
+.btn-stepper {
+	width: 15%;
+	margin-left: 5%;
+	background: #519961;
+}
+
+.btn-stepper-no-color {
+	width: 15%;
+	margin-left: 5%;
+}
+
+.box-btn-stepper {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	margin-top: 5%;
+
+	height: 10%;
+}
+
+form {
+	height: 90%;
+	margin-top: 5%;
+}
+
+//=================
+//    FORMs
+//=================
+
+.box-logo {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.date-pikers {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.box-user-type label {
+}
+
+.combo-user-type {
+	margin-top: 5%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.btn-send {
+	width: 100% !important;
+	background: #487539;
+}
+
+.footer {
+	width: 100%;
+	margin-top: 2%;
+}
+
+label {
+	font-weight: bold;
+	font-size: 1rem;
+	font-weight: bold;
+	color: black;
+}
+
+//=================
+//    MEDIA
+//=================

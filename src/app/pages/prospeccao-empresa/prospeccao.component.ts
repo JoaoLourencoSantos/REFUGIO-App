@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidadorUtil } from 'src/app/utils/validator.utils';
 
-import { Colaborador } from './../../models/entities/colaborador.model';
-import { ColaboradorService } from './../../services/colaborador.service';
+import { Empresa } from './../../models/entities/empresa.model';
+import { CepService } from './../../services/cep.service';
+import { EmpresaService } from './../../services/empresa.service';
 import { ToastService } from './../../services/toast.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ToastService } from './../../services/toast.service';
 	templateUrl: './prospeccao.component.html',
 	styleUrls: ['./prospeccao.component.scss'],
 })
-export class ProspeccaoComponent implements OnInit {
+export class ProspeccaoEmpresaComponent implements OnInit {
 	nome: string = '';
 	email: string = '';
 
@@ -20,19 +21,50 @@ export class ProspeccaoComponent implements OnInit {
 
 	typeForm: FormGroup;
 	pessoalForm: FormGroup;
-	terceiroForm: FormGroup;
+	enderecoForm: FormGroup;
 	contactForm: FormGroup;
 
+	isEnderecoEditable = false;
+
 	isEditable = false;
+
+	cepValue = null;
+
 	constructor(
 		private toast: ToastService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private colaboradorService: ColaboradorService
+		private empresaService: EmpresaService,
+		private cepService: CepService
 	) {}
 
 	ngOnInit(): void {
 		this.setupForms();
+	}
+
+	radioChange(event) {
+		this.router.navigate(['/', 'prospeccao', 'colaborador']);
+	}
+
+	searchCEP(event) {
+		this.cepValue = null;
+
+		const cep = event.replace('-', '').replace('.', '');
+
+		if (!this.cepValue && cep.length === 8) {
+			this.cepService.findCep(cep).subscribe((result) => {
+				if (result) {
+					this.enderecoForm = this.formBuilder.group({
+						cep: [result.cep],
+						rua: [result.logradouro],
+						cidade: [result.localidade],
+						bairro: [result.bairro],
+						estado: [result.uf],
+						numero: [''],
+					});
+				}
+			});
+		}
 	}
 
 	send() {
@@ -40,18 +72,18 @@ export class ProspeccaoComponent implements OnInit {
 		this.userType = type;
 
 		if (this.userType === 'EMPRESA') {
-			console.log('empresa');
-		}
-
-		if (this.userType === 'COLABORADOR') {
-			console.log('colaborador');
-			const colaborador: Colaborador = {
+			const empresa: Empresa = {
 				...this.pessoalForm.value,
-				...this.terceiroForm.value,
 				...this.contactForm.value,
 			};
 
-			this.colaboradorService.createEmployee(colaborador).subscribe(
+			empresa.endereco = {
+				...this.enderecoForm.value,
+			};
+
+			console.log(empresa);
+
+			this.empresaService.createCompany(empresa).subscribe(
 				(result) => {
 					if (!result) {
 						return;
@@ -76,19 +108,39 @@ export class ProspeccaoComponent implements OnInit {
 
 	setupForms() {
 		this.typeForm = this.formBuilder.group({
-			type: ['COLABORADOR', Validators.required],
+			type: ['EMPRESA', Validators.required],
 		});
 
 		this.pessoalForm = this.formBuilder.group({
-			nomeColaborador: ['', Validators.required],
-			nacionalidade: ['', Validators.required],
-			dataNascimento: ['', Validators.required],
-			dataChegadaBrasil: ['', Validators.required],
+			razaoSocial: ['', Validators.required],
+			nomeFantasia: [''],
+			cnpj: ['', Validators.required],
+			dataFundacao: [''],
+			numeroFuncionarios: [''],
 		});
 
-		this.terceiroForm = this.formBuilder.group({
-			areasAtuacao: new FormArray([]),
-			areasFormacao: new FormArray([]),
+		this.enderecoForm = this.formBuilder.group({
+			cep: [''],
+			rua: new FormControl({
+				value: '',
+				disabled: !this.isEnderecoEditable,
+			}),
+			cidade: new FormControl({
+				value: '',
+				disabled: !this.isEnderecoEditable,
+			}),
+			bairro: new FormControl({
+				value: '',
+				disabled: !this.isEnderecoEditable,
+			}),
+			estado: new FormControl({
+				value: '',
+				disabled: !this.isEnderecoEditable,
+			}),
+			numero: new FormControl({
+				value: '',
+				disabled: !this.isEnderecoEditable,
+			}),
 		});
 
 		this.contactForm = this.formBuilder.group({
@@ -127,5 +179,9 @@ export class ProspeccaoComponent implements OnInit {
 
 	get contactControls() {
 		return this.contactForm.controls;
+	}
+
+	get enderecoControls() {
+		return this.enderecoForm.controls;
 	}
 }
