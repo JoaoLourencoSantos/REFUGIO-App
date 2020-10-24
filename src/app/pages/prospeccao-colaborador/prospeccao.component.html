@@ -20,6 +20,7 @@
 				>
 
 				<mat-radio-group
+					(change)="radioChange($event)"
 					class="row combo-user-type"
 					formControlName="type"
 				>
@@ -44,7 +45,12 @@
 			</div>
 		</mat-step>
 
-		<mat-step [stepControl]="pessoalForm" editable>
+		<mat-step
+			*ngIf="!this.isEmpresa"
+			[stepControl]="pessoalForm"
+			editable
+			visibl
+		>
 			<ng-template matStepLabel>Informações pessoais</ng-template>
 
 			<form [formGroup]="pessoalForm" class="form-group container">
@@ -153,14 +159,29 @@
 						</mat-select>
 					</mat-form-field>
 
-					<mat-form-field class="col-6" appearance="standard">
-						<mat-label>Área de formação</mat-label>
-						<mat-select formArrayName="areasFormacao" multiple>
-							<mat-option value="option1">Option 1</mat-option>
-							<mat-option value="option2" disabled
-								>Option 2 (disabled)</mat-option
+					<mat-form-field class="row col-6" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="areaFormacao"
+							placeholder="Qual a sua área de formação?"
+							name="areaFormacao"
+							type="text"
+						/>
+					</mat-form-field>
+
+					<mat-form-field class="col-12" appearance="standard">
+						<mat-label>Idiomas falados</mat-label>
+						<mat-select formControlName="idiomas" multiple>
+							<mat-option value="" disabled
+								>Selecione ...</mat-option
 							>
-							<mat-option value="option3">Option 3</mat-option>
+							<mat-option
+								*ngFor="let idioma of listIdiomas"
+								value="{{ idioma.codigoIdioma }}"
+							>
+								{{ idioma.descricaoIdioma }}
+							</mat-option>
 						</mat-select>
 					</mat-form-field>
 				</div>
@@ -220,6 +241,8 @@
 				<br />
 
 				<mat-form-field class="row col-12" appearance="standard">
+					<<<<<<<
+					HEAD:src/app/pages/prospeccao/prospeccao.component.html
 					<input
 						matInput
 						class="col-12"
@@ -228,6 +251,17 @@
 						name="telefone"
 						type="text"
 					/>
+					=======
+					<input
+						matInput
+						class="col-12"
+						formControlName="tefoneUsuario"
+						placeholder="Qual o seu telefone?"
+						name="telefone"
+						type="text"
+					/>
+					>>>>>>>
+					origin/master:src/app/pages/prospeccao-colaborador/prospeccao.component.html
 				</mat-form-field>
 				<br />
 

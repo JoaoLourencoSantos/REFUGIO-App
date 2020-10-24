@@ -25,6 +25,14 @@ export class EmpresaService {
 		);
 	}
 
+	createCompany(body: Empresa): Observable<RespostaDTO> {
+		return this.http.post<RespostaDTO>(
+			`${this.API_BASEPATH}/usuarios/empresa`,
+			body,
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
+
 	update(body: EmpresaDTO, idUsuario): Observable<any> {
 		return this.http.patch<any>(
 			`${this.API_BASEPATH}/empresas/${idUsuario}`,

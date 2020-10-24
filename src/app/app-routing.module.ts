@@ -1,15 +1,14 @@
-import { TipoUsuario } from './models/enums/tipo-usuario';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
-import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/edit-colaborador.component';
+import { TipoUsuario } from './models/enums/tipo-usuario';
 import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
+import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
-import { EditEmpresaComponent } from './pages/empresa/edit-empresa/edit-empresa.component';
-import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
-import { ProspeccaoComponent } from './pages/prospeccao/prospeccao.component';
+import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
+import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
 
 const routes: Routes = [
 	{
@@ -29,8 +28,12 @@ const routes: Routes = [
 		component: ListColaboradorComponent,
 	},
 	{
-		path: 'prospeccao',
-		component: ProspeccaoComponent,
+		path: 'prospeccao/colaborador',
+		component: ProspeccaoColaboradorComponent,
+	},
+	{
+		path: 'prospeccao/empresa',
+		component: ProspeccaoEmpresaComponent,
 	},
 	{
 		canActivate: [AuthGuard],
