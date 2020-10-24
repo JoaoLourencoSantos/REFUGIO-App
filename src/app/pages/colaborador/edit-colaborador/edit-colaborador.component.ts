@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import ColaboradorDTO from 'src/app/models/dto/colaborador';
-import { StringUtils } from 'src/app/utils/string.utils';
-
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ColaboradorService } from './../../../services/colaborador.service';
 import { ToastService } from './../../../services/toast.service';
+import { ValidadorUtil } from 'src/app/utils/validator.utils';
+import { Colaborador } from 'src/app/models/entities/colaborador.model';
 
 @Component({
 	selector: 'app-edit-colaborador',
@@ -12,73 +12,148 @@ import { ToastService } from './../../../services/toast.service';
 	styleUrls: ['./edit-colaborador.component.scss'],
 })
 export class EditColaboradorComponent implements OnInit {
-	nome: string;
-	email: string;
-	senha: string;
+	personalForm: FormGroup;
+	adressForm: FormGroup;
+	professionForm: FormGroup;
+	contactForm: FormGroup;
 
-	isUpdate: boolean;
-	idUsuario: number;
+	isUpdate = false;
+	dialogData: Colaborador;
 
-	oldEmail: string;
-
-	actionClass: string = 'blue-action';
+	actionClass = 'blue-action';
 
 	constructor(
 		private colaboradorService: ColaboradorService,
 		private dialogRef: MatDialogRef<EditColaboradorComponent>,
+		private formBuilder: FormBuilder,
 		private toast: ToastService,
 		@Inject(MAT_DIALOG_DATA) dialogData
 	) {
 		if (dialogData !== null) {
 			this.isUpdate = true;
-			this.nome = dialogData.colaborador.nomeColaborador;
-			this.email = dialogData.colaborador.emailUsuario;
-			this.oldEmail = dialogData.colaborador.emailUsuario;
-			this.idUsuario = dialogData.colaborador.codigoUsuario;
-			this.senha = null;
-
 			this.actionClass = 'orange-action';
+			this.dialogData = dialogData.colaborador;
 		}
 	}
 
-	ngOnInit(): void {}
-
-	send(): void {
-		if (!this.nome || !this.email) {
-			this.toast.infoErroAlert();
-			return;
-		}
-
-		if (!StringUtils.isEmailValid(this.email)) {
-			this.toast.errorAlertWithMessage('Email inválido!');
-			return;
-		}
-
-		if (StringUtils.hasSpace(this.email)) {
-			this.toast.errorAlertWithMessage(
-				'O email não deve conter espaços!'
-			);
-			return;
-		}
-
-		if (!this.isUpdate) {
-			this.save();
-			return;
-		}
-
-		if (this.isUpdateUser()) {
-			this.updateUser();
-			return;
-		}
-
-		this.update();
-		return;
+	ngOnInit(): void {
+		this.setupForms();
 	}
 
-	update() {
-		this.colaboradorService
-			.update(new ColaboradorDTO(this.nome), this.idUsuario)
-			.subscribe(
+	setupForms() {
+		this.personalForm = this.formBuilder.group({
+			nomeColaborador: [
+				this.isUpdate ? this.dialogData.nomeColaborador : '',
+				Validators.required,
+			],
+			nacionalidade: [
+				this.isUpdate ? this.dialogData.nacionalidade : '',
+				Validators.required,
+			],
+			dataNascimento: [
+				this.isUpdate ? this.dialogData.dataNascimento : '',
+				Validators.required,
+			],
+			dataChegadaBrasil: [
+				this.isUpdate ? this.dialogData.dataChegadaBrasil : '',
+				Validators.required,
+			],
+		});
+
+		this.adressForm = this.formBuilder.group({
+			estado: [
+				this.isUpdate ? this.dialogData.estado : '',
+				Validators.required,
+			],
+			cidade: [
+				this.isUpdate ? this.dialogData.cidade : '',
+				Validators.required,
+			],
+			rua: [
+				this.isUpdate ? this.dialogData.rua : '',
+				Validators.required,
+			],
+			num: [
+				this.isUpdate ? this.dialogData.num : '',
+				Validators.required,
+			],
+			complemento: [
+				this.isUpdate ? this.dialogData.complemento : '',
+				Validators.required,
+			],
+			cep: [
+				this.isUpdate ? this.dialogData.cep : '',
+				Validators.required,
+			],
+		});
+
+		this.professionForm = this.formBuilder.group({
+			areasAtuacao: this.isUpdate
+				? this.dialogData.areasAtuacao
+				: new FormArray([]),
+			areaFormacao: this.isUpdate
+				? this.dialogData.areaFormacao
+				: new FormArray([]),
+		});
+
+		this.contactForm = this.formBuilder.group({
+			emailUsuario: [
+				this.isUpdate ? this.dialogData.emailUsuario : '',
+				[
+					Validators.required,
+					Validators.pattern(
+						'^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+					),
+				],
+			],
+			senhaUsuario: [
+				'',
+				Validators.compose([
+					Validators.required,
+					Validators.minLength(6),
+					ValidadorUtil.validatePassword(),
+				]),
+			],
+			telefoneUsuario: [
+				this.isUpdate ? this.dialogData.telefoneUsuario : '',
+			],
+		});
+	}
+
+	send() {
+		const colaborador: Colaborador = {
+			...this.personalForm.value,
+			...this.adressForm.value,
+			...this.professionForm.value,
+			...this.contactForm.value,
+		};
+
+		if (this.isUpdate) {
+			this.colaboradorService
+				.update(colaborador, this.dialogData.codigoUsuario)
+				.subscribe(
+					(result) => {
+						if (!result) {
+							return;
+						}
+
+						if (!result.sucesso) {
+							this.toast.errorAlertWithMessage(result.mensagem);
+							return;
+						}
+						this.toast.successAlert();
+						this.closeWindow();
+					},
+					(err) => {
+						if (err) {
+							this.toast.errorAlertWithMessage(
+								err.error.mensagem
+							);
+						}
+					}
+				);
+		} else {
+			this.colaboradorService.createEmployee(colaborador).subscribe(
 				(result) => {
 					if (!result) {
 						return;
@@ -88,43 +163,7 @@ export class EditColaboradorComponent implements OnInit {
 						this.toast.errorAlertWithMessage(result.mensagem);
 						return;
 					}
-
-					this.closeWindow();
-
 					this.toast.successAlert();
-				},
-				(err) => {
-					if (err) {
-						this.toast.errorAlertWithMessage(err.error.mensagem);
-					}
-				}
-			);
-	}
-
-	updateUser() {
-		this.colaboradorService
-			.updateUser(
-				{
-					EmailUsuario:
-						this.email === this.oldEmail ? null : this.email.trim(),
-					SenhaUsuario: this.senha ? this.senha.trim() : this.senha,
-				},
-				this.idUsuario
-			)
-			.subscribe(
-				(result) => {
-					if (!result) {
-						return;
-					}
-
-					if (!result.sucesso) {
-						this.toast.errorAlertWithMessage(result.mensagem);
-						return;
-					}
-
-					//update colaborador
-					this.update();
-
 					this.closeWindow();
 				},
 				(err) => {
@@ -133,62 +172,7 @@ export class EditColaboradorComponent implements OnInit {
 					}
 				}
 			);
-	}
-
-	save() {
-		if (!this.senha) {
-			this.toast.infoErroAlert();
-			return;
 		}
-
-		if (this.senha.length < 6) {
-			this.toast.errorAlertWithMessage(
-				'A senha deve ter mais de 6 caracteres!'
-			);
-			return;
-		}
-
-		if (StringUtils.hasSpace(this.senha)) {
-			this.toast.errorAlertWithMessage(
-				'A senha não deve conter espaços!'
-			);
-			return;
-		}
-
-		this.colaboradorService
-			.create(
-				new ColaboradorDTO(
-					this.nome,
-					this.email.trim(),
-					this.senha.trim()
-				)
-			)
-			.subscribe(
-				(result) => {
-					if (!result) {
-						return;
-					}
-
-					console.log(result);
-
-					if (!result.sucesso) {
-						this.toast.errorAlertWithMessage(result.mensagem);
-						return;
-					}
-
-					this.closeWindow();
-					this.toast.successAlert();
-				},
-				(err) => {
-					if (err) {
-						this.toast.errorAlertWithMessage(err.error.mensagem);
-					}
-				}
-			);
-	}
-
-	isUpdateUser() {
-		return this.email !== this.oldEmail || this.senha;
 	}
 
 	closeWindow() {

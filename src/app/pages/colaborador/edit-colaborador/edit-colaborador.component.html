@@ -1,25 +1,204 @@
 <section>
-	<div class="header {{this.actionClass}}">
-		<span> {{this.isUpdate ?'Editar colaborador' : 'Cadastrar colaborador'}}</span>
+	<div class="header {{ this.actionClass }}">
+		<span>
+			{{
+				this.isUpdate ? "Editar colaborador" : "Cadastrar colaborador"
+			}}</span
+		>
 	</div>
 	<mat-dialog-content class="content">
-		<form (ngSubmit)="this.send()">
-			<label>Nome completo</label>
-			<input class="col-12" class="form-control" placeholder="Nome" [(ngModel)]="this.nome" name="nome"
-				type="text" />
-
-			<label>E-mail de contato</label>
-			<input class="col-12" class="form-control" placeholder="Ex. email@gmail.com" [(ngModel)]="this.email"
-				name="email" />
-
-			<label>Senha</label>
-			<input class="col-12" class="form-control" type="password" placeholder="*****" [(ngModel)]="this.senha"
-				name="senha" type="password" />
-		</form>
+		<mat-tab-group>
+			<mat-tab label="Informações pessoais">
+				<form [formGroup]="personalForm" class="form-group container">
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="nomeColaborador"
+							placeholder="Nome completo"
+							name="nome"
+							type="text"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="nacionalidade"
+							placeholder="Nacionalidade"
+							name="nacionalidade"
+						/>
+					</mat-form-field>
+					<div class="row date-pikers">
+						<mat-form-field class="col-6" appearance="standard">
+							<mat-label>Data de nascimento</mat-label>
+							<input
+								formControlName="dataNascimento"
+								matInput
+								[matDatepicker]="picker1"
+							/>
+							<mat-datepicker-toggle
+								matSuffix
+								[for]="picker1"
+							></mat-datepicker-toggle>
+							<mat-datepicker #picker1></mat-datepicker>
+						</mat-form-field>
+						<mat-form-field class="col-6" appearance="standard">
+							<mat-label>Data de chegada ao Brasil</mat-label>
+							<input
+								formControlName="dataChegadaBrasil"
+								matInput
+								[matDatepicker]="picker2"
+							/>
+							<mat-datepicker-toggle
+								matSuffix
+								[for]="picker2"
+							></mat-datepicker-toggle>
+							<mat-datepicker #picker2></mat-datepicker>
+						</mat-form-field>
+					</div>
+				</form>
+			</mat-tab>
+			<mat-tab label="Informações do Endereço">
+				<form [formGroup]="adressForm" class="form-group container">
+					<mat-form-field class="row col-6" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="estado"
+							placeholder="Estado"
+							name="estado"
+							type="text"
+						/>
+					</mat-form-field>
+					<mat-form-field class="row col-6" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="cidade"
+							placeholder="Cidade"
+							name="cidade"
+							type="text"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							class="col-12"
+							matInput
+							formControlName="rua"
+							placeholder="Rua"
+							name="rua"
+							type="text"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							class="col-12"
+							matInput
+							formControlName="num"
+							placeholder="Número"
+							name="num"
+							type="text"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							class="col-12"
+							matInput
+							formControlName="complemento"
+							placeholder="Complemento"
+							name="complemento"
+							type="text"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							class="col-12"
+							matInput
+							formControlName="cep"
+							placeholder="CEP"
+							name="cep"
+							type="text"
+						/>
+					</mat-form-field>
+				</form>
+			</mat-tab>
+			<mat-tab label="Informações profissionais">
+				<!-- <div class="row">
+					<mat-form-field class="col-6" appearance="standard">
+						<mat-label>Area de atuação</mat-label>
+						<mat-select formArrayName="areasAtuacao" multiple>
+							<mat-option value="option1">Option 1</mat-option>
+							<mat-option value="option2" disabled>
+								Option 2 (disabled)
+							</mat-option>
+							<mat-option value="option3">Option 3</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<mat-form-field class="col-6" appearance="standard">
+						<mat-label>Área de formação</mat-label>
+						<mat-select formArrayName="areaFormacao" multiple>
+							<mat-option value="option1">Option 1</mat-option>
+							<mat-option value="option2" disabled>
+								Option 2 (disabled)
+							</mat-option>
+							<mat-option value="option3">Option 3</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div> -->
+			</mat-tab>
+			<mat-tab label="Informações de contato">
+				<form [formGroup]="contactForm" class="form-group container">
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="emailUsuario"
+							placeholder="Email"
+							name="email"
+							type="text"
+						/>
+					</mat-form-field>
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="telefoneUsuario"
+							placeholder="Telefone"
+							name="telefone"
+							type="text"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							class="col-12"
+							matInput
+							placeholder="Senha"
+							formControlName="senhaUsuario"
+							name="senha"
+							type="password"
+						/>
+					</mat-form-field>
+				</form>
+			</mat-tab>
+		</mat-tab-group>
 	</mat-dialog-content>
 	<mat-dialog-actions>
 		<button mat-button mat-dialog-close>Cancelar</button>
-		<button (click)="this.send()" mat-raised-button class="{{this.actionClass}}" color="primary"
-			cdkFocusInitial>Salvar</button>
+		<button
+			(click)="this.send()"
+			mat-raised-button
+			class="{{ this.actionClass }}"
+			color="primary"
+			cdkFocusInitial
+		>
+			Salvar
+		</button>
 	</mat-dialog-actions>
 </section>

@@ -4,7 +4,7 @@ export class Colaborador {
 	codigoUsuario: number;
 	codigoColaborador: number;
 
-	emailUsuario: String;
+	emailUsuario: string;
 	senhaUsuario: string;
 	nomeColaborador: string;
 	telefone: string;
@@ -12,10 +12,17 @@ export class Colaborador {
 	nacionalidade: string;
 	escolaridade: string;
 	areaFormacao: string;
+	areasAtuacao: string;
 
 	dataChegadaBrasil: Date;
 	dataNascimento: Date;
 
+	estado: string;
+	cidade: string;
+	rua: string;
+	num: string;
+	complemento: string;
+	cep: string;
 
 	dataCriacao: Date;
 }

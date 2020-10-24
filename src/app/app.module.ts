@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -99,6 +100,7 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		MatStepperModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
+		MatTabsModule,
 	],
 	providers: [CookieService, { provide: LOCALE_ID, useValue: 'pt-BR' }],
 	bootstrap: [AppComponent],
