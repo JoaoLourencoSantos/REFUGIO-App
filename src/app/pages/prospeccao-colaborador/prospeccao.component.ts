@@ -1,10 +1,18 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+	FormArray,
+	FormBuilder,
+	FormGroup,
+	Validators,
+	FormControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidadorUtil } from 'src/app/utils/validator.utils';
 
 import { Colaborador } from './../../models/entities/colaborador.model';
 import { ColaboradorService } from './../../services/colaborador.service';
+import { IdiomasService } from './../../services/idiomas.service';
 import { ToastService } from './../../services/toast.service';
 
 @Component({
@@ -18,6 +26,10 @@ export class ProspeccaoColaboradorComponent implements OnInit {
 
 	userType = '';
 
+	listIdiomas: any[] = [];
+
+	selectedIdiomas: any[] = [];
+
 	typeForm: FormGroup;
 	pessoalForm: FormGroup;
 	terceiroForm: FormGroup;
@@ -28,26 +40,32 @@ export class ProspeccaoColaboradorComponent implements OnInit {
 		private toast: ToastService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private colaboradorService: ColaboradorService
+		private colaboradorService: ColaboradorService,
+		private idiomaService: IdiomasService
 	) {}
 
 	ngOnInit(): void {
 		this.setupForms();
+		this.populateIdiomas();
 	}
 
 	radioChange(event) {
 		console.log(event);
 
-		this.router.navigate(['/','prospeccao', 'empresa'])
+		this.router.navigate(['/', 'prospeccao', 'empresa']);
+	}
+
+	populateIdiomas() {
+		this.idiomaService.find().subscribe((result) => {
+			if (result) {
+				this.listIdiomas = result;
+			}
+		});
 	}
 
 	send() {
 		const { type } = this.typeForm.value;
 		this.userType = type;
-
-		if (this.userType === 'EMPRESA') {
-			console.log('empresa');
-		}
 
 		if (this.userType === 'COLABORADOR') {
 			const colaborador: Colaborador = {
@@ -55,6 +73,10 @@ export class ProspeccaoColaboradorComponent implements OnInit {
 				...this.terceiroForm.value,
 				...this.contactForm.value,
 			};
+
+			colaborador.idiomas = colaborador.idiomas.map((element) =>
+				Number(element)
+			);
 
 			this.colaboradorService.createEmployee(colaborador).subscribe(
 				(result) => {
@@ -85,15 +107,16 @@ export class ProspeccaoColaboradorComponent implements OnInit {
 		});
 
 		this.pessoalForm = this.formBuilder.group({
-			nomeColaborador: ['', ],
-			nacionalidade: ['', ],
-			dataNascimento: ['', ],
-			dataChegadaBrasil: ['', ],
+			nomeColaborador: ['', Validators.required],
+			nacionalidade: ['', Validators.required],
+			dataNascimento: ['', Validators.required],
+			dataChegadaBrasil: ['', Validators.required],
 		});
 
 		this.terceiroForm = this.formBuilder.group({
 			areasAtuacao: new FormArray([]),
-			areasFormacao: new FormArray([]),
+			areaFormacao: [''],
+			idiomas: new FormControl(),
 		});
 
 		this.contactForm = this.formBuilder.group({
@@ -114,7 +137,7 @@ export class ProspeccaoColaboradorComponent implements OnInit {
 					ValidadorUtil.validatePassword(),
 				]),
 			],
-			telefone: [''],
+			tefoneUsuario: [''],
 		});
 	}
 

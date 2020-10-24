@@ -161,7 +161,7 @@ export class ProspeccaoEmpresaComponent implements OnInit {
 					ValidadorUtil.validatePassword(),
 				]),
 			],
-			telefone: [''],
+			tefoneUsuario: [''],
 		});
 	}
 

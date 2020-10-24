@@ -6,8 +6,9 @@ export class Colaborador {
 
 	emailUsuario: String;
 	senhaUsuario: string;
+	tefoneUsuario: string;
+
 	nomeColaborador: string;
-	telefone: string;
 
 	nacionalidade: string;
 	escolaridade: string;
@@ -15,7 +16,7 @@ export class Colaborador {
 
 	dataChegadaBrasil: Date;
 	dataNascimento: Date;
-
+	idiomas: number[];
 
 	dataCriacao: Date;
 }

@@ -63,7 +63,7 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		EditEmpresaComponent,
 		ListEmpresaComponent,
 		DeleteDialogComponent,
-		ProspeccaoEmpresaComponent
+		ProspeccaoEmpresaComponent,
 	],
 	imports: [
 		BrowserModule,

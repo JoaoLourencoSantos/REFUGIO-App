@@ -8,6 +8,7 @@ export class Empresa {
 
 	emailUsuario: String;
 	senhaUsuario: string;
+	tefoneUsuario: string;
 
 	cnpj:String;
 
