@@ -1,5 +1,11 @@
+import { OptionsService } from './../../services/idiomas.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidadorUtil } from 'src/app/utils/validator.utils';
 
@@ -30,20 +36,32 @@ export class ProspeccaoEmpresaComponent implements OnInit {
 
 	cepValue = null;
 
+	listAreasTrabalho: any[] = [];
+
 	constructor(
 		private toast: ToastService,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private empresaService: EmpresaService,
-		private cepService: CepService
+		private cepService: CepService,
+		private optionsService: OptionsService
 	) {}
 
 	ngOnInit(): void {
 		this.setupForms();
+		this.populateAreasTrabalho();
 	}
 
 	radioChange(event) {
 		this.router.navigate(['/', 'prospeccao', 'colaborador']);
+	}
+
+	populateAreasTrabalho() {
+		this.optionsService.findAreasTrabalho().subscribe((result) => {
+			if (result) {
+				this.listAreasTrabalho = result;
+			}
+		});
 	}
 
 	searchCEP(event) {
@@ -55,12 +73,13 @@ export class ProspeccaoEmpresaComponent implements OnInit {
 			this.cepService.findCep(cep).subscribe((result) => {
 				if (result) {
 					this.enderecoForm = this.formBuilder.group({
-						cep: [result.cep],
-						rua: [result.logradouro],
-						cidade: [result.localidade],
-						bairro: [result.bairro],
-						estado: [result.uf],
-						numero: [''],
+						cepEndereco: [result.cep],
+						ruaEndereco: [result.logradouro],
+						cidadeEndereco: [result.localidade],
+						bairroEndereco: [result.bairro],
+						estadoEndereco: [result.uf],
+						numeroEndereco: [''],
+						complementoEndereco: [''],
 					});
 				}
 			});
@@ -81,7 +100,9 @@ export class ProspeccaoEmpresaComponent implements OnInit {
 				...this.enderecoForm.value,
 			};
 
-			console.log(empresa);
+			empresa.areasTrabalho = empresa.areasTrabalho.map((element) =>
+				Number(element)
+			);
 
 			this.empresaService.createCompany(empresa).subscribe(
 				(result) => {
@@ -117,27 +138,32 @@ export class ProspeccaoEmpresaComponent implements OnInit {
 			cnpj: ['', Validators.required],
 			dataFundacao: [''],
 			numeroFuncionarios: [''],
+			areasTrabalho: new FormControl(),
 		});
 
 		this.enderecoForm = this.formBuilder.group({
-			cep: [''],
-			rua: new FormControl({
+			cepEndereco: [''],
+			ruaEndereco: new FormControl({
 				value: '',
 				disabled: !this.isEnderecoEditable,
 			}),
-			cidade: new FormControl({
+			cidadeEndereco: new FormControl({
 				value: '',
 				disabled: !this.isEnderecoEditable,
 			}),
-			bairro: new FormControl({
+			bairroEndereco: new FormControl({
 				value: '',
 				disabled: !this.isEnderecoEditable,
 			}),
-			estado: new FormControl({
+			estadoEndereco: new FormControl({
 				value: '',
 				disabled: !this.isEnderecoEditable,
 			}),
-			numero: new FormControl({
+			numeroEndereco: new FormControl({
+				value: '',
+				disabled: !this.isEnderecoEditable,
+			}),
+			complementoEndereco: new FormControl({
 				value: '',
 				disabled: !this.isEnderecoEditable,
 			}),

@@ -17,6 +17,7 @@ export class Colaborador {
 	dataChegadaBrasil: Date;
 	dataNascimento: Date;
 	idiomas: number[];
+	areasTrabalho: number[];
 
 	dataCriacao: Date;
 }
