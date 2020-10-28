@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CepService } from './../../../services/cep.service';
 import { ColaboradorService } from './../../../services/colaborador.service';
 import { ToastService } from './../../../services/toast.service';
 import { ValidadorUtil } from 'src/app/utils/validator.utils';
 import { Colaborador } from 'src/app/models/entities/colaborador.model';
+import { IdiomasService } from 'src/app/services/idiomas.service';
 
 @Component({
 	selector: 'app-edit-colaborador',
@@ -17,6 +19,9 @@ export class EditColaboradorComponent implements OnInit {
 	professionForm: FormGroup;
 	contactForm: FormGroup;
 
+	listIdiomas: any[] = [];
+	selectedIdiomas: any[] = [];
+
 	isUpdate = false;
 	dialogData: Colaborador;
 
@@ -24,6 +29,8 @@ export class EditColaboradorComponent implements OnInit {
 
 	constructor(
 		private colaboradorService: ColaboradorService,
+		private cepService: CepService,
+		private idiomaService: IdiomasService,
 		private dialogRef: MatDialogRef<EditColaboradorComponent>,
 		private formBuilder: FormBuilder,
 		private toast: ToastService,
@@ -61,39 +68,47 @@ export class EditColaboradorComponent implements OnInit {
 		});
 
 		this.adressForm = this.formBuilder.group({
-			estado: [
-				this.isUpdate ? this.dialogData.estado : '',
+			estadoEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.estadoEndereco
+					: '',
 				Validators.required,
 			],
-			cidade: [
-				this.isUpdate ? this.dialogData.cidade : '',
+			cidadeEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.cidadeEndereco
+					: '',
 				Validators.required,
 			],
-			rua: [
-				this.isUpdate ? this.dialogData.rua : '',
+			bairroEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.bairroEndereco
+					: '',
 				Validators.required,
 			],
-			num: [
-				this.isUpdate ? this.dialogData.num : '',
+			ruaEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.ruaEndereco
+					: '',
 				Validators.required,
 			],
-			complemento: [
-				this.isUpdate ? this.dialogData.complemento : '',
+			numeroEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.numeroEndereco
+					: '',
 				Validators.required,
 			],
-			cep: [
-				this.isUpdate ? this.dialogData.cep : '',
+			cepEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.cepEndereco
+					: '',
 				Validators.required,
 			],
 		});
 
 		this.professionForm = this.formBuilder.group({
-			areasAtuacao: this.isUpdate
-				? this.dialogData.areasAtuacao
-				: new FormArray([]),
-			areaFormacao: this.isUpdate
-				? this.dialogData.areaFormacao
-				: new FormArray([]),
+			areaAtuacao: this.isUpdate ? this.dialogData.areasAtuacao : '',
+			areaFormacao: this.isUpdate ? this.dialogData.areaFormacao : '',
 		});
 
 		this.contactForm = this.formBuilder.group({
@@ -117,20 +132,39 @@ export class EditColaboradorComponent implements OnInit {
 			telefoneUsuario: [
 				this.isUpdate ? this.dialogData.telefoneUsuario : '',
 			],
+			entrevistado: [this.isUpdate ? this.dialogData.entrevistado : ''],
 		});
 	}
 
 	send() {
 		const colaborador: Colaborador = {
 			...this.personalForm.value,
-			...this.adressForm.value,
+			endereco: this.adressForm.value,
 			...this.professionForm.value,
 			...this.contactForm.value,
 		};
 
+		if (colaborador.idiomas) {
+			colaborador.idiomas = colaborador.idiomas.map((element) =>
+				Number(element)
+			);
+		}
+
 		if (this.isUpdate) {
 			this.colaboradorService
-				.update(colaborador, this.dialogData.codigoUsuario)
+				.updateUser(
+					{
+						EmailUsuario:
+							colaborador.emailUsuario ===
+							this.dialogData.emailUsuario
+								? null
+								: colaborador.emailUsuario,
+						SenhaUsuario: colaborador.senhaUsuario,
+						Entrevistado: colaborador.entrevistado,
+						TelefoneUsuario: colaborador.telefoneUsuario,
+					},
+					this.dialogData.codigoUsuario
+				)
 				.subscribe(
 					(result) => {
 						if (!result) {
@@ -141,7 +175,33 @@ export class EditColaboradorComponent implements OnInit {
 							this.toast.errorAlertWithMessage(result.mensagem);
 							return;
 						}
-						this.toast.successAlert();
+
+						this.colaboradorService
+							.update(colaborador, this.dialogData.codigoUsuario)
+							.subscribe(
+								(result) => {
+									if (!result) {
+										return;
+									}
+
+									if (!result.sucesso) {
+										this.toast.errorAlertWithMessage(
+											result.mensagem
+										);
+										return;
+									}
+									this.toast.successAlert();
+									this.closeWindow();
+								},
+								(err) => {
+									if (err) {
+										this.toast.errorAlertWithMessage(
+											err.error.mensagem
+										);
+									}
+								}
+							);
+
 						this.closeWindow();
 					},
 					(err) => {
@@ -173,6 +233,49 @@ export class EditColaboradorComponent implements OnInit {
 				}
 			);
 		}
+	}
+
+	searchCEP(event) {
+		const cep = event.replace('-', '').replace('.', '');
+
+		if (cep.length === 8) {
+			this.cepService.findCep(cep).subscribe((result) => {
+				if (result) {
+					this.adressForm = this.formBuilder.group({
+						cepEndereco: [result.cep],
+						ruaEndereco: [result.logradouro],
+						cidadeEndereco: [result.localidade],
+						bairroEndereco: [result.bairro],
+						estadoEndereco: [result.uf],
+						numeroEndereco: [''],
+					});
+				}
+			});
+		}
+	}
+
+	populateIdiomas() {
+		this.idiomaService.find().subscribe((result) => {
+			if (result) {
+				this.listIdiomas = result;
+			}
+		});
+	}
+
+	get personalControls() {
+		return this.personalForm.controls;
+	}
+
+	get adressControls() {
+		return this.adressForm.controls;
+	}
+
+	get professionControls() {
+		return this.professionForm.controls;
+	}
+
+	get contactControls() {
+		return this.contactForm.controls;
 	}
 
 	closeWindow() {

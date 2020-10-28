@@ -1,3 +1,5 @@
+import { Endereco } from './endereco.model';
+
 export class Colaborador {
 	entrevistado: boolean;
 
@@ -6,24 +8,19 @@ export class Colaborador {
 
 	emailUsuario: string;
 	senhaUsuario: string;
-	tefoneUsuario: string;
+	telefoneUsuario: string;
 
 	nomeColaborador: string;
 
 	nacionalidade: string;
 	escolaridade: string;
 	areaFormacao: string;
-	areasAtuacao: string;
+	areasAtuacao: string[];
 
 	dataChegadaBrasil: Date;
 	dataNascimento: Date;
 
-	estado: string;
-	cidade: string;
-	rua: string;
-	num: string;
-	complemento: string;
-	cep: string;
+	endereco: Endereco;
 
 	idiomas: number[];
 

@@ -1,9 +1,9 @@
 export class Endereco {
-	cep: string;
+	cepEndereco: string;
 
-	rua: string;
-	cidade: string;
-	bairro: string;
-	estado: string;
-	numero: string;
+	ruaEndereco: string;
+	cidadeEndereco: string;
+	bairroEndereco: string;
+	estadoEndereco: string;
+	numeroEndereco: string;
 }
