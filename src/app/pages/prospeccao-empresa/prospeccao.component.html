@@ -40,21 +40,34 @@
 
 			<form [formGroup]="pessoalForm" class="form-group container">
 
-				<mat-form-field class="row col-12" appearance="standard">
-					<input matInput class="col-12" formControlName="razaoSocial" placeholder="Qual o nome da empresa?"
-						name="razaoSocial" type="text" />
-					<mat-error *ngIf="pessoalControls.razaoSocial.invalid">O nome da empresa deve ser preenchido
-					</mat-error>
-				</mat-form-field>
-
-
 				<div class="row date-pikers">
 
-					<mat-form-field class="col-8" appearance="standard">
+					<mat-form-field class=" col-8" appearance="standard">
+						<input matInput class="col-12" formControlName="razaoSocial"
+							placeholder="Qual o nome da empresa?" name="razaoSocial" type="text" />
+						<mat-error *ngIf="pessoalControls.razaoSocial.invalid">O nome da empresa deve ser preenchido
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="col-4" appearance="standard">
 						<input matInput class="col-12" formControlName="nomeFantasia"
 							placeholder="Qual o nome fantasia da empresa?" name="nomeFantasia" type="text" />
 						<mat-error *ngIf="pessoalControls.nomeFantasia.invalid">O nome fantasia deve ser preenchido
 						</mat-error>
+					</mat-form-field>
+
+				</div>
+
+				<div class="row date-pikers">
+
+					<mat-form-field class="col-8" appearance="standard">
+						<mat-label>Area de atuação</mat-label>
+						<mat-select formControlName="areasTrabalho" multiple>
+							<mat-option value="" disabled>Selecione ...</mat-option>
+							<mat-option *ngFor="let area of listAreasTrabalho" value="{{area.codigoAreaTrabalho}}">
+								{{area.descricaoAreaTrabalho}}
+							</mat-option>
+						</mat-select>
 					</mat-form-field>
 
 					<mat-form-field class="col-4" appearance="standard">
@@ -104,45 +117,57 @@
 			<form [formGroup]="enderecoForm" class="form-group container">
 
 				<div class="row date-pikers">
-					<mat-form-field class="row col-9" appearance="standard">
-						<input matInput class="col-12" formControlName="cep" placeholder="Qual o cep da empresa?"
-							name="nome" type="text" mask="00000-000" />
-						<mat-error *ngIf="enderecoControls.cep.invalid">O cep deve ser preenchido</mat-error>
+					<mat-form-field class="row col-5" appearance="standard">
+						<input matInput class="col-12" formControlName="cepEndereco"
+							placeholder="Qual o cep da empresa?" name="nome" type="text" mask="00000-000" />
+						<mat-error *ngIf="enderecoControls.cepEndereco.invalid">O cep deve ser preenchido</mat-error>
 					</mat-form-field>
 
-					<mat-icon (click)="searchCEP(enderecoControls.cep.value)" aria-label="Side nav toggle icon">search
+					<mat-icon (click)="searchCEP(enderecoControls.cepEndereco.value)" aria-label="Side nav toggle icon">
+						search
 					</mat-icon>
 
+					<mat-form-field class="row col-4" appearance="standard">
+						<input matInput class="col-12" formControlName="complementoEndereco"
+							placeholder="Qual o complemento?" name="complementoEndereco" type="text" />
+						<mat-error *ngIf="enderecoControls.complementoEndereco.invalid">O complemento deve ser
+							preenchido</mat-error>
+					</mat-form-field>
+
 					<mat-form-field class="row col-3" appearance="standard">
-						<input matInput class="col-12" formControlName="numero" placeholder="Qual o número?" name="nome"
-							type="text" />
-						<mat-error *ngIf="enderecoControls.numero.invalid">O número deve ser preenchido</mat-error>
+						<input matInput class="col-12" formControlName="numeroEndereco" placeholder="Qual o número?"
+							name="numeroEndereco" type="text" />
+						<mat-error *ngIf="enderecoControls.numeroEndereco.invalid">O número deve ser preenchido
+						</mat-error>
 					</mat-form-field>
 				</div>
 
 				<div class="row date-pikers">
 					<mat-form-field class="row col-6" appearance="standard">
-						<input matInput class="col-12" formControlName="rua" placeholder="Qual a rua?" name="nome"
-							type="text" />
-						<mat-error *ngIf="enderecoControls.rua.invalid">A rua deve ser preenchida</mat-error>
+						<input matInput class="col-12" formControlName="ruaEndereco" placeholder="Qual a rua?"
+							name="ruaEndereco" type="text" />
+						<mat-error *ngIf="enderecoControls.ruaEndereco.invalid">A rua deve ser preenchida</mat-error>
 					</mat-form-field>
 					<mat-form-field class="row col-6" appearance="standard">
-						<input matInput class="col-12" formControlName="bairro" placeholder="Qual o bairro?" name="nome"
-							type="text" />
-						<mat-error *ngIf="enderecoControls.bairro.invalid">O bairro deve ser preenchido</mat-error>
+						<input matInput class="col-12" formControlName="bairroEndereco" placeholder="Qual o bairro?"
+							name="bairroEndereco" type="text" />
+						<mat-error *ngIf="enderecoControls.bairroEndereco.invalid">O bairro deve ser preenchido
+						</mat-error>
 					</mat-form-field>
 				</div>
 
 				<div class="row date-pikers">
 					<mat-form-field class="row col-6" appearance="standard">
-						<input matInput class="col-12" formControlName="cidade" placeholder="Qual a cidade?" name="nome"
-							type="text" />
-						<mat-error *ngIf="enderecoControls.cidade.invalid">A cidade deve ser preenchida</mat-error>
+						<input matInput class="col-12" formControlName="cidadeEndereco" placeholder="Qual a cidade?"
+							name="cidadeEndereco" type="text" />
+						<mat-error *ngIf="enderecoControls.cidadeEndereco.invalid">A cidade deve ser preenchida
+						</mat-error>
 					</mat-form-field>
 					<mat-form-field class="row col-6" appearance="standard">
-						<input matInput class="col-12" formControlName="estado" placeholder="Qual o estado?" name="nome"
-							type="text" />
-						<mat-error *ngIf="enderecoControls.estado.invalid">O estado deve ser preenchido</mat-error>
+						<input matInput class="col-12" formControlName="estadoEndereco" placeholder="Qual o estado?"
+							name="estadoEndereco" type="text" />
+						<mat-error *ngIf="enderecoControls.estadoEndereco.invalid">O estado deve ser preenchido
+						</mat-error>
 					</mat-form-field>
 				</div>
 

@@ -149,13 +149,11 @@
 				<div class="row">
 					<mat-form-field class="col-6" appearance="standard">
 						<mat-label>Area de atuação</mat-label>
-
-						<mat-select formArrayName="areasAtuacao" multiple>
-							<mat-option value="option1">Option 1</mat-option>
-							<mat-option value="option2" disabled
-								>Option 2 (disabled)</mat-option
-							>
-							<mat-option value="option3">Option 3</mat-option>
+						<mat-select formControlName="areasTrabalho" multiple>
+							<mat-option value="" disabled>Selecione ...</mat-option>
+							<mat-option *ngFor="let area of listAreasTrabalho" value="{{area.codigoAreaTrabalho}}">
+								{{area.descricaoAreaTrabalho}}
+							</mat-option>
 						</mat-select>
 					</mat-form-field>
 

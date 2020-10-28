@@ -16,6 +16,8 @@ export class Empresa {
 	nomeFantasia: string;
 	numeroFuncionarios: number;
 
+	areasTrabalho: number[];
+
 	endereco: Endereco;
 
 	dataFundacao: Date;

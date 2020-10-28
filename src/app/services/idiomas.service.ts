@@ -8,14 +8,22 @@ import { map } from 'rxjs/operators';
 @Injectable({
 	providedIn: 'root',
 })
-export class IdiomasService {
+export class OptionsService {
 	private API_BASEPATH = environment.API_BASEPATH;
 
 	constructor(private http: HttpClient) {}
 
-	find(): Observable<any[]> {
+	findIdiomas(): Observable<any[]> {
 		return this.http
 			.get<RespostaDTO>(`${this.API_BASEPATH}/idiomas`, {
+				headers: { 'Content-Type': 'application/json' },
+			})
+			.pipe(map((values) => values.corpo));
+	}
+
+	findAreasTrabalho(): Observable<any[]> {
+		return this.http
+			.get<RespostaDTO>(`${this.API_BASEPATH}/areas-trabalho`, {
 				headers: { 'Content-Type': 'application/json' },
 			})
 			.pipe(map((values) => values.corpo));
