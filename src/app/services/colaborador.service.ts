@@ -36,7 +36,7 @@ export class ColaboradorService {
 		);
 	}
 
-	update(body: ColaboradorDTO, idUsuario): Observable<any> {
+	update(body: Colaborador, idUsuario): Observable<any> {
 		return this.http.patch<any>(
 			`${this.API_BASEPATH}/colaboradores/${idUsuario}`,
 			body,

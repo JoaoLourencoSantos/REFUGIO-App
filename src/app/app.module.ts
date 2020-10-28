@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -101,6 +102,7 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		MatStepperModule,
 		MatDatepickerModule,
 		MatNativeDateModule,
+		MatTabsModule,
 	],
 	providers: [CookieService, { provide: LOCALE_ID, useValue: 'pt-BR' }],
 	bootstrap: [AppComponent],

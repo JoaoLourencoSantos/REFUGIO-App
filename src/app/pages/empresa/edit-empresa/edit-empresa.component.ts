@@ -1,7 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import EmpresaDTO from 'src/app/models/dto/empresa';
-import { StringUtils } from 'src/app/utils/string.utils';
+import { Empresa } from 'src/app/models/entities/empresa.model';
+import { CepService } from 'src/app/services/cep.service';
+import { ValidadorUtil } from 'src/app/utils/validator.utils';
 
 import { EmpresaService } from './../../../services/empresa.service';
 import { ToastService } from './../../../services/toast.service';
@@ -12,169 +14,203 @@ import { ToastService } from './../../../services/toast.service';
 	styleUrls: ['./edit-empresa.component.scss'],
 })
 export class EditEmpresaComponent implements OnInit {
-	razaoSocial: string;
-	emailContato: string;
-	senha: string;
-	isUpdate: boolean;
-	idUsuario: number;
-	oldEmail: string;
-	actionClass: string = 'blue-action';
+	personalForm: FormGroup;
+	adressForm: FormGroup;
+	contactForm: FormGroup;
+
+	isUpdate = false;
+	actionClass = 'blue-action';
+	dialogData: Empresa;
 
 	constructor(
 		private empresaService: EmpresaService,
+		private cepService: CepService,
 		private dialogRef: MatDialogRef<EditEmpresaComponent>,
+		private formBuilder: FormBuilder,
 		private toast: ToastService,
 		@Inject(MAT_DIALOG_DATA) dialogData
 	) {
 		if (dialogData !== null) {
 			this.isUpdate = true;
-			this.razaoSocial = dialogData.empresa.razaoSocial;
-			this.emailContato = dialogData.empresa.emailUsuario;
-			this.oldEmail = dialogData.empresa.emailUsuario;
-			this.idUsuario = dialogData.empresa.codigoUsuario;
-			this.senha = null;
 			this.actionClass = 'orange-action';
+			this.dialogData = dialogData.empresa;
 		}
 	}
 
-	ngOnInit(): void {}
+	ngOnInit(): void {
+		this.setupForms();
+	}
+
+	setupForms() {
+		this.personalForm = this.formBuilder.group({
+			razaoSocial: [
+				this.isUpdate ? this.dialogData.razaoSocial : '',
+				Validators.required,
+			],
+			nomeFantasia: [
+				this.isUpdate ? this.dialogData.nomeFantasia : '',
+				Validators.required,
+			],
+			dataFundacao: [
+				this.isUpdate ? this.dialogData.dataFundacao : '',
+				Validators.required,
+			],
+			numeroFuncionarios: [
+				this.isUpdate ? this.dialogData.numeroFuncionarios : '',
+				Validators.required,
+			],
+			cnpj: [
+				this.isUpdate ? this.dialogData.cnpj : '',
+				Validators.required,
+			],
+		});
+
+		this.adressForm = this.formBuilder.group({
+			estadoEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.estadoEndereco
+					: '',
+				Validators.required,
+			],
+			cidadeEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.cidadeEndereco
+					: '',
+				Validators.required,
+			],
+			bairroEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.bairroEndereco
+					: '',
+				Validators.required,
+			],
+			ruaEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.ruaEndereco
+					: '',
+				Validators.required,
+			],
+			numeroEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.numeroEndereco
+					: '',
+				Validators.required,
+			],
+			cepEndereco: [
+				this.isUpdate && this.dialogData.endereco
+					? this.dialogData.endereco.cepEndereco
+					: '',
+				Validators.required,
+			],
+		});
+
+		this.contactForm = this.formBuilder.group({
+			emailUsuario: [
+				this.isUpdate ? this.dialogData.emailUsuario : '',
+				[
+					Validators.required,
+					Validators.pattern(
+						'^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'
+					),
+				],
+			],
+			senhaUsuario: [
+				'',
+				Validators.compose([
+					Validators.required,
+					Validators.minLength(6),
+					ValidadorUtil.validatePassword(),
+				]),
+			],
+			telefoneUsuario: [
+				this.isUpdate ? this.dialogData.telefoneUsuario : '',
+			],
+			entrevistado: [this.isUpdate ? this.dialogData.entrevistado : ''],
+		});
+	}
 
 	send(): void {
-		if (!this.razaoSocial || !this.emailContato) {
-			this.toast.infoErroAlert();
-			return;
-		}
+		const empresa: Empresa = {
+			...this.personalForm.value,
+			endereco: this.adressForm.value,
+			...this.contactForm.value,
+		};
 
-		if (!StringUtils.isEmailValid(this.emailContato)) {
-			this.toast.errorAlertWithMessage('Email inválido!');
-			return;
-		}
-
-		if (StringUtils.hasSpace(this.emailContato)) {
-			this.toast.errorAlertWithMessage(
-				'O email não deve conter espaços!'
-			);
-			return;
-		}
-
-		if (!this.isUpdate) {
-			this.save();
-			return;
-		}
-
-		if (this.isUpdateUser()) {
-			this.updateUser();
-			return;
-		}
-
-		this.update();
-		return;
-	}
-
-	update() {
-		this.empresaService
-			.update(new EmpresaDTO(this.razaoSocial), this.idUsuario)
-			.subscribe(
-				(result) => {
-					if (!result) {
-						return;
-					}
-
-					if (!result.sucesso) {
-						this.toast.errorAlertWithMessage(result.mensagem);
-						return;
-					}
-
-					this.closeWindow();
-
-					this.toast.successAlert();
-				},
-				(err) => {
-					if (err) {
-						this.toast.errorAlertWithMessage(err.error.mensagem);
-					}
-				}
-			);
-	}
-
-	updateUser() {
-		this.empresaService
-			.updateUser(
-				{
-					EmailUsuario:
-						this.emailContato === this.oldEmail
-							? null
-							: this.emailContato.trim(),
-					SenhaUsuario: this.senha ? this.senha.trim() : this.senha,
-				},
-				this.idUsuario
-			)
-			.subscribe(
-				(result) => {
-					if (!result) {
-						return;
-					}
-
-					if (!result.sucesso) {
-						this.toast.errorAlertWithMessage(result.mensagem);
-						return;
-					}
-
-					this.update();
-
-					this.closeWindow();
-				},
-				(err) => {
-					if (err) {
-						this.toast.errorAlertWithMessage(err.error.mensagem);
-					}
-				}
-			);
-	}
-
-	save() {
-		if (!this.senha) {
-			this.toast.infoErroAlert();
-			return;
-		}
-
-		if (this.senha.length < 6) {
-			this.toast.errorAlertWithMessage(
-				'A senha deve ter mais de 6 caracteres!'
-			);
-			return;
-		}
-
-		if (StringUtils.hasSpace(this.senha)) {
-			this.toast.errorAlertWithMessage(
-				'A senha não deve conter espaços!'
-			);
-			return;
-		}
-
-		this.empresaService
-			.create(
-				new EmpresaDTO(
-					this.razaoSocial,
-					this.emailContato.trim(),
-					this.senha
+		if (this.isUpdate) {
+			this.empresaService
+				.updateUser(
+					{
+						EmailUsuario:
+							empresa.emailUsuario ===
+							this.dialogData.emailUsuario
+								? null
+								: empresa.emailUsuario,
+						SenhaUsuario: empresa.senhaUsuario,
+						Entrevistado: empresa.entrevistado,
+						TelefoneUsuario: empresa.telefoneUsuario,
+					},
+					this.dialogData.codigoEmpresa
 				)
-			)
-			.subscribe(
+				.subscribe(
+					(result) => {
+						if (!result) {
+							return;
+						}
+
+						if (!result.sucesso) {
+							this.toast.errorAlertWithMessage(result.mensagem);
+							return;
+						}
+
+						this.empresaService
+							.update(empresa, this.dialogData.codigoUsuario)
+							.subscribe(
+								(result) => {
+									if (!result) {
+										return;
+									}
+
+									if (!result.sucesso) {
+										this.toast.errorAlertWithMessage(
+											result.mensagem
+										);
+										return;
+									}
+									this.toast.successAlert();
+									this.closeWindow();
+								},
+								(err) => {
+									if (err) {
+										this.toast.errorAlertWithMessage(
+											err.error.mensagem
+										);
+									}
+								}
+							);
+
+						this.closeWindow();
+					},
+					(err) => {
+						if (err) {
+							this.toast.errorAlertWithMessage(
+								err.error.mensagem
+							);
+						}
+					}
+				);
+		} else {
+			this.empresaService.createCompany(empresa).subscribe(
 				(result) => {
 					if (!result) {
 						return;
 					}
 
-					console.log(result);
-
 					if (!result.sucesso) {
 						this.toast.errorAlertWithMessage(result.mensagem);
 						return;
 					}
-
-					this.closeWindow();
 					this.toast.successAlert();
+					this.closeWindow();
 				},
 				(err) => {
 					if (err) {
@@ -182,10 +218,38 @@ export class EditEmpresaComponent implements OnInit {
 					}
 				}
 			);
+		}
 	}
 
-	isUpdateUser() {
-		return this.emailContato !== this.oldEmail || this.senha;
+	searchCEP(event) {
+		const cep = event.replace('-', '').replace('.', '');
+
+		if (cep.length === 8) {
+			this.cepService.findCep(cep).subscribe((result) => {
+				if (result) {
+					this.adressForm = this.formBuilder.group({
+						cepEndereco: [result.cep],
+						ruaEndereco: [result.logradouro],
+						cidadeEndereco: [result.localidade],
+						bairroEndereco: [result.bairro],
+						estadoEndereco: [result.uf],
+						numeroEndereco: [''],
+					});
+				}
+			});
+		}
+	}
+
+	get personalControls() {
+		return this.personalForm.controls;
+	}
+
+	get adressControls() {
+		return this.adressForm.controls;
+	}
+
+	get contactControls() {
+		return this.contactForm.controls;
 	}
 
 	closeWindow() {

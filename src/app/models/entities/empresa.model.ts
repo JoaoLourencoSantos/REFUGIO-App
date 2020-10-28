@@ -6,21 +6,20 @@ export class Empresa {
 	codigoUsuario: number;
 	codigoEmpresa: number;
 
-	emailUsuario: String;
+	emailUsuario: string;
 	senhaUsuario: string;
-	tefoneUsuario: string;
+	telefoneUsuario: string;
 
-	cnpj:String;
+	cnpj: string;
 
-	emailContato: string;
 	razaoSocial: string;
-	nomeFantasia:string;
-	numeroFuncionarios:number;
+	nomeFantasia: string;
+	numeroFuncionarios: number;
 
 	areasTrabalho: number[];
 
 	endereco: Endereco;
 
-	dataFundacao:Date;
+	dataFundacao: Date;
 	dataCriacao: Date;
 }

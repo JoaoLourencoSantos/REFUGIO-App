@@ -4,36 +4,280 @@
 			this.isUpdate ? "Editar empresa" : "Cadastrar empresa"
 		}}</span>
 	</div>
-	<mat-dialog-content class="content">
-		<form (ngSubmit)="this.send()">
-			<label>Razão Social</label>
-			<input
-				class="col-12"
-				class="form-control"
-				placeholder="Razão Social"
-				[(ngModel)]="this.razaoSocial"
-				name="nome"
-				type="text"
-			/>
-			<label>Email</label>
-			<input
-				class="col-12"
-				class="form-control"
-				placeholder="Ex.: empresa@email.com"
-				[(ngModel)]="this.emailContato"
-				name="email"
-			/>
-			<label>Senha</label>
-			<input
-				class="col-12"
-				class="form-control"
-				type="password"
-				placeholder="******"
-				[(ngModel)]="this.senha"
-				name="senha"
-				type="password"
-			/>
-		</form>
+	<mat-dialog-content>
+		<mat-tab-group>
+			<mat-tab label="Informações pessoais">
+				<form [formGroup]="personalForm" class="form-group container">
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="razaoSocial"
+							placeholder="Razão social"
+							name="razaoSocial"
+							type="text"
+						/>
+						<mat-error *ngIf="personalControls.razaoSocial.invalid"
+							>A razão social da empresa deve ser preenchido
+						</mat-error>
+					</mat-form-field>
+					<div class="row date-pikers">
+						<mat-form-field class="col-8" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="nomeFantasia"
+								placeholder="Nome fantasia"
+								name="nomeFantasia"
+								type="text"
+							/>
+							<mat-error
+								*ngIf="personalControls.nomeFantasia.invalid"
+								>O nome fantasia deve ser preenchido
+							</mat-error>
+						</mat-form-field>
+						<mat-form-field class="col-4" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="numeroFuncionarios"
+								placeholder="Número de funcionarios"
+								name="numeroFuncionarios"
+								type="number"
+							/>
+							<mat-error
+								*ngIf="
+									personalControls.numeroFuncionarios.invalid
+								"
+								>O nome de funcionarios deve ser preenchido
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<div class="row date-pikers">
+						<mat-form-field class="col-6" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="cnpj"
+								placeholder="CNPJ"
+								name="cnpj"
+								type="text"
+								mask="000.000.000-00||00.000.000/0000-00"
+							/>
+							<mat-error *ngIf="personalControls.cnpj.invalid"
+								>O cnpj deve ser preenchido</mat-error
+							>
+						</mat-form-field>
+
+						<mat-form-field class="col-6" appearance="standard">
+							<mat-label>Data de Fundação</mat-label>
+							<input
+								formControlName="dataFundacao"
+								matInput
+								[matDatepicker]="picker1"
+							/>
+							<mat-datepicker-toggle
+								matSuffix
+								[for]="picker1"
+							></mat-datepicker-toggle>
+							<mat-datepicker #picker1></mat-datepicker>
+							<mat-error
+								*ngIf="personalControls.dataFundacao.invalid"
+							>
+								A data de fundação deve ser preenchida
+							</mat-error>
+						</mat-form-field>
+					</div>
+				</form>
+			</mat-tab>
+			<mat-tab label="Endereço">
+				<form [formGroup]="adressForm" class="form-group container">
+					<div class="row date-pikers">
+						<mat-form-field class="row col-8" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="cepEndereco"
+								placeholder="CEP"
+								name="nome"
+								type="text"
+								mask="00000-000"
+							/>
+						</mat-form-field>
+						<div class="row col-1">
+							<mat-icon
+								(click)="
+									searchCEP(adressControls.cepEndereco.value)
+								"
+								aria-label="Side nav toggle icon"
+								>search
+							</mat-icon>
+						</div>
+						<mat-form-field class="row col-3" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="numeroEndereco"
+								placeholder="Número"
+								name="nome"
+								type="text"
+							/>
+							<mat-error
+								*ngIf="adressControls.numeroEndereco.invalid"
+								>O número deve ser preenchido</mat-error
+							>
+						</mat-form-field>
+					</div>
+
+					<div class="row date-pikers">
+						<mat-form-field class="row col-6" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="ruaEndereco"
+								placeholder="Rua"
+								name="nome"
+								type="text"
+							/>
+							<mat-error
+								*ngIf="adressControls.ruaEndereco.invalid"
+								>A rua deve ser preenchida</mat-error
+							>
+						</mat-form-field>
+						<mat-form-field class="row col-6" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="bairroEndereco"
+								placeholder="Bairro"
+								name="nome"
+								type="text"
+							/>
+							<mat-error
+								*ngIf="adressControls.bairroEndereco.invalid"
+								>O bairro deve ser preenchido</mat-error
+							>
+						</mat-form-field>
+					</div>
+
+					<div class="row date-pikers">
+						<mat-form-field class="row col-6" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="cidadeEndereco"
+								placeholder="Cidade"
+								name="nome"
+								type="text"
+							/>
+							<mat-error
+								*ngIf="adressControls.cidadeEndereco.invalid"
+								>A cidade deve ser preenchida</mat-error
+							>
+						</mat-form-field>
+						<mat-form-field class="row col-6" appearance="standard">
+							<input
+								matInput
+								class="col-12"
+								formControlName="estadoEndereco"
+								placeholder="Estado"
+								name="nome"
+								type="text"
+							/>
+							<mat-error
+								*ngIf="adressControls.estadoEndereco.invalid"
+								>O estado deve ser preenchido</mat-error
+							>
+						</mat-form-field>
+					</div>
+				</form>
+			</mat-tab>
+			<mat-tab label="Informações de contato">
+				<form [formGroup]="contactForm" class="form-group container">
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="emailUsuario"
+							placeholder="Email"
+							name="email"
+							type="text"
+						/>
+						<mat-error
+							*ngIf="
+								contactControls.emailUsuario.invalid &&
+								contactControls.emailUsuario.errors?.required
+							"
+						>
+							A email deve ser preenchido
+						</mat-error>
+						<mat-error
+							*ngIf="
+								contactControls.emailUsuario.invalid &&
+								contactControls.emailUsuario.errors?.pattern
+							"
+						>
+							A email deve estar no formato correto
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							matInput
+							class="col-12"
+							formControlName="telefoneUsuario"
+							placeholder="Telefone"
+							name="telefone"
+							type="text"
+							mask="(00) 0000-0000||(00) 00000-0000"
+						/>
+					</mat-form-field>
+					<br />
+					<mat-form-field class="row col-12" appearance="standard">
+						<input
+							class="col-12"
+							matInput
+							placeholder="Senha"
+							formControlName="senhaUsuario"
+							name="senha"
+							type="password"
+						/>
+						<mat-error
+							*ngIf="
+								contactControls.senhaUsuario.invalid &&
+								contactControls.senhaUsuario.errors?.required
+							"
+						>
+							A senha deve ser preenchida
+						</mat-error>
+						<mat-error
+							*ngIf="
+								contactControls.senhaUsuario.invalid &&
+								contactControls.senhaUsuario.errors?.minlength
+							"
+						>
+							A senha deve ter no mínimo 6 caracteres
+						</mat-error>
+						<mat-error
+							*ngIf="
+								contactControls.senhaUsuario.invalid &&
+								contactControls.senhaUsuario.errors
+									?.invalidpassword
+							"
+						>
+							A senha não deve conter espaços em branco
+						</mat-error>
+						<!-- <mat-checkbox
+							[checked]=""
+							formControlName="entrevistado"
+							(change)=""
+						>
+							Entrevistado
+						</mat-checkbox> -->
+					</mat-form-field>
+				</form>
+			</mat-tab>
+		</mat-tab-group>
 	</mat-dialog-content>
 	<mat-dialog-actions>
 		<button mat-button mat-dialog-close>Cancelar</button>
