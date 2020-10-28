@@ -4,12 +4,7 @@
 	<div class="header-filter">
 		<mat-form-field>
 			<mat-label>Filter</mat-label>
-			<input
-				matInput
-				(keyup)="applyFilter($event)"
-				placeholder="Ex. ium"
-				#input
-			/>
+			<input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input />
 		</mat-form-field>
 
 		<div class="div-button">
@@ -35,6 +30,31 @@
 				</td>
 			</ng-container>
 
+			<ng-container matColumnDef="cnpj">
+				<th mat-header-cell *matHeaderCellDef>CPNJ</th>
+				<td mat-cell *matCellDef="let element">
+					{{ element.cnpj }}
+				</td>
+			</ng-container>
+
+
+			<ng-container matColumnDef="numeroFuncionarios">
+				<th mat-header-cell *matHeaderCellDef>Número de funcionários</th>
+				<td mat-cell *matCellDef="let element">
+					{{ element.numeroFuncionarios }}
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="dataFundacao">
+				<th mat-header-cell *matHeaderCellDef> Data de fundação </th>
+				<td mat-cell *matCellDef="let element"> {{element.dataFundacao | date: 'dd/MM/yyyy'}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="entrevistado">
+				<th mat-header-cell *matHeaderCellDef> Já foi intrevistado? </th>
+				<td mat-cell *matCellDef="let element"> {{element.entrevistado ? 'Sim' : 'Não'}} </td>
+			</ng-container>
+
 			<ng-container matColumnDef="dataCriacao">
 				<th mat-header-cell *matHeaderCellDef>Data de cadastro</th>
 				<td mat-cell *matCellDef="let element">
@@ -45,29 +65,13 @@
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef>Ações</th>
 				<td mat-cell *matCellDef="let element" class="actions">
-					<mat-icon
-						matTooltip="Editar empresa"
-						[matTooltipShowDelay]="10"
-						[matTooltipHideDelay]="10"
-						[matTooltipPosition]="'above'"
-						matTooltipClass="tooltip-edit"
-						(click)="this.openEdit(element)"
-						class="color_orange"
-						aria-hidden="false"
-						aria-label="Edit action"
-						>edit
+					<mat-icon matTooltip="Editar empresa" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
+						[matTooltipPosition]="'above'" matTooltipClass="tooltip-edit" (click)="this.openEdit(element)"
+						class="color_orange" aria-hidden="false" aria-label="Edit action">edit
 					</mat-icon>
-					<mat-icon
-						matTooltip="Excluir empresa"
-						[matTooltipShowDelay]="10"
-						[matTooltipHideDelay]="10"
-						[matTooltipPosition]="'above'"
-						matTooltipClass="tooltip-delete"
-						aria-hidden="false"
-						class="color_red"
-						aria-label="Delete action"
-						>delete_forever</mat-icon
-					>
+					<mat-icon matTooltip="Excluir empresa" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
+						[matTooltipPosition]="'above'" matTooltipClass="tooltip-delete" aria-hidden="false"
+						class="color_red" aria-label="Delete action">delete_forever</mat-icon>
 				</td>
 			</ng-container>
 

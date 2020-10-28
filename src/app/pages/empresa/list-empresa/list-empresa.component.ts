@@ -17,6 +17,10 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 	displayedColumns: string[] = [
 		'razaoSocial',
 		'emailContato',
+		'cnpj',
+		'numeroFuncionarios',
+		'dataFundacao',
+		'entrevistado',
 		'dataCriacao',
 		'actions',
 	];

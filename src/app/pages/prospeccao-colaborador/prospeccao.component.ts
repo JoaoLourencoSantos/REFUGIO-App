@@ -11,7 +11,7 @@ import { ValidadorUtil } from 'src/app/utils/validator.utils';
 
 import { Colaborador } from './../../models/entities/colaborador.model';
 import { ColaboradorService } from './../../services/colaborador.service';
-import { OptionsService } from './../../services/idiomas.service';
+import { OptionsService } from '../../services/options.service';
 import { ToastService } from './../../services/toast.service';
 
 @Component({

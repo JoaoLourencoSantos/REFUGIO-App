@@ -1,4 +1,4 @@
-import { OptionsService } from './../../services/idiomas.service';
+import { OptionsService } from '../../services/options.service';
 import { Component, OnInit } from '@angular/core';
 import {
 	FormBuilder,

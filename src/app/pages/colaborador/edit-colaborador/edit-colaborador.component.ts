@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Colaborador } from 'src/app/models/entities/colaborador.model';
+import { ValidadorUtil } from 'src/app/utils/validator.utils';
+
 import { CepService } from './../../../services/cep.service';
 import { ColaboradorService } from './../../../services/colaborador.service';
+import { OptionsService } from '../../../services/options.service';
 import { ToastService } from './../../../services/toast.service';
-import { ValidadorUtil } from 'src/app/utils/validator.utils';
-import { Colaborador } from 'src/app/models/entities/colaborador.model';
-import { IdiomasService } from 'src/app/services/idiomas.service';
 
 @Component({
 	selector: 'app-edit-colaborador',
@@ -30,7 +31,7 @@ export class EditColaboradorComponent implements OnInit {
 	constructor(
 		private colaboradorService: ColaboradorService,
 		private cepService: CepService,
-		private idiomaService: IdiomasService,
+		private optionsService: OptionsService,
 		private dialogRef: MatDialogRef<EditColaboradorComponent>,
 		private formBuilder: FormBuilder,
 		private toast: ToastService,
@@ -255,7 +256,7 @@ export class EditColaboradorComponent implements OnInit {
 	}
 
 	populateIdiomas() {
-		this.idiomaService.find().subscribe((result) => {
+		this.optionsService.findIdiomas().subscribe((result) => {
 			if (result) {
 				this.listIdiomas = result;
 			}
