@@ -25,7 +25,23 @@ export class AuthGuardService implements CanActivate {
 			expectedRoles.length > 0 &&
 			!expectedRoles.includes(this.usuarioService.getRole())
 		) {
-			this.router.navigate(['home']);
+
+			if (this.usuarioService.isAdmin()) {
+
+				this.router.navigate(['colaborador/list']);
+			}
+
+			if (this.usuarioService.isEmployee()) {
+
+				this.router.navigate(['home/colaborador']);
+			}
+
+			if (this.usuarioService.isCompany()) {
+
+				this.router.navigate(['home/empresa']);
+
+			}
+
 			return false;
 		}
 

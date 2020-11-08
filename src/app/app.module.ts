@@ -24,8 +24,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -43,7 +43,8 @@ import { EditColaboradorComponent } from './pages/colaborador/edit-colaborador/e
 import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
 import { EditEmpresaComponent } from './pages/empresa/edit-empresa/edit-empresa.component';
 import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeColaboradorComponent } from './pages/home/home-colaborador/home-colaborador.component';
+import { HomeEmpresaComponent } from './pages/home/home-empresa/home-empresa.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
 import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
@@ -55,7 +56,6 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 @NgModule({
 	declarations: [
 		AppComponent,
-		HomeComponent,
 		MainNavComponent,
 		ListColaboradorComponent,
 		EditColaboradorComponent,
@@ -65,6 +65,8 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		ListEmpresaComponent,
 		DeleteDialogComponent,
 		ProspeccaoEmpresaComponent,
+		HomeColaboradorComponent,
+		HomeEmpresaComponent,
 	],
 	imports: [
 		BrowserModule,

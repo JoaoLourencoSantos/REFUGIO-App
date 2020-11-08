@@ -1,7 +1,8 @@
-import { ToastService } from './../../services/toast.service';
-import { Router } from '@angular/router';
-import { UsuarioService } from './../../services/usuario.service';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { ToastService } from './../../services/toast.service';
+import { UsuarioService } from './../../services/usuario.service';
 
 @Component({
 	selector: 'app-login',
@@ -33,6 +34,14 @@ export class LoginComponent implements OnInit {
 			return;
 		}
 
-		this.router.navigate(['/', 'home']);
+		this.router.navigate(this.redirectUrl);
 	};
+
+	get redirectUrl() {
+
+		if (this.service.isCompany()) return ['/',  'home', 'empresa'];
+		if (this.service.isEmployee()) return ['/',  'home', 'colaborador'];
+
+		return  ['/',  'colaborador', 'list'];
+	}
 }

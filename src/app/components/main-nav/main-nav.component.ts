@@ -1,10 +1,11 @@
-import { UsuarioService } from './../../services/usuario.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+
+import { UsuarioService } from './../../services/usuario.service';
 
 @Component({
 	selector: 'app-main-nav',
@@ -31,9 +32,14 @@ export class MainNavComponent implements OnInit {
 	logout() {
 		this.service.removeSessao();
 	}
+	get homeLink() {
+		if (this.service.isCompany()) return 'home/empresa';
+		if (this.service.isEmployee()) return 'home/colaborador';
+	}
+
 
 	isAdmin(): boolean {
-		return !this.service.getRole();
+		return this.service.isAdmin();
 	}
 
 	isAuthenticated(): boolean {

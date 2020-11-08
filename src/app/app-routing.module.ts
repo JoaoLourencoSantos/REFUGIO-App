@@ -5,7 +5,8 @@ import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { TipoUsuario } from './models/enums/tipo-usuario';
 import { ListColaboradorComponent } from './pages/colaborador/list-colaborador/list-colaborador.component';
 import { ListEmpresaComponent } from './pages/empresa/list-empresa/list-empresa.component';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeColaboradorComponent } from './pages/home/home-colaborador/home-colaborador.component';
+import { HomeEmpresaComponent } from './pages/home/home-empresa/home-empresa.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
 import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
@@ -18,8 +19,13 @@ const routes: Routes = [
 	},
 	{
 		canActivate: [AuthGuard],
-		path: 'home',
-		component: HomeComponent,
+		path: 'home/empresa',
+		component: HomeEmpresaComponent,
+	},
+	{
+		canActivate: [AuthGuard],
+		path: 'home/colaborador',
+		component: HomeColaboradorComponent,
 	},
 	{
 		canActivate: [AuthGuard],

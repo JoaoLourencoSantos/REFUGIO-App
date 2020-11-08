@@ -79,4 +79,17 @@ export class UsuarioService {
 	getRole(): any {
 		return this.getSessao() ? this.getSessao().perfilUsuario : null;
 	}
+
+	isAdmin(): boolean {
+		return !this.getRole();
+	}
+
+	isEmployee(): boolean {
+		return this.getRole() !== null &&  this.getRole() === 1 ;
+	}
+
+	isCompany(): boolean {
+		return this.getRole() !== null &&  this.getRole() === 2 ;
+	}
+
 }
