@@ -1,13 +1,12 @@
-import { Empresa } from './../models/entities/empresa.model';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
+
 import { environment } from '../../environments/environment';
-import { Usuario } from '../models/entities/usuario.model';
 import EmpresaDTO from '../models/dto/empresa';
+import PesquisaEmpresaDTO from '../models/dto/pesquisa.empresa.dto';
 import RespostaDTO from '../models/dto/resposta.dto';
+import { Empresa } from './../models/entities/empresa.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -49,9 +48,14 @@ export class EmpresaService {
 		);
 	}
 
-	find(): Observable<RespostaDTO> {
-		return this.http.get<RespostaDTO>(`${this.API_BASEPATH}/empresas`, {
-			headers: { 'Content-Type': 'application/json' },
-		});
+	find(pesquisa?: PesquisaEmpresaDTO): Observable<RespostaDTO> {
+		const criteria = !pesquisa ? '' : pesquisa.buildUrl();
+
+		return this.http.get<RespostaDTO>(
+			`${this.API_BASEPATH}/empresas?${criteria}`,
+			{
+				headers: { 'Content-Type': 'application/json' },
+			}
+		);
 	}
 }

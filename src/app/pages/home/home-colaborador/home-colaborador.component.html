@@ -8,20 +8,22 @@
 				<section class="col-12">
 					<mat-form-field appearance="outline" class="col-12">
 						<mat-label>Nome da empresa</mat-label>
-						<input matInput placeholder="Digite o nome que deseja buscar">
+						<input matInput [(ngModel)]="this.nomeFantasia" name="nomeFantasia"
+							placeholder="Digite o nome que deseja buscar">
 						<mat-icon matSuffix>search</mat-icon>
 					</mat-form-field>
 				</section>
 				<section class="filter-forms col-12">
 					<mat-form-field class="col-5" appearance="standard">
 						<mat-label>Cidade da empresa</mat-label>
-						<input matInput placeholder="Digite a cidade que deseja buscar">
+						<input matInput [(ngModel)]="this.cidade" name="cidade"
+							placeholder="Digite a cidade que deseja buscar">
 					</mat-form-field>
 
 					<mat-form-field class="col-5" appearance="standard">
 						<mat-label>Area de atuação</mat-label>
-						<mat-select>
-							<mat-option value="" disabled>Selecione ...</mat-option>
+						<mat-select [(ngModel)]="this.codigoAreaTrabalho" name="area">
+							<mat-option value="">Selecione ...</mat-option>
 							<mat-option *ngFor="let area of listAreasTrabalho" value="{{area.codigoAreaTrabalho}}">
 								{{area.descricaoAreaTrabalho}}
 							</mat-option>
@@ -29,7 +31,8 @@
 					</mat-form-field>
 
 					<div class="col-2 filter-actions">
-						<button mat-raised-button color="primary" aria-label="Example icon button with a menu icon">
+						<button mat-raised-button (click)="this.populateEmpresas()" color="primary"
+							aria-label="Example icon button with a menu icon">
 							<mat-icon>search</mat-icon>
 							Pesquisar
 						</button>
@@ -61,7 +64,8 @@
 				</p>
 			</mat-card-content>
 			<mat-card-actions class="list-actions">
-				<button mat-raised-button color="primary">Visualizar detalhes</button>
+				<button mat-button color="primary">Visualizar detalhes</button>
 			</mat-card-actions>
 		</mat-card>
 	</section>
+</section>

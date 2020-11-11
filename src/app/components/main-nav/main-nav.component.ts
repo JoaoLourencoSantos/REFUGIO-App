@@ -35,6 +35,8 @@ export class MainNavComponent implements OnInit {
 	get homeLink() {
 		if (this.service.isCompany()) return 'home/empresa';
 		if (this.service.isEmployee()) return 'home/colaborador';
+
+		if (this.service.isAdmin()) return 'colaborador/list';
 	}
 
 

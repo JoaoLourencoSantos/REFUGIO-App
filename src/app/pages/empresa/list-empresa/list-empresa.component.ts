@@ -1,10 +1,13 @@
-import { EmpresaService } from './../../../services/empresa.service';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ToastService } from 'src/app/services/toast.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 import { EditEmpresaComponent } from '../edit-empresa/edit-empresa.component';
-import { MatPaginator } from '@angular/material/paginator';
+import { DeleteDialogComponent } from './../../../components/delete-dialog/delete-dialog.component';
+import { EmpresaService } from './../../../services/empresa.service';
 
 @Component({
 	selector: 'app-list-empresa',
@@ -29,7 +32,9 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 
 	constructor(
 		public dialog: MatDialog,
-		private empresaService: EmpresaService
+		private empresaService: EmpresaService,
+		private userService: UsuarioService,
+		private toast: ToastService
 	) {
 		this.populate();
 	}
@@ -84,5 +89,43 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 		if (this.dataSource.paginator) {
 			this.dataSource.paginator.firstPage();
 		}
+	}
+
+	openDelete(colaborador?: any) {
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.data = { userId: colaborador.codigoUsuario };
+
+		const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+
+		dialogRef.afterClosed().subscribe(({ event }) => {
+			if (event === 'DELETE') {
+				this.deleteUser(dialogConfig.data.userId);
+			}
+		});
+	}
+
+	deleteUser(userId: any) {
+		this.userService.deleteUser(userId).subscribe(
+			(result) => {
+				if (!result) {
+					return;
+				}
+
+				if (!result.sucesso) {
+					this.toast.errorAlertWithMessage(result.mensagem);
+					return;
+				}
+
+				this.populate();
+
+				this.toast.successAlert();
+			},
+			(err) => {
+				if (err) {
+					this.toast.errorAlertWithMessage(err.error.mensagem);
+				}
+			}
+		);
 	}
 }

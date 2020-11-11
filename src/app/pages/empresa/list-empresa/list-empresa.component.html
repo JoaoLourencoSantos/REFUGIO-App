@@ -71,7 +71,7 @@
 					</mat-icon>
 					<mat-icon matTooltip="Excluir empresa" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
 						[matTooltipPosition]="'above'" matTooltipClass="tooltip-delete" aria-hidden="false"
-						class="color_red" aria-label="Delete action">delete_forever</mat-icon>
+						class="color_red" (click)="this.openDelete(element)" aria-label="Delete action">delete_forever</mat-icon>
 				</td>
 			</ng-container>
 
