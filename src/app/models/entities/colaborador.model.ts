@@ -22,8 +22,8 @@ export class Colaborador {
 
 	endereco: Endereco;
 
-	idiomas: number[];
-	areasTrabalho: number[];
+	idiomas: any[];
+	areasTrabalho: any[];
 
 	dataCriacao: Date;
 }

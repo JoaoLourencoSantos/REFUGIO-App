@@ -1,12 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Colaborador } from 'src/app/models/entities/colaborador.model';
 import { ValidadorUtil } from 'src/app/utils/validator.utils';
 
+import { OptionsService } from '../../../services/options.service';
 import { CepService } from './../../../services/cep.service';
 import { ColaboradorService } from './../../../services/colaborador.service';
-import { OptionsService } from '../../../services/options.service';
 import { ToastService } from './../../../services/toast.service';
 
 @Component({
@@ -22,6 +27,7 @@ export class EditColaboradorComponent implements OnInit {
 
 	listIdiomas: any[] = [];
 	selectedIdiomas: any[] = [];
+	listAreasTrabalho: any[] = [];
 
 	isUpdate = false;
 	dialogData: Colaborador;
@@ -45,6 +51,8 @@ export class EditColaboradorComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.populateAreasTrabalho();
+		this.populateIdiomas();
 		this.setupForms();
 	}
 
@@ -107,9 +115,24 @@ export class EditColaboradorComponent implements OnInit {
 			],
 		});
 
+		if (this.dialogData) {
+			console.log(this.dialogData.idiomas);
+			console.log(this.dialogData.areasTrabalho);
+
+			console.log(this.idIAreasTrabalho);
+			console.log(this.idIdiomas);
+		}
+
 		this.professionForm = this.formBuilder.group({
-			areaAtuacao: this.isUpdate ? this.dialogData.areasAtuacao : '',
-			areaFormacao: this.isUpdate ? this.dialogData.areaFormacao : '',
+			areasTrabalho: this.isUpdate
+				? new FormControl(this.idIAreasTrabalho)
+				: new FormControl(),
+			areaFormacao: this.isUpdate
+				? new FormControl(this.dialogData.areaFormacao)
+				: new FormControl(),
+			idiomas: this.isUpdate
+				? new FormControl(this.idIdiomas)
+				: new FormControl(),
 		});
 
 		this.contactForm = this.formBuilder.group({
@@ -137,6 +160,18 @@ export class EditColaboradorComponent implements OnInit {
 		});
 	}
 
+	get idIdiomas() {
+		return this.dialogData.idiomas.map((element) =>
+			new String(element.codigoIdioma).toString()
+		);
+	}
+
+	get idIAreasTrabalho() {
+		return this.dialogData.areasTrabalho.map((element) =>
+			new String(element.codigoAreaTrabalho).toString()
+		);
+	}
+
 	send() {
 		const colaborador: Colaborador = {
 			...this.personalForm.value,
@@ -148,6 +183,12 @@ export class EditColaboradorComponent implements OnInit {
 		if (colaborador.idiomas) {
 			colaborador.idiomas = colaborador.idiomas.map((element) =>
 				Number(element)
+			);
+		}
+
+		if (colaborador.areasTrabalho) {
+			colaborador.areasTrabalho = colaborador.areasTrabalho.map(
+				(element) => Number(element)
 			);
 		}
 
@@ -234,6 +275,14 @@ export class EditColaboradorComponent implements OnInit {
 				}
 			);
 		}
+	}
+
+	populateAreasTrabalho() {
+		this.optionsService.findAreasTrabalho().subscribe((result) => {
+			if (result) {
+				this.listAreasTrabalho = result;
+			}
+		});
 	}
 
 	searchCEP(event) {
