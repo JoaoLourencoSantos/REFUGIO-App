@@ -1,1 +1,81 @@
-<p>home-empresa works!</p>
+<section class="filter container col-12  ">
+	<mat-card class='col-10'>
+		<mat-card-header>
+			<mat-card-title class="filter-title">Filtrar Refugiado/Migrante</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<form>
+				<section class="col-12">
+					<mat-form-field class="col-12" appearance="outline">
+						<mat-label>Nacionalidade</mat-label>
+						<input matInput [(ngModel)]="this.nacionalidade" name="nacionalidade"
+							placeholder="Qual a nacionalidade do colaborador?">
+						<mat-icon matSuffix>search</mat-icon>
+					</mat-form-field>
+				</section>
+
+				<section class="filter-forms col-12">
+					<mat-form-field class="col-3" appearance="standard">
+						<mat-label>Cidade</mat-label>
+						<input matInput [(ngModel)]="this.cidade" name="cidade"
+							placeholder="Qual a cidade do colaborador?">
+					</mat-form-field>
+
+					<mat-form-field class="col-3" appearance="standard">
+						<mat-label>Idiomas</mat-label>
+						<mat-select [(ngModel)]="this.codigoIdioma" [(ngModel)]="codigoIdioma" name="idiomas">
+							<mat-option value="">Selecione ...</mat-option>
+							<mat-option *ngFor="let idioma of listIdiomas" value="{{ idioma.codigoIdioma }}">
+								{{ idioma.descricaoIdioma }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<mat-form-field class="col-3" appearance="standard">
+						<mat-label>Area de atuação</mat-label>
+						<mat-select [(ngModel)]="this.codigoAreaTrabalho" [(ngModel)]="codigoAreaTrabalho" name="areasTrabalho">
+							<mat-option value="">Selecione ...</mat-option>
+							<mat-option *ngFor="let area of listAreasTrabalho" value="{{area.codigoAreaTrabalho}}">
+								{{area.descricaoAreaTrabalho}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+
+					<div class="col-2 filter-actions">
+						<button mat-raised-button (click)="this.populateColaboradores()" color="primary"
+							aria-label="Example icon button with a menu icon">
+							<mat-icon>search</mat-icon>
+							Pesquisar
+						</button>
+					</div>
+				</section>
+			</form>
+		</mat-card-content>
+	</mat-card>
+</section>
+
+<section class="container col-10">
+	<section class="list col-12">
+
+		<mat-card class='col-3 box-item' *ngFor="let colaborador of this.listColaboradores ">
+			<mat-card-header>
+				<div mat-card-avatar class="list-avatar"></div>
+				<mat-card-title>{{colaborador.nomeColaborador}}</mat-card-title>
+				<mat-card-subtitle>{{colaborador.nacionalidade}}</mat-card-subtitle>
+			</mat-card-header>
+			<div mat-card-image></div>
+			<mat-card-content>
+
+				<p>
+					<strong>Data Chegada : </strong> {{colaborador.dataChegadaBrasil | date: 'dd/MM/yyyy'}}
+				</p>
+				<p>
+					<strong>Email de contato: </strong> {{colaborador.emailUsuario}}
+				</p>
+			</mat-card-content>
+			<mat-card-actions class="list-actions">
+				<button mat-button color="primary">Visualizar detalhes</button>
+			</mat-card-actions>
+		</mat-card>
+	</section>
+</section>
