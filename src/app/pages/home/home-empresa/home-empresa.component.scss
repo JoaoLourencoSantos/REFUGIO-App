@@ -1,0 +1,96 @@
+//=================
+// FILTER
+//================
+.filter {
+	margin-top: 1%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.filter mat-card {
+	background: #ffffff;
+	color: rgba(0, 0, 0, 0.911);
+}
+
+.filter-title {
+	font-weight: 700;
+}
+
+.filter-forms {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.filter-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+//=================
+// LIST
+//================
+.list {
+	margin-top: 2%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+
+	flex-wrap: wrap;
+
+	padding: 0px !important;
+
+	margin-bottom: 5%;
+}
+
+.list-avatar {
+	background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHZ7MfxBUjujPsVa8BprKB2p_hnyh1hRNw2w&usqp=CAU");
+	background-size: cover;
+
+    border: 1.5px solid #475fbb;
+}
+
+.list-actions {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+.list-actions button {
+	width: 100%;
+
+    border-radius: 20px;
+    border: 2.5px solid #475fbb;
+}
+
+.box-item {
+	margin-right: 2%;
+	margin-top: 2%;
+
+	min-width: 30%;
+
+	color: black !important;
+	box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
+    border: 0.5px solid #c5c7cc;
+}
+
+.box-item:hover {
+	background: #3131311c;
+	cursor: pointer;
+}
+
+.box-item mat-card-header mat-card-title {
+	font-weight: 800;
+}
+
+.box-item mat-card-header mat-card-subtitle {
+	color: black !important;
+}

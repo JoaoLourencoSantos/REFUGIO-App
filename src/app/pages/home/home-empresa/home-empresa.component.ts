@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+import PesquisaColaboradorDTO from 'src/app/models/dto/pesquisa.colaborador.dto';
+
+import { Colaborador } from 'src/app/models/entities/colaborador.model';
+import { ColaboradorService } from './../../../services/colaborador.service';
+import { OptionsService } from './../../../services/options.service';
+
 @Component({
   selector: 'app-home-empresa',
   templateUrl: './home-empresa.component.html',
@@ -7,9 +13,55 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeEmpresaComponent implements OnInit {
 
-  constructor() { }
+	listColaboradores: Colaborador[] = [];
+	listIdiomas: any[] = [];
+	listAreasTrabalho: any[] = [];
 
-  ngOnInit(): void {
-  }
+	public nomeColaborador: string;
+	public nacionalidade: string;
+	public cidade: string;
+	public codigoIdioma: string;
+	public codigoAreaTrabalho: string;
 
+
+	constructor(
+		private colaboradorService: ColaboradorService,
+		private optionsService: OptionsService
+	) {}
+
+	ngOnInit(): void {
+		this.populateIdiomas();
+		this.populateColaboradores();
+	}
+
+	populateIdiomas() {
+		this.optionsService.findIdiomas().subscribe((result) => {
+			if (result) {
+				this.listIdiomas = result;
+			}
+		});
+	}
+
+	populateAreasTrabalho() {
+		this.optionsService.findAreasTrabalho().subscribe((result) => {
+			if (result) {
+				this.listAreasTrabalho = result;
+			}
+		});
+	}
+
+	populateColaboradores() {
+		this.colaboradorService
+			.find(new PesquisaColaboradorDTO(
+				this.nacionalidade,
+				this.cidade,
+				this.codigoIdioma,
+				this.codigoAreaTrabalho
+			))
+			.subscribe((result) => {
+				if (result.sucesso) {
+					this.listColaboradores = result.corpo;
+				}
+			});
+	}
 }

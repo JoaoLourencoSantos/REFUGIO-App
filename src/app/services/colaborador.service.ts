@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import { Usuario } from '../models/entities/usuario.model';
-
+import PesquisaColaboradorDTO from 'src/app/models/dto/pesquisa.colaborador.dto';
 import RespostaLoginDTO from '../models/dto/resposta.login.dto';
 import ColaboradorDTO from '../models/dto/colaborador';
 import RespostaDTO from '../models/dto/resposta.dto';
@@ -52,10 +52,14 @@ export class ColaboradorService {
 		);
 	}
 
-	find(): Observable<RespostaDTO> {
+	find(pesquisa?: PesquisaColaboradorDTO): Observable<RespostaDTO> {
+		const criteria = !pesquisa ? '' : pesquisa.buildUrl();
+
 		return this.http.get<RespostaDTO>(
-			`${this.API_BASEPATH}/colaboradores`,
-			{ headers: { 'Content-Type': 'application/json' } }
+			`${this.API_BASEPATH}/colaboradores?${criteria}`,
+			{
+				headers: { 'Content-Type': 'application/json' },
+			}
 		);
 	}
 }
