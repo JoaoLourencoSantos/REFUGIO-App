@@ -50,6 +50,16 @@ export class UsuarioService {
 		);
 	}
 
+	updateStatus(status:boolean, idUsuario:any): Observable<RespostaDTO> {
+		return this.http.patch<RespostaDTO>(
+			`${this.API_BASEPATH}/usuarios/${idUsuario}`,
+			{
+				"Entrevistado": status,
+			},
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
+
 	deleteUser(userId: any): Observable<RespostaDTO> {
 		return this.http.delete<RespostaDTO>(
 			`${this.API_BASEPATH}/usuarios/${userId}`,
@@ -85,11 +95,10 @@ export class UsuarioService {
 	}
 
 	isEmployee(): boolean {
-		return this.getRole() !== null &&  this.getRole() === 1 ;
+		return this.getRole() !== null && this.getRole() === 1;
 	}
 
 	isCompany(): boolean {
-		return this.getRole() !== null &&  this.getRole() === 2 ;
+		return this.getRole() !== null && this.getRole() === 2;
 	}
-
 }
