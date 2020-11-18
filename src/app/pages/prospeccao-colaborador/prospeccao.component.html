@@ -1,8 +1,6 @@
 <div class="back">
 	<section class="box-return">
-		<mat-icon routerLink="/login" title="Voltar para o login"
-			>arrow_back</mat-icon
-		>
+		<mat-icon routerLink="/login" title="Voltar para o login">arrow_back</mat-icon>
 	</section>
 
 	<section class="box-logo">
@@ -15,15 +13,9 @@
 
 			<form [formGroup]="typeForm" class="form-group container">
 				<label>Qual o seu tipo de usuário?</label>
-				<mat-error *ngIf="typeControls.type.invalid"
-					>O tipo deve ser preenchido</mat-error
-				>
+				<mat-error *ngIf="typeControls.type.invalid">O tipo deve ser preenchido</mat-error>
 
-				<mat-radio-group
-					(change)="radioChange($event)"
-					class="row combo-user-type"
-					formControlName="type"
-				>
+				<mat-radio-group (change)="radioChange($event)" class="row combo-user-type" formControlName="type">
 					<mat-radio-button value="EMPRESA">
 						Sou uma empresa
 					</mat-radio-button>
@@ -34,109 +26,58 @@
 			</form>
 
 			<div class="box-btn-stepper">
-				<button
-					color="primary"
-					class="btn-stepper"
-					mat-raised-button
-					matStepperNext
-				>
+				<button color="primary" class="btn-stepper" mat-raised-button matStepperNext>
 					Próximo
 				</button>
 			</div>
 		</mat-step>
 
-		<mat-step
-			*ngIf="!this.isEmpresa"
-			[stepControl]="pessoalForm"
-			editable
-			visibl
-		>
+		<mat-step *ngIf="!this.isEmpresa" [stepControl]="pessoalForm" editable visibl>
 			<ng-template matStepLabel>Informações pessoais</ng-template>
 
 			<form [formGroup]="pessoalForm" class="form-group container">
 				<mat-form-field class="row col-12" appearance="standard">
-					<input
-						matInput
-						class="col-12"
-						formControlName="nomeColaborador"
-						placeholder="Qual o seu nome?"
-						name="nome"
-						type="text"
-					/>
-					<mat-error *ngIf="pessoalControls.nomeColaborador.invalid"
-						>O nome deve ser preenchido</mat-error
-					>
+					<input matInput class="col-12" formControlName="nomeColaborador" placeholder="Qual o seu nome?"
+						name="nome" type="text" />
+					<mat-error *ngIf="pessoalControls.nomeColaborador.invalid">O nome deve ser preenchido</mat-error>
 				</mat-form-field>
 				<br />
 				<mat-form-field class="row col-12" appearance="standard">
-					<input
-						matInput
-						class="col-12"
-						formControlName="nacionalidade"
-						placeholder="E a sua nacionalidade?"
-						name="cep"
-					/>
-					<mat-error *ngIf="pessoalControls.nacionalidade.invalid"
-						>A nacionalidade deve ser preenchida
+					<input matInput class="col-12" formControlName="nacionalidade" placeholder="E a sua nacionalidade?"
+						name="cep" />
+					<mat-error *ngIf="pessoalControls.nacionalidade.invalid">A nacionalidade deve ser preenchida
 					</mat-error>
 				</mat-form-field>
 
 				<div class="row date-pikers">
 					<mat-form-field class="col-6" appearance="standard">
 						<mat-label>Quando você nasceu?</mat-label>
-						<input
-							formControlName="dataNascimento"
-							matInput
-							[matDatepicker]="picker1"
-						/>
-						<mat-datepicker-toggle
-							matSuffix
-							[for]="picker1"
-						></mat-datepicker-toggle>
+						<input formControlName="dataNascimento" matInput [matDatepicker]="picker1" />
+						<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 						<mat-datepicker #picker1></mat-datepicker>
-						<mat-error
-							*ngIf="pessoalControls.dataNascimento.invalid"
-						>
+						<mat-error *ngIf="pessoalControls.dataNascimento.invalid">
 							A data de aniversário deve ser preenchida
 						</mat-error>
 					</mat-form-field>
 
 					<mat-form-field class="col-6" appearance="standard">
 						<mat-label>Quando você chegou ao Brasil?</mat-label>
-						<input
-							formControlName="dataChegadaBrasil"
-							matInput
-							[matDatepicker]="picker2"
-						/>
-						<mat-datepicker-toggle
-							matSuffix
-							[for]="picker2"
-						></mat-datepicker-toggle>
+						<input formControlName="dataChegadaBrasil" matInput [matDatepicker]="picker2" />
+						<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 						<mat-datepicker #picker2></mat-datepicker>
-						<mat-error
-							*ngIf="pessoalControls.dataChegadaBrasil.invalid"
-							>A data de chegada deve ser preenchida
+						<mat-error *ngIf="pessoalControls.dataChegadaBrasil.invalid">A data de chegada deve ser
+							preenchida
 						</mat-error>
 					</mat-form-field>
 				</div>
 			</form>
 
 			<div class="box-btn-stepper">
-				<button
-					color="primary"
-					class="btn-stepper"
-					mat-raised-button
-					matStepperPrevious
-				>
+				<button color="primary" class="btn-stepper" mat-raised-button matStepperPrevious>
 					Voltar
 				</button>
 
-				<button
-					color="primary"
-					class="btn-stepper"
-					mat-raised-button
-					matStepperNext
-				>
+				<button color="primary" class="btn-stepper" mat-raised-button matStepperNext>
 					Próximo
 				</button>
 			</div>
@@ -158,26 +99,15 @@
 					</mat-form-field>
 
 					<mat-form-field class="row col-6" appearance="standard">
-						<input
-							matInput
-							class="col-12"
-							formControlName="areaFormacao"
-							placeholder="Qual a sua área de formação?"
-							name="areaFormacao"
-							type="text"
-						/>
+						<input matInput class="col-12" formControlName="areaFormacao"
+							placeholder="Qual a sua área de formação?" name="areaFormacao" type="text" />
 					</mat-form-field>
 
 					<mat-form-field class="col-12" appearance="standard">
 						<mat-label>Idiomas falados</mat-label>
 						<mat-select formControlName="idiomas" multiple>
-							<mat-option value="" disabled
-								>Selecione ...</mat-option
-							>
-							<mat-option
-								*ngFor="let idioma of listIdiomas"
-								value="{{ idioma.codigoIdioma }}"
-							>
+							<mat-option value="" disabled>Selecione ...</mat-option>
+							<mat-option *ngFor="let idioma of listIdiomas" value="{{ idioma.codigoIdioma }}">
 								{{ idioma.descricaoIdioma }}
 							</mat-option>
 						</mat-select>
@@ -185,21 +115,11 @@
 				</div>
 			</form>
 			<div class="box-btn-stepper">
-				<button
-					color="primary"
-					class="btn-stepper"
-					mat-raised-button
-					matStepperPrevious
-				>
+				<button color="primary" class="btn-stepper" mat-raised-button matStepperPrevious>
 					Voltar
 				</button>
 
-				<button
-					color="primary"
-					class="btn-stepper"
-					mat-raised-button
-					matStepperNext
-				>
+				<button color="primary" class="btn-stepper" mat-raised-button matStepperNext>
 					Próximo
 				</button>
 			</div>
@@ -210,99 +130,60 @@
 
 			<form [formGroup]="contactForm" class="form-group container">
 				<mat-form-field class="row col-12" appearance="standard">
-					<input
-						matInput
-						class="col-12"
-						formControlName="emailUsuario"
-						placeholder="E o seu email?"
-						name="emailUsuario"
-						type="text"
-					/>
+					<input matInput class="col-12" formControlName="emailUsuario" placeholder="E o seu email?"
+						name="emailUsuario" type="text" />
 
-					<mat-error
-						*ngIf="
+					<mat-error *ngIf="
 							contactControls.emailUsuario.invalid &&
 							contactControls.emailUsuario.errors?.required
-						"
-					>
+						">
 						A email deve ser preenchido
 					</mat-error>
-					<mat-error
-						*ngIf="
+					<mat-error *ngIf="
 							contactControls.emailUsuario.invalid &&
 							contactControls.emailUsuario.errors?.pattern
-						"
-					>
+						">
 						A email deve estar no formato correto
 					</mat-error>
 				</mat-form-field>
 				<br />
 
 				<mat-form-field class="row col-12" appearance="standard">
-					<input
-						matInput
-						class="col-12"
-						formControlName="tefoneUsuario"
-						placeholder="Qual o seu telefone?"
-						name="telefone"
-						type="text"
-					/>
+					<input matInput class="col-12" formControlName="tefoneUsuario" placeholder="Qual o seu telefone?"
+						name="telefone" mask="(00) 0000-0000||(00) 00000-0000" type="text" />
 				</mat-form-field>
 				<br />
 
 				<mat-form-field class="row col-12" appearance="standard">
-					<input
-						class="col-12"
-						matInput
-						placeholder="Qual será sua senha?"
-						formControlName="senhaUsuario"
-						name="senhaUsuario"
-						type="password"
-					/>
+					<input class="col-12" matInput placeholder="Qual será sua senha?" formControlName="senhaUsuario"
+						name="senhaUsuario" type="password" />
 
-					<mat-error
-						*ngIf="
+					<mat-error *ngIf="
 							contactControls.senhaUsuario.invalid &&
 							contactControls.senhaUsuario.errors?.required
-						"
-					>
+						">
 						A senha deve ser preenchida
 					</mat-error>
-					<mat-error
-						*ngIf="
+					<mat-error *ngIf="
 							contactControls.senhaUsuario.invalid &&
 							contactControls.senhaUsuario.errors?.minlength
-						"
-					>
+						">
 						A senha deve ter no mínimo 6 caracteres
 					</mat-error>
-					<mat-error
-						*ngIf="
+					<mat-error *ngIf="
 							contactControls.senhaUsuario.invalid &&
 							contactControls.senhaUsuario.errors?.invalidpassword
-						"
-					>
+						">
 						A senha não deve conter espaços em branco
 					</mat-error>
 				</mat-form-field>
 
 				<div class="box-btn-stepper">
-					<button
-						color="primary"
-						class="btn-stepper"
-						mat-raised-button
-						matStepperPrevious
-					>
+					<button color="primary" class="btn-stepper" mat-raised-button matStepperPrevious>
 						Voltar
 					</button>
-					<button
-						[disabled]="contactControls.senhaUsuario.errors"
-						color="primary"
-						class="btn-stepper-no-color"
-						(click)="send()"
-						mat-raised-button
-						matStepperNext
-					>
+					<button [disabled]="contactControls.senhaUsuario.errors" color="primary"
+						class="btn-stepper-no-color" (click)="send()" mat-raised-button matStepperNext>
 						Finalizar
 					</button>
 				</div>

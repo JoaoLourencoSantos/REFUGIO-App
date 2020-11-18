@@ -53,9 +53,7 @@
 			<ng-container matColumnDef="entrevistado">
 				<th mat-header-cell *matHeaderCellDef> Já foi intrevistado? </th>
 				<td mat-cell *matCellDef="let element">
-					Não
-					<mat-slide-toggle [checked]="element.entrevistado" (change)="onChangeStatus($event, element)"></mat-slide-toggle>
-					Sim
+					<mat-slide-toggle [checked]="element.entrevistado" (change)="onChangeStatus($event, element)">Sim</mat-slide-toggle>
 				</td>
 			</ng-container>
 
