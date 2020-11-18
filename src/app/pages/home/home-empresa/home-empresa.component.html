@@ -6,15 +6,22 @@
 		<mat-card-content>
 			<form>
 				<section class="filter-forms col-12">
+
 					<mat-form-field class="col-3" appearance="standard">
+						<mat-label>Nacionalidade</mat-label>
+						<input matInput [(ngModel)]="this.nacionalidade" name="nacionalidade"
+							placeholder="Digite a a nacionalidade do colaborador">
+					</mat-form-field>
+
+					<mat-form-field class="col-2" appearance="standard">
 						<mat-label>Cidade</mat-label>
 						<input matInput [(ngModel)]="this.cidade" name="cidade"
 							placeholder="Digite a cidade que deseja buscar">
 					</mat-form-field>
 
-					<mat-form-field class="col-3" appearance="standard">
-						<mat-label>Idiomas falados</mat-label>
-						<mat-select formControlName="idiomas" name="idiomas" multiple>
+					<mat-form-field class="col-2" appearance="standard">
+						<mat-label>Idiomas</mat-label>
+						<mat-select [(ngModel)]="this.codigoIdioma" formControlName="idiomas" name="idiomas" multiple>
 							<mat-option value="" disabled>Selecione ...</mat-option>
 							<mat-option *ngFor="let idioma of listIdiomas" value="{{ idioma.codigoIdioma }}">
 								{{ idioma.descricaoIdioma }}
@@ -22,9 +29,9 @@
 						</mat-select>
 					</mat-form-field>
 
-					<mat-form-field class="col-3" appearance="standard">
+					<mat-form-field class="col-2" appearance="standard">
 						<mat-label>Area de atuação</mat-label>
-						<mat-select formControlName="areasTrabalho" name="areasTrabalho" multiple>
+						<mat-select [(ngModel)]="this.codigoAreaTrabalho" formControlName="areasTrabalho" name="areasTrabalho" multiple>
 							<mat-option value="" disabled>Selecione ...</mat-option>
 							<mat-option *ngFor="let area of listAreasTrabalho" value="{{area.codigoAreaTrabalho}}">
 								{{area.descricaoAreaTrabalho}}
