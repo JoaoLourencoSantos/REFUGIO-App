@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import PesquisaColaboradorDTO from 'src/app/models/dto/pesquisa.colaborador.dto';
-
 import { Colaborador } from 'src/app/models/entities/colaborador.model';
+
 import { ColaboradorService } from './../../../services/colaborador.service';
 import { OptionsService } from './../../../services/options.service';
 
@@ -31,6 +30,7 @@ export class HomeEmpresaComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.populateIdiomas();
+		this.populateAreasTrabalho();
 		this.populateColaboradores();
 	}
 
