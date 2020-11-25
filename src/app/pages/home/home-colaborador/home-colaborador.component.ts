@@ -1,3 +1,6 @@
+import { EmpresaDetailsComponent } from './../details/empresa-details/empresa-details.component';
+import { ColaboradorDetailsComponent } from './../details/colaborador-details/colaborador-details.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import PesquisaEmpresaDTO from 'src/app/models/dto/pesquisa.empresa.dto';
 
@@ -20,7 +23,8 @@ export class HomeColaboradorComponent implements OnInit {
 
 	constructor(
 		private optionsService: OptionsService,
-		private empresaService: EmpresaService
+		private empresaService: EmpresaService,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
@@ -50,5 +54,16 @@ export class HomeColaboradorComponent implements OnInit {
 					this.listEmpresas = result.corpo;
 				}
 			});
+	}
+
+	openDetails(empresa: any) {
+		const dialogConfig = new MatDialogConfig();
+
+		dialogConfig.data = { empresa };
+
+		const dialogRef = this.dialog.open(
+			EmpresaDetailsComponent,
+			dialogConfig
+		);
 	}
 }

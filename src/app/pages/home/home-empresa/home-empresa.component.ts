@@ -1,3 +1,5 @@
+import { ColaboradorDetailsComponent } from './../details/colaborador-details/colaborador-details.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import PesquisaColaboradorDTO from 'src/app/models/dto/pesquisa.colaborador.dto';
 import { Colaborador } from 'src/app/models/entities/colaborador.model';
@@ -25,7 +27,9 @@ export class HomeEmpresaComponent implements OnInit {
 
 	constructor(
 		private colaboradorService: ColaboradorService,
-		private optionsService: OptionsService
+		private optionsService: OptionsService,
+
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
@@ -63,5 +67,17 @@ export class HomeEmpresaComponent implements OnInit {
 					this.listColaboradores = result.corpo;
 				}
 			});
+	}
+
+	openDetails(colaborador) {
+		const dialogConfig = new MatDialogConfig();
+
+
+		dialogConfig.data = { colaborador };
+
+		const dialogRef = this.dialog.open(
+			ColaboradorDetailsComponent,
+			dialogConfig
+		);
 	}
 }

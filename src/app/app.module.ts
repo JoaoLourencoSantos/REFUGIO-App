@@ -1,3 +1,4 @@
+import { ColaboradorDetailsComponent } from './pages/home/details/colaborador-details/colaborador-details.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -48,6 +49,7 @@ import { HomeEmpresaComponent } from './pages/home/home-empresa/home-empresa.com
 import { LoginComponent } from './pages/login/login.component';
 import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
 import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
+import { EmpresaDetailsComponent } from './pages/home/details/empresa-details/empresa-details.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -67,6 +69,8 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		ProspeccaoEmpresaComponent,
 		HomeColaboradorComponent,
 		HomeEmpresaComponent,
+		ColaboradorDetailsComponent,
+		EmpresaDetailsComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -70,6 +70,13 @@
     border: 2.5px solid #475fbb;
 }
 
+.list-actions button:hover {
+	background:#97a5f8	;
+	cursor: pointer;
+	color:white;
+	font-weight: bold;
+}
+
 .box-item {
 	margin-right: 2%;
 	margin-top: 2%;
@@ -80,11 +87,6 @@
 	box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.2);
 	border-radius: 10px;
     border: 0.5px solid #c5c7cc;
-}
-
-.box-item:hover {
-	background: #3131311c;
-	cursor: pointer;
 }
 
 .box-item mat-card-header mat-card-title {
