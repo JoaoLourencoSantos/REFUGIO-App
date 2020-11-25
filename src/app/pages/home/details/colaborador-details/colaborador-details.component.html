@@ -1,0 +1,57 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+	<mat-icon class="close-icon" color="primary">close</mat-icon>
+</button>
+
+<section>
+
+	<mat-dialog-content>
+		<mat-card>
+			<mat-card-header class="header">
+				<div mat-card-avatar class="avatar"></div>
+				<mat-card-title>{{colaborador.nomeColaborador}}</mat-card-title>
+				<mat-card-subtitle>{{colaborador.nacionalidade}}</mat-card-subtitle>
+			</mat-card-header>
+			<div mat-card-image></div>
+
+			<mat-card-content>
+
+				<div class="col-6">
+
+					<p>
+						<strong>Email de contato: </strong> {{colaborador.emailUsuario}}
+					</p>
+					<p>
+						<strong>Data Chegada : </strong> {{colaborador.dataChegadaBrasil | date: 'dd/MM/yyyy'}}
+					</p>
+					<p>
+						<strong>Data nascimento : </strong> {{colaborador.dataNascimento}}
+					</p>
+					<p>
+						<strong>Escolaridade: </strong> {{colaborador.escolaridade}}
+					</p>
+				</div>
+
+				<div class="col-6">
+					<p>
+						<strong>Enderco: </strong>
+						{{colaborador.endereco  && colaborador.endereco.cidadeEndereco? colaborador.endereco.cidadeEndereco: ""}}
+					</p>
+					<p>
+						<strong>Idiomas falados : </strong>
+						{{colaborador.idiomas && colaborador.idiomas.length > 0
+						 ? getIdiomas(colaborador.idiomas): ""
+					}}
+					</p>
+
+					<p>
+						<strong>Areas de atuação : </strong>
+						{{colaborador.areasTrabalho && colaborador.areasTrabalho.length > 0
+						 ? getAreas(colaborador.areasTrabalho): ""
+					}}
+					</p>
+				</div>
+
+			</mat-card-content>
+		</mat-card>
+	</mat-dialog-content>
+</section>

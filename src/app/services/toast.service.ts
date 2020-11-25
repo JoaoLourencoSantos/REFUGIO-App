@@ -40,7 +40,7 @@ export class ToastService {
 
 	openSnackBar(message: string, style: string) {
 		this._snackBar.open(message, '', {
-			duration: 2000,
+			duration: 5000,
 			horizontalPosition: 'end',
 			verticalPosition: 'top',
 			panelClass: style,

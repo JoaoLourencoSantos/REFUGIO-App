@@ -9,7 +9,7 @@
 					<mat-form-field appearance="outline" class="col-12">
 						<mat-label>Nome da empresa</mat-label>
 						<input matInput [(ngModel)]="this.nomeFantasia" name="nomeFantasia"
-							placeholder="Digite o nome que deseja buscar">
+							placeholder="Qual o nome da empresa?">
 						<mat-icon matSuffix>search</mat-icon>
 					</mat-form-field>
 				</section>
@@ -17,7 +17,7 @@
 					<mat-form-field class="col-5" appearance="standard">
 						<mat-label>Cidade da empresa</mat-label>
 						<input matInput [(ngModel)]="this.cidade" name="cidade"
-							placeholder="Digite a cidade que deseja buscar">
+							placeholder="Qual a cidade da empresa?">
 					</mat-form-field>
 
 					<mat-form-field class="col-5" appearance="standard">
@@ -47,7 +47,7 @@
 
 	<section class="list col-12">
 
-		<mat-card class='col-3 box-item' *ngFor="let empresa of this.listEmpresas ">
+		<mat-card class='col-3 box-item' *ngFor="let empresa of this.listEmpresas " >
 			<mat-card-header>
 				<div mat-card-avatar class="list-avatar"></div>
 				<mat-card-title>{{empresa.razaoSocial}}</mat-card-title>
@@ -64,7 +64,7 @@
 				</p>
 			</mat-card-content>
 			<mat-card-actions class="list-actions">
-				<button mat-button color="primary">Visualizar detalhes</button>
+				<button mat-button color="primary" (click)="openDetails(empresa)">Visualizar detalhes</button>
 			</mat-card-actions>
 		</mat-card>
 	</section>

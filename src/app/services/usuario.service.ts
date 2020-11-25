@@ -50,6 +50,16 @@ export class UsuarioService {
 		);
 	}
 
+	updateStatus(status: boolean, idUsuario: any): Observable<RespostaDTO> {
+		return this.http.patch<RespostaDTO>(
+			`${this.API_BASEPATH}/usuarios/${idUsuario}`,
+			{
+				Entrevistado: status,
+			},
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
+
 	deleteUser(userId: any): Observable<RespostaDTO> {
 		return this.http.delete<RespostaDTO>(
 			`${this.API_BASEPATH}/usuarios/${userId}`,
@@ -63,7 +73,10 @@ export class UsuarioService {
 
 	removeSessao(): void {
 		localStorage.removeItem('user-logged');
-		this.router.navigate(['login']);
+
+		this.router.navigate(['login']).then(() => {
+			window.location.reload();
+		});
 	}
 
 	isAuthenticated(): boolean {

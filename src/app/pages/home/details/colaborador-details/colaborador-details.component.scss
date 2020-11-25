@@ -1,0 +1,91 @@
+//=================
+//    Container
+//=================
+section {
+	min-width: 55vw;
+	min-height: 50vh !important;
+	height: 50vh !important;
+	padding: 0px !important;
+	overflow: hidden;
+}
+
+mat-card-content {
+	margin-top: 3%;
+	display: flex;
+	flex-direction: row;
+	text-align: start;
+	align-items: flex-start;
+	justify-content: flex-start;
+}
+
+.header {
+	width: 100%;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 9px 0px !important;
+
+	background: url("https://www.metro-check.com/wp-content/uploads/2018/01/pexels-photo-733856.jpg");
+}
+
+mat-card-title {
+	font-weight: bold;
+	font-size: 2.5rem !important;
+}
+
+mat-card-subtitle {
+	font-weight: bold;
+	font-size: 1.5rem !important;
+	margin-top: 15px !important;
+}
+
+.header span {
+	text-align: center;
+	width: 100%;
+}
+
+.avatar {
+	background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTHZ7MfxBUjujPsVa8BprKB2p_hnyh1hRNw2w&usqp=CAU");
+	background-size: cover;
+	width: 150px;
+	height: 150px;
+	border: 1.5px solid #475fbb;
+}
+
+p {
+	word-break: break-word;
+}
+
+
+.close-button {
+	float: right;
+	top: -0px;
+	right: -0px;
+	color: #487539 !important;
+	background: none !important;
+}
+
+.close-icon {
+	transition: 1s ease-in-out;
+	background: none !important;
+}
+
+.close-icon:hover {
+	transform: rotate(180deg);
+	background: none !important;
+}
+
+::ng-deep .icon-outside .close-button {
+	float: right;
+	top: -52px;
+	right: -52px;
+	background: none !important;
+}
+
+::ng-deep .icon-outside .mat-dialog-container {
+	overflow: unset;
+	background: none !important;
+}

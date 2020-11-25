@@ -128,4 +128,31 @@ export class ListEmpresaComponent implements OnInit, AfterViewInit {
 			}
 		);
 	}
+
+	onChangeStatus(event, element) {
+		const { checked } = event;
+		const { codigoUsuario } = element;
+
+		this.userService.updateStatus(checked, codigoUsuario).subscribe(
+			(result) => {
+				if (!result) {
+					return;
+				}
+
+				if (!result.sucesso) {
+					this.toast.errorAlertWithMessage(result.mensagem);
+					return;
+				}
+
+				this.populate();
+
+				this.toast.successAlert();
+			},
+			(err) => {
+				if (err) {
+					this.toast.errorAlertWithMessage(err.error.mensagem);
+				}
+			}
+		);
+	}
 }

@@ -1,3 +1,4 @@
+import { ColaboradorDetailsComponent } from './pages/home/details/colaborador-details/colaborador-details.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -47,9 +48,10 @@ import { HomeColaboradorComponent } from './pages/home/home-colaborador/home-col
 import { HomeEmpresaComponent } from './pages/home/home-empresa/home-empresa.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
-import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
+import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component'; 
 import { PerfilColaboradorComponent } from './pages/colaborador/perfil-colaborador/perfil-colaborador.component';
-import { PerfilEmpresaComponent } from './pages/empresa/perfil-empresa/perfil-empresa.component';
+import { PerfilEmpresaComponent } from './pages/empresa/perfil-empresa/perfil-empresa.component'; 
+import { EmpresaDetailsComponent } from './pages/home/details/empresa-details/empresa-details.component'; 
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -68,9 +70,11 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		DeleteDialogComponent,
 		ProspeccaoEmpresaComponent,
 		HomeColaboradorComponent,
-		HomeEmpresaComponent,
+		HomeEmpresaComponent, 
 		PerfilColaboradorComponent,
-		PerfilEmpresaComponent,
+		PerfilEmpresaComponent, 
+		ColaboradorDetailsComponent,
+		EmpresaDetailsComponent, 
 	],
 	imports: [
 		BrowserModule,

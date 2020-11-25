@@ -1,6 +1,6 @@
 <div class="content">
 	<div class="list-header">
-		Colaboradores
+		Refugiado/Migrante
 	</div>
 
 	<div class="header-filter">
@@ -10,7 +10,7 @@
 		</mat-form-field>
 
 		<div class="div-button">
-			<button (click)="this.openNew()" mat-raised-button color="primary">Novo Colaborador</button>
+			<button (click)="this.openNew()" mat-raised-button color="primary">Novo Refugiado/Migrante</button>
 		</div>
 	</div>
 
@@ -45,7 +45,9 @@
 
 			<ng-container matColumnDef="entrevistado">
 				<th mat-header-cell *matHeaderCellDef> Já foi intrevistado? </th>
-				<td mat-cell *matCellDef="let element"> {{element.entrevistado ? 'Sim' : 'Não'}} </td>
+				<td mat-cell *matCellDef="let element" >
+					<mat-slide-toggle class="center" [checked]="element.entrevistado" (change)="onChangeStatus($event, element)"></mat-slide-toggle>
+				</td>
 			</ng-container>
 
 			<ng-container matColumnDef="dataCriacao">
@@ -56,11 +58,11 @@
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef> Ações </th>
 				<td mat-cell *matCellDef="let element" class="actions">
-					<mat-icon matTooltip="Editar colaborador" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
+					<mat-icon matTooltip="Editar refugiado/migrante" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
 						[matTooltipPosition]="'above'" matTooltipClass="tooltip-edit" (click)="this.openEdit(element)"
 						class="color_orange" aria-hidden="false" aria-label="Edit action">edit
 					</mat-icon>
-					<mat-icon matTooltip="Excluir colaborador" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
+					<mat-icon matTooltip="Excluir refugiado/migrante" [matTooltipShowDelay]="10" [matTooltipHideDelay]="10"
 						[matTooltipPosition]="'above'" matTooltipClass="tooltip-delete" aria-hidden="false"
 						class="color_red" aria-label="Delete action"
 						(click)="this.openDelete(element)">delete_forever

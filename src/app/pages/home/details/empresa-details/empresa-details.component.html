@@ -1,0 +1,57 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+	<mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+
+<section>
+
+	<mat-dialog-content>
+		<mat-card>
+			<mat-card-header class="header">
+				<div mat-card-avatar class="avatar"></div>
+				<mat-card-title>{{empresa.razaoSocial}}</mat-card-title>
+				<mat-card-subtitle>{{empresa.nomeFantasia}}</mat-card-subtitle>
+			</mat-card-header>
+			<div mat-card-image></div>
+
+
+			<mat-card-content>
+
+
+
+				<div class="col-6">
+					<p>
+						<strong>Data Fundação : </strong> {{empresa.dataFundacao | date: 'dd/MM/yyyy'}}
+					</p>
+					<p>
+						<strong>Documento : </strong> {{empresa.cnpj}}
+					</p>
+					<p>
+						<strong>Nome fantasia : </strong> {{empresa.nomeFantasia}}
+					</p>
+					<p>
+						<strong>Número de funcionários : </strong> {{empresa.numeroFuncionarios}}
+					</p>
+				</div>
+
+				<div class="col-6">
+					<p>
+						<strong>Enderco: </strong>
+						{{empresa.endereco ? (empresa.endereco.cidade ? empresa.endereco.cidade: "") + ", " +  empresa.endereco.cepEndereco  : ""}}
+					</p>
+					<p>
+						<strong>Areas de atuação : </strong>
+						{{empresa.areasTrabalho && empresa.areasTrabalho.length > 0
+						 ? getAreas(empresa.areasTrabalho): ""
+					}}
+					</p>
+					<p>
+						<strong>Telefone: </strong> {{empresa.telefoneUsuario}}
+					</p>
+				</div>
+
+			</mat-card-content>
+			<mat-card-actions class="list-actions">
+			</mat-card-actions>
+		</mat-card>
+	</mat-dialog-content>
+</section>
