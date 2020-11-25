@@ -1,0 +1,56 @@
+<section class="container col-12">
+	<div class="row">
+		<div class="col-4">
+			<div class="image">
+				<img
+					src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+				/>
+			</div>
+			<h2>{{ empresa.nomeFantasia }}</h2>
+			<h3>{{ empresa.emailUsuario }}</h3>
+			<div class="div-button">
+				<button
+					(click)="this.editProfile()"
+					mat-raised-button
+					color="primary"
+				>
+					Editar Perfil
+				</button>
+			</div>
+		</div>
+		<div class="col-8">
+			<mat-dialog-content>
+				<mat-tab-group>
+					<mat-tab label="Informações pessoais">
+						<p>Razão Social: {{ empresa.razaoSocial }}</p>
+						<p>CNPJ: {{ empresa.cnpj }}</p>
+						<p>
+							Número de Funcionários:
+							{{ empresa.numeroFuncionarios }}
+						</p>
+						<p>Telefone: {{ empresa.telefoneUsuario }}</p>
+						<p>Data de Fundação: {{ empresa.dataFundacao }}</p>
+						<p>Areas de Atuação:</p>
+						<ul>
+							<li *ngFor="let area of empresa.areasTrabalho">
+								{{ area.descricaoAreaTrabalho }}
+							</li>
+						</ul>
+					</mat-tab>
+					<mat-tab label="Endereço">
+						<p>Estado: {{ empresa.endereco.estadoEndereco }}</p>
+						<p>Cidade: {{ empresa.endereco.cidadeEndereco }}</p>
+						<p>CEP: {{ empresa.endereco.cepEndereco }}</p>
+						<p>Bairro: {{ empresa.endereco.bairroEndereco }}</p>
+						<p>Rua: {{ empresa.endereco.ruaEndereco }}</p>
+						<p>Número: {{ empresa.endereco.numeroEndereco }}</p>
+						<p>
+							Complemento:
+							{{ empresa.endereco.complementoEndereco }}
+						</p>
+					</mat-tab>
+				</mat-tab-group>
+			</mat-dialog-content>
+		</div>
+	</div>
+</section>

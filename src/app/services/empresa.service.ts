@@ -58,4 +58,11 @@ export class EmpresaService {
 			}
 		);
 	}
+
+	findById(idUsuario: number) {
+		return this.http.get<RespostaDTO>(
+			`${this.API_BASEPATH}/empresas/${idUsuario}`,
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
 }
