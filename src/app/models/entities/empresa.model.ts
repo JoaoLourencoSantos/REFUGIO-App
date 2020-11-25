@@ -16,7 +16,7 @@ export class Empresa {
 	nomeFantasia: string;
 	numeroFuncionarios: number;
 
-	areasTrabalho: number[];
+	areasTrabalho: any[];
 
 	endereco: Endereco;
 

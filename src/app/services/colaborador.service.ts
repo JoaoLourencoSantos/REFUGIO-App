@@ -58,4 +58,11 @@ export class ColaboradorService {
 			{ headers: { 'Content-Type': 'application/json' } }
 		);
 	}
+
+	findById(idUsuario: number) {
+		return this.http.get<RespostaDTO>(
+			`${this.API_BASEPATH}/colaboradores/${idUsuario}`,
+			{ headers: { 'Content-Type': 'application/json' } }
+		);
+	}
 }

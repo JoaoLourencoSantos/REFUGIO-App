@@ -12,8 +12,8 @@ import RespostaDTO from '../models/dto/resposta.dto';
 export class UsuarioService {
 	private API_BASEPATH = environment.API_BASEPATH;
 
-	//1= usuário colaborador
-	//2= usuário empresa
+	// 1= usuário colaborador
+	// 2= usuário empresa
 
 	constructor(private http: HttpClient, private router: Router) {}
 
@@ -85,11 +85,10 @@ export class UsuarioService {
 	}
 
 	isEmployee(): boolean {
-		return this.getRole() !== null &&  this.getRole() === 1 ;
+		return this.getRole() !== null && this.getRole() === 1;
 	}
 
 	isCompany(): boolean {
-		return this.getRole() !== null &&  this.getRole() === 2 ;
+		return this.getRole() !== null && this.getRole() === 2;
 	}
-
 }

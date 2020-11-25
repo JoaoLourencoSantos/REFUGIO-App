@@ -1,0 +1,67 @@
+<section class="container col-12">
+	<div class="row">
+		<div class="col-2">
+			<br />
+			<div class="image">
+				<img
+					src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+				/>
+			</div>
+			<h2>{{ colaborador.nomeColaborador }}</h2>
+			<h3>{{ colaborador.emailUsuario }}</h3>
+			<div class="div-button">
+				<button
+					(click)="this.editProfile()"
+					mat-raised-button
+					color="primary"
+				>
+					Editar Perfil
+				</button>
+			</div>
+		</div>
+		<div class="col-10">
+			<mat-dialog-content>
+				<mat-tab-group>
+					<mat-tab label="Informações pessoais">
+						<p>Nacionalidade: {{ colaborador.nacionalidade }}</p>
+						<p>
+							Data de Nascimento: {{ colaborador.dataNascimento }}
+						</p>
+						<p>
+							Data de Chegada no Brasil:
+							{{ colaborador.dataChegadaBrasil }}
+						</p>
+						<p>Telefone: {{ colaborador.telefoneUsuario }}</p>
+					</mat-tab>
+					<mat-tab label="Endereço">
+						<p>Estado: {{ colaborador.endereco.estadoEndereco }}</p>
+						<p>Cidade: {{ colaborador.endereco.cidadeEndereco }}</p>
+						<p>CEP: {{ colaborador.endereco.cepEndereco }}</p>
+						<p>Bairro: {{ colaborador.endereco.bairroEndereco }}</p>
+						<p>Rua: {{ colaborador.endereco.ruaEndereco }}</p>
+						<p>Número: {{ colaborador.endereco.numeroEndereco }}</p>
+						<p>
+							Complemento:
+							{{ colaborador.endereco.complementoEndereco }}
+						</p>
+					</mat-tab>
+					<mat-tab label="Informações profissionais">
+						<p>Areas de Atuação:</p>
+						<ul>
+							<li *ngFor="let area of colaborador.areasTrabalho">
+								{{ area.descricaoAreaTrabalho }}
+							</li>
+						</ul>
+						<p>Area de Formação: {{ colaborador.areaFormacao }}</p>
+						<p>Idiomas:</p>
+						<ul>
+							<li *ngFor="let idioma of colaborador.idiomas">
+								{{ idioma.descricaoIdioma }}
+							</li>
+						</ul>
+					</mat-tab>
+				</mat-tab-group>
+			</mat-dialog-content>
+		</div>
+	</div>
+</section>

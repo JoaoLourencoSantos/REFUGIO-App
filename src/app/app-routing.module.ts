@@ -10,6 +10,8 @@ import { HomeEmpresaComponent } from './pages/home/home-empresa/home-empresa.com
 import { LoginComponent } from './pages/login/login.component';
 import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
 import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
+import { PerfilColaboradorComponent } from './pages/colaborador/perfil-colaborador/perfil-colaborador.component';
+import { PerfilEmpresaComponent } from './pages/empresa/perfil-empresa/perfil-empresa.component';
 
 const routes: Routes = [
 	{
@@ -46,6 +48,16 @@ const routes: Routes = [
 		data: { roles: [TipoUsuario.ADMIN] },
 		path: 'empresa/list',
 		component: ListEmpresaComponent,
+	},
+	{
+		canActivate: [AuthGuard],
+		path: 'colaborador/profile',
+		component: PerfilColaboradorComponent,
+	},
+	{
+		canActivate: [AuthGuard],
+		path: 'empresa/profile',
+		component: PerfilEmpresaComponent,
 	},
 	{
 		path: 'login',

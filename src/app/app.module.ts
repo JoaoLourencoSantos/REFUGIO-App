@@ -48,6 +48,8 @@ import { HomeEmpresaComponent } from './pages/home/home-empresa/home-empresa.com
 import { LoginComponent } from './pages/login/login.component';
 import { ProspeccaoColaboradorComponent } from './pages/prospeccao-colaborador/prospeccao.component';
 import { ProspeccaoEmpresaComponent } from './pages/prospeccao-empresa/prospeccao.component';
+import { PerfilColaboradorComponent } from './pages/colaborador/perfil-colaborador/perfil-colaborador.component';
+import { PerfilEmpresaComponent } from './pages/empresa/perfil-empresa/perfil-empresa.component';
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -67,6 +69,8 @@ export let maskOptions: Partial<IConfig> | (() => Partial<IConfig>);
 		ProspeccaoEmpresaComponent,
 		HomeColaboradorComponent,
 		HomeEmpresaComponent,
+		PerfilColaboradorComponent,
+		PerfilEmpresaComponent,
 	],
 	imports: [
 		BrowserModule,
